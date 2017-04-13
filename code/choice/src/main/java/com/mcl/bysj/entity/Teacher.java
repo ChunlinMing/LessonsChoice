@@ -26,6 +26,11 @@ public class Teacher
      */
     private String teacherSchool;
 
+    /**
+     * 教师邮箱
+     */
+    private String teacherEmail;
+
     public String getTeacherId()
     {
         return teacherId;
@@ -64,5 +69,15 @@ public class Teacher
     public void setTeacherSchool(String teacherSchool)
     {
         this.teacherSchool = teacherSchool;
+    }
+
+    public String getTeacherEmail()
+    {
+        return teacherEmail;
+    }
+
+    public void setTeacherEmail(String teacherEmail)
+    {
+        this.teacherEmail = teacherEmail;
     }
 }

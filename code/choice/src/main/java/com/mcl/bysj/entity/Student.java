@@ -36,6 +36,11 @@ public class Student
      */
     private int gradeYear;
 
+    /**
+     * 学生邮箱
+     */
+    private String stuEmail;
+
     public String getStuId()
     {
         return stuId;
@@ -94,5 +99,15 @@ public class Student
     public void setGradeYear(int gradeYear)
     {
         this.gradeYear = gradeYear;
+    }
+
+    public String getStuEmail()
+    {
+        return stuEmail;
+    }
+
+    public void setStuEmail(String stuEmail)
+    {
+        this.stuEmail = stuEmail;
     }
 }
