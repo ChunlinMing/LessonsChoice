@@ -1,10 +1,12 @@
 package com.mcl.bysj.entity;
 
+import java.io.Serializable;
+
 /**
  * 教师实体类
  * Created by mingchunlin on 17/4/10.
  */
-public class Teacher
+public class Teacher implements Serializable
 {
     /**
      * 教师工号

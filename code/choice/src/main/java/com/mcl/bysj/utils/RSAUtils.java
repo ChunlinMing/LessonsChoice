@@ -11,7 +11,6 @@ import java.security.PublicKey;
 
 import javax.crypto.Cipher;
 
-import org.apache.commons.codec.binary.Base64;
 
 /**
  * RSA 工具类。提供加密，解密等方法。
@@ -20,16 +19,14 @@ import org.apache.commons.codec.binary.Base64;
 public class RSAUtils {
 
 	/**
-	 * * 加密 *
+	 * 加密
 	 * 
-	 * @param key
-	 *            加密的密钥 *
-	 * @param data
-	 *            待加密的明文数据 *
-	 * @return 加密后的数据 *
+	 * @param pk 加密的密钥
+	 * @param data 待加密的明文数据
+	 * @return 加密后的数据
 	 * @throws Exception
 	 */
-	private static byte[] encrypt(PublicKey pk, byte[] data) throws Exception {
+	protected static byte[] encrypt(PublicKey pk, byte[] data) throws Exception {
 		try {
 			Cipher cipher = Cipher.getInstance("RSA", new org.bouncycastle.jce.provider.BouncyCastleProvider());
 			cipher.init(Cipher.ENCRYPT_MODE, pk);
@@ -60,47 +57,53 @@ public class RSAUtils {
 	}
 
 	/**
-	 * * 解密 *
+	 * 解密
 	 * 
-	 * @param key
-	 *            解密的密钥 *
-	 * @param raw
-	 *            已经加密的数据 *
-	 * @return 解密后的明文 *
+	 * @param pk 解密的密钥
+	 * @param raw 已经加密的数据
+	 * @return 解密后的明文
 	 * @throws Exception
 	 */
-	private static byte[] decrypt(PrivateKey pk, byte[] raw) throws Exception {
-		try {
+	protected static byte[] decrypt(PrivateKey pk, byte[] raw) throws Exception
+	{
+		try
+		{
 			Cipher cipher = Cipher.getInstance("RSA", new org.bouncycastle.jce.provider.BouncyCastleProvider());
 			cipher.init(Cipher.DECRYPT_MODE, pk);
 			int blockSize = cipher.getBlockSize();
 			ByteArrayOutputStream bout = new ByteArrayOutputStream(64);
 			int j = 0;
 
-			while (raw.length - j * blockSize > 0) {
+			while (raw.length - j * blockSize > 0)
+			{
 				bout.write(cipher.doFinal(raw, j * blockSize, blockSize));
 				j++;
 			}
 			return bout.toByteArray();
-		} catch (Exception e) {
+		}
+		catch (Exception e)
+		{
 			throw new Exception(e.getMessage());
 		}
 	}
 
 	/**
 	 * 将二进制转为16进制字符串
-	 * @param byte[]
-	 * @return
-	 * String @throws
+	 * @param buff byte数组
+	 * @return String
 	 */
-	private static String b2hex(byte[] buff) {
+	protected static String b2hex(byte[] buff)
+	{
 		StringBuilder sb = new StringBuilder();
-		for (int i:buff) {
+		for (int i:buff)
+		{
 			int z = i;
-			if (z < 0) {
+			if (z < 0)
+			{
 				z += 256;
 			}
-			if (z < 16) {
+			if (z < 16)
+			{
 				sb.append("0");
 			}
 			sb.append(Integer.toHexString(z));
@@ -111,12 +114,14 @@ public class RSAUtils {
 	/**
 	 * byte[]转PublicKey对象
 	 * 
-	 * @param byte[]
+	 * @param bytes 由PublicKey对象转化来的byte数组
 	 * @return PublicKey
 	 */
-	private static PublicKey byteToPublicKey(byte[] bytes) {
+	protected static PublicKey byteToPublicKey(byte[] bytes)
+	{
 		PublicKey pk = null;
-		try {
+		try
+		{
 			// bytearray to object
 			ByteArrayInputStream bi = new ByteArrayInputStream(bytes);
 			ObjectInputStream oi = new ObjectInputStream(bi);
@@ -124,7 +129,9 @@ public class RSAUtils {
 			pk = (PublicKey) oi.readObject();
 			bi.close();
 			oi.close();
-		} catch (Exception e) {
+		}
+		catch (Exception e)
+		{
 			System.out.println("translation " + e.getMessage());
 			e.printStackTrace();
 		}
@@ -133,12 +140,14 @@ public class RSAUtils {
 
 	/**
 	 * byte[]转PrivateKey对象
-	 * @param byte[]
+	 * @param bytes 由PrivateKey对象转化来的byte数组
 	 * @return PrivateKey
 	 */
-	private static PrivateKey byteToPrivateKey(byte[] bytes) {
+	protected static PrivateKey byteToPrivateKey(byte[] bytes)
+	{
 		PrivateKey pk = null;
-		try {
+		try
+		{
 			// bytearray to object
 			ByteArrayInputStream bi = new ByteArrayInputStream(bytes);
 			ObjectInputStream oi = new ObjectInputStream(bi);
@@ -146,7 +155,9 @@ public class RSAUtils {
 			pk = (PrivateKey) oi.readObject();
 			bi.close();
 			oi.close();
-		} catch (Exception e) {
+		}
+		catch (Exception e)
+		{
 			System.out.println("translation " + e.getMessage());
 			e.printStackTrace();
 		}
@@ -160,33 +171,11 @@ public class RSAUtils {
 	 * @throws NoSuchAlgorithmException 没有这种产生消息摘要的算法
 	 * @throws UnsupportedEncodingException 不支持指定的字符集
 	 */
-	private static String EncodeByMd5(String str) throws NoSuchAlgorithmException, UnsupportedEncodingException {
+	protected static String EncodeByMd5(String str) throws NoSuchAlgorithmException, UnsupportedEncodingException
+	{
 		// 确定计算方法
 		MessageDigest md5 = MessageDigest.getInstance("MD5");
 		// 加密后的字符串
 		return new String(md5.digest(str.getBytes("utf-8")));
-	}
-
-	/**
-	 * @param String[]
-	 * @throws Exception
-	 */
-	public static void main(String[] args) throws Exception {
-
-		// System.out.println(new
-		// String(Base64.encodeBase64((byteToPublicKey(Base64.decodeBase64(PropReadUtil.getInstance().getResources("PUBLIC_KEY_BYTES"))).getEncoded()))));
-
-		String test = "Adminofcqupt";
-		byte[] en_test = encrypt(
-				byteToPublicKey(Base64.decodeBase64(PropReadUtil.getInstance().getResources("PUBLIC_KEY_BYTES"))),
-				test.getBytes());
-		System.out.println("密文：" + b2hex(EncodeByMd5(new String(Base64.encodeBase64(en_test))).getBytes("utf-8")));
-		// byte[] de_test = decrypt(getKeyPair().getPrivate(), en_test);
-		byte[] de_test = decrypt(
-				byteToPrivateKey(Base64.decodeBase64(PropReadUtil.getInstance().getResources("PRIVATE_KEY_BYTES"))),
-				Base64.decodeBase64(
-						"nMxK1i544YOTl4Auc/8PcrmZw79T9ppNhnIz23TsZPtloTm0uErbKc8p24chrREkSn2qE+mXSCeXEJLSbL1hVybo0Flq+r76ZLqD187GpCT6kl5CLumMdgT8rvG1TA0BPZYL3GIK7R3DIn4MwZdUYrhp929p0pfx0zccwZO5o14="));
-		System.out.println("解密：" + new String(de_test) + "长度：" + new String(de_test).length());
-		System.out.println(new String(de_test).substring(99, 120));
 	}
 }

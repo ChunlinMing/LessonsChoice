@@ -1,10 +1,12 @@
 package com.mcl.bysj.entity;
 
+import java.io.Serializable;
+
 /**
  * 选课信息实体类
  * Created by mingchunlin on 17/4/10.
  */
-public class LessonChoice
+public class LessonChoice implements Serializable
 {
     /**
      * 学号

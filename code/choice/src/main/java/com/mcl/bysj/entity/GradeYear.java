@@ -1,10 +1,12 @@
 package com.mcl.bysj.entity;
 
+import java.io.Serializable;
+
 /**
  * 学生年级实体类
  * Created by mingchunlin on 17/4/10.
  */
-public class GradeYear
+public class GradeYear implements Serializable
 {
     /**
      * 学生年级

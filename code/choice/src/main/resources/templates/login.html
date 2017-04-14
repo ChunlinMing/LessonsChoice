@@ -4,13 +4,68 @@
     <meta charset="UTF-8"></meta>
     <title>学生在线选课系统</title>
     <link rel="stylesheet" th:href="@{/css/loginPage.css}"></link>
+    <script th:src="@{/encrypt/jsencrypt.min.js}" type="text/javascript" charset="utf-8"></script>
 </head>
 <body>
     <img id="wallpaper" th:src="@{/images/back.jpg}"></img>
     <div class="over_content"></div>
     <div class="main_box">
-        <div class="content">
+        <div style="z-index: 2;position: absolute;top:20%;left :50%;margin: 0 0 0 -190px;">
+            <div style="margin-left: auto;margin-right: auto;width: 300px;text-align: center;background-color: rgba(50,50,50,0.6);padding: 20px 40px 60px 40px;position: relative;">
 
+                <div class="selectLog" style="position: absolute;left: 0;top: -44px;width: 380px;">
+                    <div class="webLog">登录选课系统</div>
+                </div>
+
+                <form th:action="@{/}" id="login_form" method="post" name="rsa" style="font-size: 12px;">
+                    <input name="usernameCipherb64" type="hidden" value=""/>
+                    <input name="passwordCipherb64" type="hidden" value=""/>
+                    <input type="hidden" name="length" value=""/>
+                </form>
+
+                <input id="username" name="username" type="text" placeholder="学号/工号" style="width:300px;border-bottom: 1px solid rgb(227,227,227);" class="login-input top-radius" value="" required=""/>
+                <input id="password" name="password" type="password" style="width:300px;margin-bottom:20px;" class="login-input bottom-radius" placeholder="密码" value="" required=""/>
+
+                <div id="login-btn" class="login-in-btn" style="margin-right: 10px;">
+                    登录
+                </div>
+                <div class="sign-up-btn" onclick="document.location.href = '/'" style="margin-right: 10px;margin-top: 10px;">
+                    注册
+                </div>
+
+                <div class="other-wrap">
+                    <div class="forget-pwd">
+                        <a th:href="@{/}">忘记密码?</a>
+                    </div>
+                </div>
+                <script type="text/javascript">
+                    document.getElementById("login-btn").onclick = function(){
+                        do_encrypt();
+                        //document.getElementById('login_form').submit();
+                    }
+                    function do_encrypt(){
+                        var username = document.getElementById("username").value;
+                        var password = document.getElementById("password").value;
+                        var publicKey = "MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQCul1ofPwliC1apADYLVZMmpcJ4u4cr5ivX0xWAhDt5Cic3SawMvyn03LB3LlUrrvP7ctm5s731S862UJuT4fMvixnhGCmYrheX2PPvWLX8nzz/CRwiJgngr7/bhHBYT7UVeNhuVHU4ZMX7STSC2/1vqYp6zKTGqV+pEXIznLWa6QIDAQAB";
+                        var encrypt = new JSEncrypt();
+                        encrypt.setPublicKey(publicKey);
+                        if(username && password)
+                        {
+                            document.rsa.usernameCipherb64.value = username;
+                            document.rsa.passwordCipherb64.value=encrypt.encrypt(password);
+                            document.rsa.length.value = password.length;
+                        }
+
+                    }
+
+                    document.onkeydown = function(){
+                        if(event.keyCode==13){
+                            document.getElementById("login-btn").click();
+                            return false;
+                        }
+                    }
+                </script>
+            </div>
         </div>
         <footer>
             <div class="foot">

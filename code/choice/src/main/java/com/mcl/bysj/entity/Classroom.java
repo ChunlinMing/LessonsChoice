@@ -1,10 +1,12 @@
 package com.mcl.bysj.entity;
 
+import java.io.Serializable;
+
 /**
  * 教室实体类
  * Created by mingchunlin on 17/4/10.
  */
-public class Classroom
+public class Classroom implements Serializable
 {
     /**
      * 教室

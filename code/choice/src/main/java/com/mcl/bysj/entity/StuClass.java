@@ -1,10 +1,12 @@
 package com.mcl.bysj.entity;
 
+import java.io.Serializable;
+
 /**
  * 班级信息实体类
  * Created by mingchunlin on 17/4/10.
  */
-public class StuClass
+public class StuClass implements Serializable
 {
     /**
      * 班级

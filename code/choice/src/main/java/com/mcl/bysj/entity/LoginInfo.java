@@ -1,10 +1,12 @@
 package com.mcl.bysj.entity;
 
+import java.io.Serializable;
+
 /**
  * 登录实体类
  * Created by mingchunlin on 17/4/10.
  */
-public class LoginInfo
+public class LoginInfo implements Serializable
 {
     /**
      * 用户登录ID

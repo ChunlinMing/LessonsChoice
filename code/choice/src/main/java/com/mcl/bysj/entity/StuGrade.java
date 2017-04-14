@@ -1,10 +1,12 @@
 package com.mcl.bysj.entity;
 
+import java.io.Serializable;
+
 /**
  * 学生成绩实体类
  * Created by mingchunlin on 17/4/10.
  */
-public class StuGrade
+public class StuGrade implements Serializable
 {
     /**
      * 学号

@@ -1,10 +1,12 @@
 package com.mcl.bysj.entity;
 
+import java.io.Serializable;
+
 /**
  * 学生实体类
  * Created by mingchunlin on 17/4/10.
  */
-public class Student
+public class Student implements Serializable
 {
     /**
      * 学号
