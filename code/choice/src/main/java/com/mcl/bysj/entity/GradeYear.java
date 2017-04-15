@@ -11,14 +11,14 @@ public class GradeYear implements Serializable
     /**
      * 学生年级
      */
-    private int gradeYear;
+    private Integer gradeYear;
 
-    public int getGradeYear()
+    public Integer getGradeYear()
     {
         return gradeYear;
     }
 
-    public void setGradeYear(int gradeYear)
+    public void setGradeYear(Integer gradeYear)
     {
         this.gradeYear = gradeYear;
     }

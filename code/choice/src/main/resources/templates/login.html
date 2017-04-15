@@ -18,13 +18,17 @@
                 </div>
 
                 <form th:action="@{/}" id="login_form" method="post" name="rsa" style="font-size: 12px;">
-                    <input name="usernameCipherb64" type="hidden" value=""/>
-                    <input name="passwordCipherb64" type="hidden" value=""/>
+                    <input name="userId" type="hidden" value=""/>
+                    <input name="userPwd" type="hidden" value=""/>
                     <input type="hidden" name="length" value=""/>
                 </form>
 
                 <input id="username" name="username" type="text" placeholder="学号/工号" style="width:300px;border-bottom: 1px solid rgb(227,227,227);" class="login-input top-radius" value="" required=""/>
                 <input id="password" name="password" type="password" style="width:300px;margin-bottom:20px;" class="login-input bottom-radius" placeholder="密码" value="" required=""/>
+
+                <div style="margin-left: 0px;margin-bottom: 5px;color:#ec3627" th:unless="${loginResult == null}">
+                    <span style="color:#ec3627;" th:text="${loginResult}">Hint</span>
+                </div>
 
                 <div id="login-btn" class="login-in-btn" style="margin-right: 10px;">
                     登录
@@ -41,7 +45,6 @@
                 <script type="text/javascript">
                     document.getElementById("login-btn").onclick = function(){
                         do_encrypt();
-                        //document.getElementById('login_form').submit();
                     }
                     function do_encrypt(){
                         var username = document.getElementById("username").value;
@@ -49,12 +52,15 @@
                         var publicKey = "MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQCul1ofPwliC1apADYLVZMmpcJ4u4cr5ivX0xWAhDt5Cic3SawMvyn03LB3LlUrrvP7ctm5s731S862UJuT4fMvixnhGCmYrheX2PPvWLX8nzz/CRwiJgngr7/bhHBYT7UVeNhuVHU4ZMX7STSC2/1vqYp6zKTGqV+pEXIznLWa6QIDAQAB";
                         var encrypt = new JSEncrypt();
                         encrypt.setPublicKey(publicKey);
-                        if(username && password)
+                        /*<![CDATA[*/
+                        if(username != null && username != "" && password != null && password != "")
                         {
-                            document.rsa.usernameCipherb64.value = username;
-                            document.rsa.passwordCipherb64.value=encrypt.encrypt(password);
+                            document.rsa.userId.value = username;
+                            document.rsa.userPwd.value=encrypt.encrypt(password);
                             document.rsa.length.value = password.length;
+                            document.getElementById('login_form').submit();
                         }
+                        /*]]>*/
 
                     }
 

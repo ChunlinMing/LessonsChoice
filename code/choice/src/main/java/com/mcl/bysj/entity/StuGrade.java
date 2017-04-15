@@ -16,7 +16,7 @@ public class StuGrade implements Serializable
     /**
      * 上课学期
      */
-    private int term;
+    private Integer term;
 
     /**
      * 课程类型
@@ -41,7 +41,7 @@ public class StuGrade implements Serializable
     /**
      * 学生成绩
      */
-    private double stuGrade;
+    private Double stuGrade;
 
     public String getStuId()
     {
@@ -53,12 +53,12 @@ public class StuGrade implements Serializable
         this.stuId = stuId;
     }
 
-    public int getTerm()
+    public Integer getTerm()
     {
         return term;
     }
 
-    public void setTerm(int term)
+    public void setTerm(Integer term)
     {
         this.term = term;
     }
@@ -72,7 +72,6 @@ public class StuGrade implements Serializable
     {
         this.lessonType = lessonType;
     }
-
     public String getLessonId()
     {
         return lessonId;
@@ -103,12 +102,12 @@ public class StuGrade implements Serializable
         this.examType = examType;
     }
 
-    public double getStuGrade()
+    public Double getStuGrade()
     {
         return stuGrade;
     }
 
-    public void setStuGrade(double stuGrade)
+    public void setStuGrade(Double stuGrade)
     {
         this.stuGrade = stuGrade;
     }

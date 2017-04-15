@@ -1,6 +1,10 @@
 package com.mcl.bysj.utils;
 
+import com.mcl.bysj.entity.LoginInfo;
 import org.apache.commons.codec.binary.Base64;
+
+import javax.servlet.http.HttpSession;
+
 /**
  * 工具类
  * Created by mingchunlin on 17/4/14.
@@ -42,5 +46,52 @@ public class Helper
     public static boolean isEmpty(String str)
     {
         return (str == null || "".equals(str));
+    }
+
+    /**
+     * 根据session中用户类型跳转到相应页面
+     * @param userType 用户类型编号
+     * @return 相应的页面
+     */
+    public static String checkUserType(Integer userType)
+    {
+        if (null != userType)
+        {
+            if (0 == userType)
+            {
+                return "redirect:/manager";
+            }
+            if (1 == userType)
+            {
+                return "redirect:/teacher";
+            }
+            if (2 == userType)
+            {
+                return "redirect:/stu";
+            }
+        }
+        return "login";
+    }
+
+    /**
+     * 判断用户名密码是否正确
+     * @param userType 用户类型编号
+     * @param loginInfo 用户登录信息
+     * @param session 用户登录状态
+     * @return 是否登录成功
+     */
+    public static boolean checkUserType(Integer userType, LoginInfo loginInfo, HttpSession session)
+    {
+        if (null != userType)
+        {
+            if (userType == 0 || userType == 1 || userType == 2)
+            {
+                session.setAttribute("userId",loginInfo.getUserId());
+                session.setAttribute("userType",userType);
+                return true;
+            }
+        }
+
+            return false;
     }
 }

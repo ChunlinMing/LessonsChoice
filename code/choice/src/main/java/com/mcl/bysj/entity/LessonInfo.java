@@ -46,12 +46,12 @@ public class LessonInfo implements Serializable
     /**
      * 本课程可选人数
      */
-    private int lessonOptionalStu;
+    private Integer lessonOptionalStu;
 
     /**
      * 当前选择人数
      */
-    private int lessonChosedStu;
+    private Integer lessonChosedStu;
 
     /**
      * 课程类型
@@ -61,17 +61,17 @@ public class LessonInfo implements Serializable
     /**
      * 上课学期
      */
-    private int term;
+    private Integer term;
 
     /**
      * 课程学分
      */
-    private double lessonScore;
+    private Double lessonScore;
 
     /**
      * 可选课的学生年级
      */
-    private int gradeYear;
+    private Integer gradeYear;
 
     /**
      * 可选课的学生学院
@@ -148,22 +148,22 @@ public class LessonInfo implements Serializable
         this.lessonWeeks = lessonWeeks;
     }
 
-    public int getLessonOptionalStu()
+    public Integer getLessonOptionalStu()
     {
         return lessonOptionalStu;
     }
 
-    public void setLessonOptionalStu(int lessonOptionalStu)
+    public void setLessonOptionalStu(Integer lessonOptionalStu)
     {
         this.lessonOptionalStu = lessonOptionalStu;
     }
 
-    public int getLessonChosedStu()
+    public Integer getLessonChosedStu()
     {
         return lessonChosedStu;
     }
 
-    public void setLessonChosedStu(int lessonChosedStu)
+    public void setLessonChosedStu(Integer lessonChosedStu)
     {
         this.lessonChosedStu = lessonChosedStu;
     }
@@ -178,32 +178,32 @@ public class LessonInfo implements Serializable
         this.lessonType = lessonType;
     }
 
-    public int getTerm()
+    public Integer getTerm()
     {
         return term;
     }
 
-    public void setTerm(int term)
+    public void setTerm(Integer term)
     {
         this.term = term;
     }
 
-    public double getLessonScore()
+    public Double getLessonScore()
     {
         return lessonScore;
     }
 
-    public void setLessonScore(double lessonScore)
+    public void setLessonScore(Double lessonScore)
     {
         this.lessonScore = lessonScore;
     }
 
-    public int getGradeYear()
+    public Integer getGradeYear()
     {
         return gradeYear;
     }
 
-    public void setGradeYear(int gradeYear)
+    public void setGradeYear(Integer gradeYear)
     {
         this.gradeYear = gradeYear;
     }

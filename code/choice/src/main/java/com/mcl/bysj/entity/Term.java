@@ -11,14 +11,14 @@ public class Term implements Serializable
     /**
      * 学期
      */
-    private int term;
+    private Integer term;
 
-    public int getTerm()
+    public Integer getTerm()
     {
         return term;
     }
 
-    public void setTerm(int term)
+    public void setTerm(Integer term)
     {
         this.term = term;
     }

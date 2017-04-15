@@ -21,7 +21,7 @@ public class LoginInfo implements Serializable
     /**
      * 用户类型
      */
-    private int userType;
+    private Integer userType;
 
     public String getUserId()
     {
@@ -43,12 +43,12 @@ public class LoginInfo implements Serializable
         this.userPwd = userPwd;
     }
 
-    public int getUserType()
+    public Integer getUserType()
     {
         return userType;
     }
 
-    public void setUserType(int userType)
+    public void setUserType(Integer userType)
     {
         this.userType = userType;
     }

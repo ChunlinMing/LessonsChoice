@@ -36,7 +36,7 @@ public class Student implements Serializable
     /**
      * 学生年级
      */
-    private int gradeYear;
+    private Integer gradeYear;
 
     /**
      * 学生邮箱
@@ -93,12 +93,12 @@ public class Student implements Serializable
         this.stuClass = stuClass;
     }
 
-    public int getGradeYear()
+    public Integer getGradeYear()
     {
         return gradeYear;
     }
 
-    public void setGradeYear(int gradeYear)
+    public void setGradeYear(Integer gradeYear)
     {
         this.gradeYear = gradeYear;
     }

@@ -1,5 +1,9 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.mcl.bysj.dao.LoginInfoDao">
-    
+    <parameterMap id="LoginInfo" type="com.mcl.bysj.entity.LoginInfo"/>
+
+    <select id="findUserType" resultType="java.lang.Integer" parameterMap="LoginInfo">
+        SELECT USER_TYPE FROM cqupt_login_info WHERE USER_ID = #{userId} and USER_PWD = #{userPwd}
+    </select>
 </mapper>

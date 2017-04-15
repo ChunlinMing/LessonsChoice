@@ -11,14 +11,14 @@ public class ScoreLimit implements Serializable
     /**
      * 选课的学分上限
      */
-    private double scoreLimit;
+    private Double scoreLimit;
 
-    public double getScoreLimit()
+    public Double getScoreLimit()
     {
         return scoreLimit;
     }
 
-    public void setScoreLimit(double scoreLimit)
+    public void setScoreLimit(Double scoreLimit)
     {
         this.scoreLimit = scoreLimit;
     }

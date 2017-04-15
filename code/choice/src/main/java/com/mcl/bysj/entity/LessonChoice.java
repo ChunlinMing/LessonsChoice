@@ -31,7 +31,7 @@ public class LessonChoice implements Serializable
     /**
      * 课程学分
      */
-    private double lessonScore;
+    private Double lessonScore;
 
     /**
      * 上课时间
@@ -83,12 +83,12 @@ public class LessonChoice implements Serializable
         this.lessonType = lessonType;
     }
 
-    public double getLessonScore()
+    public Double getLessonScore()
     {
         return lessonScore;
     }
 
-    public void setLessonScore(double lessonScore)
+    public void setLessonScore(Double lessonScore)
     {
         this.lessonScore = lessonScore;
     }
