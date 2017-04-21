@@ -3,17 +3,17 @@
 <head>
     <th:block th:include="manager/header"/>
     <meta charset="UTF-8"/>
-    <title>添加学期</title>
-    <script src="/js/addTerm.js"></script>
+    <title>添加课程类型</title>
+    <script src="/js/addLessonType.js"></script>
 </head>
 <body>
 <div style="width: 70%;margin-left: 15%;background-color: papayawhip;height:100%;min-height: 650px;">
     <div style="margin-left: 30px;">
         <br/>
-        <h2>添加学期</h2><br/>
+        <h2>添加课程类型</h2><br/>
         <div class="col-lg-6">
             <div class="input-group">
-                <input type="number" class="form-control" placeholder="要添加的学期"/>
+                <input type="text" class="form-control" placeholder="要添加的课程类型"/>
                 <span class="input-group-btn">
                 <button class="btn btn-default" type="button">添加</button>
             </span>
@@ -25,11 +25,11 @@
     </div>
     <hr style="margin-top: 65px;width: 96%;"/>
     <div style="margin-top: 30px;margin-left: 30px;">
-        <h2>已添加的学期</h2><br/>
+        <h2>已添加的课程类型</h2><br/>
         <table style="margin-left: 20px;margin-top: -5px;">
             <tbody id="list">
-            <tr th:each="term:${termList}" style="font-size: 16px;font-family: 'Comic Sans MS';height: 30px;">
-                <td th:text="${term.term}"></td>
+            <tr th:each="lessonType:${lessonTypeList}" style="font-size: 16px;font-family: 'Comic Sans MS';height: 30px;">
+                <td th:text="${lessonType.lessonTypeName}"></td>
             </tr>
             </tbody>
         </table>

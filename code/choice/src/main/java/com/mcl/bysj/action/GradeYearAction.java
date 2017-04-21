@@ -27,12 +27,14 @@ public class GradeYearAction
     GradeYearService gradeYearService;
 
     @RequestMapping(value = "/addGradeYear", method = RequestMethod.GET)
-    public String addGradeYearPage(HttpServletRequest request)
+    public String addGradeYearPage(HttpServletRequest request, Model model)
     {
         if (request.getSession().getAttribute("userType") != null)
         {
             if (request.getSession().getAttribute("userType").equals(0))
             {
+                List<GradeYear> gradeYearList = gradeYearService.findAllGradeYears();
+                model.addAttribute("gradeYearList",gradeYearList);
                 return "manager/addGradeYear";
             }
         }

@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.mcl.bysj.dao.LessonTypeDao">
+
+    <parameterMap id="LessonType" type="com.mcl.bysj.entity.LessonType"/>
+    <parameterMap id="ChangeLessonType" type="com.mcl.bysj.vo.ChangeLessonType"/>
+    <resultMap id="lessonTypeList" type="LessonType">
+        <result property="lessonTypeName" column="LESSON_TYPE_NAME"/>
+    </resultMap>
+
+    <select id="findLessonType" resultType="java.lang.String" parameterMap="LessonType">
+        SELECT LESSON_TYPE_NAME FROM cqupt_lesson_type WHERE LESSON_TYPE_NAME = #{lessonTypeName}
+    </select>
+
+    <insert id="insertLessonType" parameterMap="LessonType">
+        INSERT INTO cqupt_lesson_type (LESSON_TYPE_NAME) VALUES (#{lessonTypeName})
+    </insert>
+
+    <select id="findAllLessonTypes" resultMap="lessonTypeList">
+        SELECT * from cqupt_lesson_type
+    </select>
+
+    <update id="updateLessonType" parameterMap="ChangeLessonType">
+        update cqupt_lesson_type set LESSON_TYPE_NAME = #{lessonTypeAfter} where LESSON_TYPE_NAME = #{lessonTypeBefore}
+    </update>
+</mapper>

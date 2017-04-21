@@ -25,12 +25,14 @@ public class TermAction {
     TermService termService;
 
     @RequestMapping(value = "/addTerm", method = RequestMethod.GET)
-    public String addTermPage(HttpServletRequest request)
+    public String addTermPage(HttpServletRequest request, Model model)
     {
         if (request.getSession().getAttribute("userType") != null)
         {
             if (request.getSession().getAttribute("userType").equals(0))
             {
+                List<Term> termList = termService.findAllTerms();
+                model.addAttribute("termList",termList);
                 return "manager/addTerm";
             }
         }

@@ -14,6 +14,7 @@ $(document).ready(function () {
                 data: term,
                 success: function (result) {
                     if (result == 1) {
+                        $("#list").append("<tr style=\"font-size: 16px;font-family: \'Comic Sans MS\';height: 30px;\"><td>"+value+"</td></tr>");
                         $("#hint-div").html("<span>添加学期成功！</span>");
                     }
                     else if (result == -1) {
