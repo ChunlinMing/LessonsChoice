@@ -1,8 +1,8 @@
 $(document).ready(function () {
     $("button").click(function () {
         var value = $("input[type='number']").val();
-        if (value.length != 4 || !(/^(\+|-)?\d+$/.test(value)) || value <= 0) {
-            $("#hint-div").html("<span style='color: red;'>学期应为四位数正整数！</span>");
+        if (value.length != 5 || !(/^(\+|-)?\d+$/.test(value)) || value <= 0) {
+            $("#hint-div").html("<span style='color: red;'>学期应为5位数正整数！</span>");
         }
         else {
             var term = {};

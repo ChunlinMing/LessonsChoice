@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.mcl.bysj.dao.GradeYearDao">
+
+    <parameterMap id="GradeYear" type="com.mcl.bysj.entity.GradeYear"/>
+    <parameterMap id="ChangeGradeYear" type="com.mcl.bysj.vo.ChangeGradeYear"/>
+    <resultMap id="gradeYearList" type="GradeYear">
+        <result property="gradeYear" column="GRADE_YEAR"/>
+    </resultMap>
+
+    <select id="findGradeYear" resultType="java.lang.Integer" parameterMap="GradeYear">
+        SELECT GRADE_YEAR FROM cqupt_grade_year WHERE GRADE_YEAR = #{gradeYear}
+    </select>
+
+    <insert id="insertGradeYear" parameterMap="GradeYear">
+        INSERT INTO cqupt_grade_year (GRADE_YEAR) VALUES (#{gradeYear})
+    </insert>
+
+    <select id="findAllGradeYears" resultMap="gradeYearList">
+        SELECT * from cqupt_grade_year
+    </select>
+
+    <update id="updateGradeYear" parameterMap="ChangeGradeYear">
+        update cqupt_grade_year set GRADE_YEAR = #{gradeYearAfter} where GRADE_YEAR = #{gradeYearBefore}
+    </update>
+</mapper>

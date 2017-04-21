@@ -1,19 +1,19 @@
 $(document).ready(function () {
     $("#confirmBtn").click(function () {
         var value = $("input[type='number']").val();
-        if (value.length != 5 || !(/^(\+|-)?\d+$/.test(value)) || value <= 0) {
-            $("#hint-div").html("<span style='color: red;'>学期应为5位数正整数！</span>");
+        if (value.length != 4 || !(/^(\+|-)?\d+$/.test(value)) || value <= 0) {
+            $("#hint-div").html("<span style='color: red;'>学期应为4位数正整数！</span>");
         }
         else {
-            var changeTerm = {};
+            var changeGradeYear = {};
             var v = $("#bs3Select").val();
-            changeTerm.termBefore = v;
-            changeTerm.termAfter = value;
+            changeGradeYear.gradeYearBefore = v;
+            changeGradeYear.gradeYearAfter = value;
             $.ajax({
                 type: 'post',
-                url: 'http://localhost:8080/changeTerm',
+                url: 'http://localhost:8080/changeGradeYear',
                 datatype: 'application/json; charset=UTF-8',
-                data: changeTerm,
+                data: changeGradeYear,
                 success: function (result) {
                     if (result == 1) {
                         $("#bs3Select option").each(function () {
@@ -23,13 +23,13 @@ $(document).ready(function () {
                                 $("#bs3Select").append("<option>"+value+"</option>");
                             }
                         });
-                        $("#hint-div").html("<span>更改学期成功！</span>");
+                        $("#hint-div").html("<span>更改年级成功！</span>");
                     }
                     else if (result == -1) {
-                        $("#hint-div").html("<span style='color: red;'>更改学期失败！</span>");
+                        $("#hint-div").html("<span style='color: red;'>更改年级失败！</span>");
                     }
                     else if (result == -100) {
-                        $("#hint-div").html("<span style='color: red;'>学期已存在！</span>");
+                        $("#hint-div").html("<span style='color: red;'>年级已存在！</span>");
                     }
                 },
                 error: function () {
