@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.mcl.bysj.dao.ScoreLimitDao">
+
+    <parameterMap id="ChangeScoreLimit" type="com.mcl.bysj.vo.ChangeScoreLimit"/>
+    <resultMap id="scoreLimitList" type="ScoreLimit">
+        <result property="scoreLimit" column="SCORE_LIMIT"/>
+    </resultMap>
+
+    <select id="findAllScoreLimits" resultMap="scoreLimitList">
+        SELECT * from cqupt_score_limit
+    </select>
+
+    <update id="updateScoreLimit" parameterMap="ChangeScoreLimit">
+        update cqupt_score_limit set SCORE_LIMIT = #{scoreLimitAfter} where SCORE_LIMIT = #{scoreLimitBefore}
+    </update>
+</mapper>

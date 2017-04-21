@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <th:block th:include="manager/header"/>
+    <meta charset="UTF-8"/>
+    <title>更改选课学分上限</title>
+    <script src="/js/changeScoreLimit.js"></script>
+</head>
+<body>
+<div style="width: 70%;margin-left: 15%;background-color: papayawhip;height:100%;min-height: 650px;">
+    <div style="margin-left: 30px;">
+        <br/>
+        <h2>更改选课学分上限</h2><br/>
+        <div class="col-lg-6">
+            <div class="input-group">
+                <input type="number" class="form-control" placeholder="更改后的选课学分上限"/>
+                <span class="input-group-btn">
+                <button class="btn btn-default" type="button">更改</button>
+            </span>
+            </div>
+            <div id="hint-div">
+
+            </div>
+        </div>
+    </div>
+    <hr style="margin-top: 65px;width: 96%;"/>
+    <div style="margin-top: 30px;margin-left: 30px;">
+        <h2>当前选课学分上限</h2><br/>
+        <table style="margin-left: 20px;margin-top: -5px;">
+            <tbody id="list">
+            <tr th:each="scoreLimit:${scoreLimitList}" style="font-size: 16px;font-family: 'Comic Sans MS';height: 30px;">
+                <td th:text="${scoreLimit.scoreLimit}"></td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+
+</body>
+</html>
