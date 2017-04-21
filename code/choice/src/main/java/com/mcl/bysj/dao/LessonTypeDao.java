@@ -21,7 +21,7 @@ public interface LessonTypeDao
     /**
      * 添加课程类型
      * @param lessonType 课程类型对象
-     * @return 添加成功1，失败-1
+     * @return 添加成功1，失败0
      */
     int insertLessonType(LessonType lessonType);
 
@@ -34,7 +34,7 @@ public interface LessonTypeDao
     /**
      * 更改课程类型
      * @param changeLessonType 更改课程类型对象
-     * @return 更改成功1，失败-1
+     * @return 更改成功1，失败0
      */
     int updateLessonType(ChangeLessonType changeLessonType);
 }

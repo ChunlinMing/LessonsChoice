@@ -22,7 +22,7 @@ public class LessonTypeServiceImpl implements LessonTypeService
     /**
      * 添加课程类型
      * @param lessonType 课程类型对象
-     * @return 添加成功返回1，失败-1，已存在-100
+     * @return 添加成功返回1，失败0，已存在-100
      */
     public int insertLessonType(LessonType lessonType)
     {
@@ -45,7 +45,7 @@ public class LessonTypeServiceImpl implements LessonTypeService
     /**
      * 更改课程类型
      * @param changeLessonType 更改课程类型对象
-     * @return 更改成功返回1，失败-1，已存在-100
+     * @return 更改成功返回1，失败0，已存在-100
      */
     public int updateLessonType(ChangeLessonType changeLessonType)
     {

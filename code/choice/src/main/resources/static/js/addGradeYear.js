@@ -17,7 +17,7 @@ $(document).ready(function () {
                         $("#list").append("<tr style=\"font-size: 16px;font-family: \'Comic Sans MS\';height: 30px;\"><td>"+value+"</td></tr>");
                         $("#hint-div").html("<span>添加年级成功！</span>");
                     }
-                    else if (result == -1) {
+                    else if (result == 0) {
                         $("#hint-div").html("<span style='color: red;'>添加年级失败！</span>");
                     }
                     else if (result == -100) {

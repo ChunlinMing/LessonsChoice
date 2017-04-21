@@ -24,7 +24,7 @@ import java.util.List;
 public class GradeYearAction
 {
     @Autowired
-    GradeYearService gradeYearService;
+    private GradeYearService gradeYearService;
 
     @RequestMapping(value = "/addGradeYear", method = RequestMethod.GET)
     public String addGradeYearPage(HttpServletRequest request, Model model)
@@ -50,7 +50,7 @@ public class GradeYearAction
         {
             return gradeYearService.insertGradeYear(gradeYear);
         }
-        return -1;
+        return 0;
     }
 
     @RequestMapping(value = "/changeGradeYear", method = RequestMethod.GET)
@@ -77,6 +77,6 @@ public class GradeYearAction
         {
             return gradeYearService.updateGradeYear(changeGradeYear);
         }
-        return -1;
+        return 0;
     }
 }

@@ -22,7 +22,7 @@ import java.util.List;
 @Controller
 public class TermAction {
     @Autowired
-    TermService termService;
+    private TermService termService;
 
     @RequestMapping(value = "/addTerm", method = RequestMethod.GET)
     public String addTermPage(HttpServletRequest request, Model model)
@@ -48,7 +48,7 @@ public class TermAction {
         {
             return termService.insertTerm(term);
         }
-        return -1;
+        return 0;
     }
 
     @RequestMapping(value = "/changeTerm", method = RequestMethod.GET)
@@ -75,6 +75,6 @@ public class TermAction {
         {
             return termService.updateTerm(changeTerm);
         }
-        return -1;
+        return 0;
     }
 }

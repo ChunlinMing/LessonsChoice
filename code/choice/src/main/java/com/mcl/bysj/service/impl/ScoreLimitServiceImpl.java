@@ -22,7 +22,7 @@ public class ScoreLimitServiceImpl implements ScoreLimitService
     /**
      * 更改选课学分上限
      * @param changeScoreLimit 更改选课学分上限对象
-     * @return 成功1，失败-1
+     * @return 成功1，失败0
      */
     public int updateScoreLimit(ChangeScoreLimit changeScoreLimit)
     {

@@ -21,14 +21,14 @@ public interface TermDao
     /**
      * 插入学期
      * @param term 学期
-     * @return 插入是否成功，成功1，失败-1
+     * @return 插入是否成功，成功1，失败0
      */
     int insertTerm(Term term);
 
     /**
      * 更改学期
      * @param changeTerm 更改学期对象
-     * @return 更改成功返回1，失败-1
+     * @return 更改成功返回1，失败0
      */
     int updateTerm(ChangeTerm changeTerm);
 

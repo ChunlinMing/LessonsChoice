@@ -23,7 +23,7 @@ import java.util.List;
 public class LessonTypeAction
 {
     @Autowired
-    LessonTypeService lessonTypeService;
+    private LessonTypeService lessonTypeService;
 
     @RequestMapping(value = "/addLessonType", method = RequestMethod.GET)
     public String addLessonTypePage(HttpServletRequest request, Model model)
@@ -49,7 +49,7 @@ public class LessonTypeAction
         {
             return lessonTypeService.insertLessonType(lessonType);
         }
-        return -1;
+        return 0;
     }
 
     @RequestMapping(value = "/changeLessonType", method = RequestMethod.GET)
@@ -77,6 +77,6 @@ public class LessonTypeAction
         {
             return lessonTypeService.updateLessonType(changeLessonType);
         }
-        return -1;
+        return 0;
     }
 }

@@ -22,7 +22,7 @@ public class TermServiceImpl implements TermService
     /**
      * 添加学期
      * @param term 学期
-     * @return 插入是否成功，成功1，失败-1，要插入的数据已存在-100
+     * @return 插入是否成功，成功1，失败0，要插入的数据已存在-100
      */
     public int insertTerm(Term term)
     {
@@ -36,7 +36,7 @@ public class TermServiceImpl implements TermService
     /**
      * 更改学期
      * @param changeTerm 更改学期对象
-     * @return 更改成功返回1，失败-1，要更改为的学期已存在，返回-100
+     * @return 更改成功返回1，失败0，要更改为的学期已存在，返回-100
      */
     public int updateTerm(ChangeTerm changeTerm)
     {

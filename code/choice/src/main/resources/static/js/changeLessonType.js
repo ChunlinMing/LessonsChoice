@@ -25,7 +25,7 @@ $(document).ready(function () {
                         });
                         $("#hint-div").html("<span>更改课程类型成功！</span>");
                     }
-                    else if (result == -1) {
+                    else if (result == 0) {
                         $("#hint-div").html("<span style='color: red;'>更改课程类型失败！</span>");
                     }
                     else if (result == -100) {

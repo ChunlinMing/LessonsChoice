@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <th:block th:include="manager/header"/>
+    <meta charset="UTF-8"/>
+    <title>更改学院名称</title>
+    <script src="/js/changeSchool.js"></script>
+
+    <link rel="stylesheet" type="text/css"
+          href="http://cdn.bootcss.com/bootstrap-select/2.0.0-beta1/css/bootstrap-select.css"/>
+    <script type="text/javascript"
+            src="http://cdn.bootcss.com/bootstrap-select/2.0.0-beta1/js/bootstrap-select.js"></script>
+</head>
+<body>
+<div style="width: 70%;margin-left: 15%;margin-top: 45px;">
+    <h4>请选择要操作的学院</h4><br/>
+    <div class="container" style="width: 80%;float: left">
+        <form class="form-horizontal" role="form">
+            <div class="form-group">
+                <div class="col-lg-10" style="width: 62.5%;">
+                    <select id="bs3Select" class="form-control">
+                        <option th:each="school:${schoolList}" th:text="${school.school}"></option>
+                    </select>
+                </div>
+                <button type="button" class="btn btn-warning" data-toggle="modal" data-target="#myModal">删除选中的学院</button>
+            </div>
+            <div id="hint-delete">
+
+            </div>
+        </form>
+    </div>
+    <div style="clear: both;"></div>
+    <br/>
+    <div>
+        <h4>请输入更改后的学院名称</h4><br/>
+        <div class="col-lg-6">
+            <input type="text" class="form-control"/>
+            <div id="hint-div">
+
+            </div>
+        </div>
+        <div style="clear: both;"></div>
+    </div>
+    <br/>
+    <div class="btn-group" style="margin-left: 15px;margin-top: 50px;">
+        <button id="confirmBtn" type="button" class="btn btn-primary" style="width: 425px;height: 35px;">
+            确定更改
+        </button>
+    </div>
+</div>
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title" id="myModalLabel">删除学院</h4>
+            </div>
+            <div class="modal-body">是否删除选中的学院？</div>
+            <div class="modal-footer">
+                <button id="deleteBtn" type="button" class="btn btn-warning" data-dismiss="modal">确定删除</button>
+                <button type="button" class="btn btn-primary" data-dismiss="modal">取消删除</button>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

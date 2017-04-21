@@ -14,7 +14,7 @@ public interface ScoreLimitDao
     /**
      * 更改选课学分上限
      * @param scoreLimit 学分上限
-     * @return 更改成功1，失败-1
+     * @return 更改成功1，失败0
      */
     int updateScoreLimit(ChangeScoreLimit changeScoreLimit);
 

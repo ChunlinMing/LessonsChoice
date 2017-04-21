@@ -22,7 +22,7 @@ public class GradeYearServiceImpl implements GradeYearService
     /**
      * 添加年级
      * @param gradeYear 年级
-     * @return 添加成功1，失败-1，已存在-100
+     * @return 添加成功1，失败0，已存在-100
      */
     public int insertGradeYear(GradeYear gradeYear)
     {
@@ -45,7 +45,7 @@ public class GradeYearServiceImpl implements GradeYearService
     /**
      * 更改年级
      * @param changeGradeYear 更改年级对象
-     * @return 成功1，失败-1，已存在-100
+     * @return 成功1，失败0，已存在-100
      */
     public int updateGradeYear(ChangeGradeYear changeGradeYear)
     {

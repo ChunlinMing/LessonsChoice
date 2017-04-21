@@ -23,7 +23,7 @@ import java.util.List;
 public class ScoreLimitAction
 {
     @Autowired
-    ScoreLimitService scoreLimitService;
+    private ScoreLimitService scoreLimitService;
 
     @RequestMapping(value = "/changeScoreLimit", method = RequestMethod.GET)
     public String changeScoreLimitPage(HttpServletRequest request, Model model)
@@ -50,6 +50,6 @@ public class ScoreLimitAction
         {
             return scoreLimitService.updateScoreLimit(changeScoreLimit);
         }
-        return -1;
+        return 0;
     }
 }

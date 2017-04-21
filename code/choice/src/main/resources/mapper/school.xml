@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.mcl.bysj.dao.SchoolDao">
+
+    <parameterMap id="School" type="com.mcl.bysj.entity.School"/>
+    <parameterMap id="ChangeSchool" type="com.mcl.bysj.vo.ChangeSchool"/>
+    <resultMap id="schoolList" type="School">
+        <result property="school" column="SCHOOL"/>
+    </resultMap>
+
+    <select id="findSchool" resultType="java.lang.String" parameterMap="School">
+        SELECT SCHOOL FROM cqupt_school_name WHERE SCHOOL = #{school}
+    </select>
+
+    <insert id="insertSchool" parameterMap="School">
+        INSERT INTO cqupt_school_name (SCHOOL) VALUES (#{school})
+    </insert>
+
+    <select id="findAllSchools" resultMap="schoolList">
+        SELECT * from cqupt_school_name
+    </select>
+
+    <update id="updateSchool" parameterMap="ChangeSchool">
+        update cqupt_school_name set SCHOOL = #{schoolAfter} where SCHOOL = #{schoolBefore}
+    </update>
+
+    <delete id="deleteSchool" parameterMap="School">
+        DELETE FROM cqupt_school_name WHERE SCHOOL = #{school}
+    </delete>
+</mapper>
