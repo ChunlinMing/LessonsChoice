@@ -19,8 +19,6 @@ import javax.servlet.http.HttpSession;
 @Controller
 public class LoginAction
 {
-    private static Logger logger = Logger.getLogger(LoginAction.class);
-
     @Autowired
     private LoginInfoService loginInfoService;
 
@@ -58,13 +56,13 @@ public class LoginAction
     }
 
     @RequestMapping(value="/manager")
-    public String addTerm(HttpServletRequest request)
+    public String manager(HttpServletRequest request)
     {
         if (request.getSession().getAttribute("userType") != null)
         {
             if (request.getSession().getAttribute("userType").equals(0))
             {
-                return "manager/addTerm";
+                return "manager/manager";
             }
         }
         return Helper.checkUserType((Integer)request.getSession().getAttribute("userType"));

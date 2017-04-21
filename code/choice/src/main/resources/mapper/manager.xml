@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.mcl.bysj.dao.TermDao">
+
+    <parameterMap id="Term" type="com.mcl.bysj.entity.Term"/>
+    <parameterMap id="ChangeTerm" type="com.mcl.bysj.vo.ChangeTerm"/>
+    <resultMap id="termList" type="Term">
+        <result property="term" column="TERM"/>
+    </resultMap>
+
+    <select id="findTermByTerm" resultType="java.lang.Integer" parameterMap="Term">
+        SELECT TERM FROM cqupt_term WHERE TERM = #{term}
+    </select>
+
+    <insert id="insertTerm" parameterMap="Term">
+        insert into cqupt_term (TERM) values (#{term})
+    </insert>
+
+    <update id="updateTerm" parameterMap="ChangeTerm">
+        update cqupt_term set TERM = #{termAfter} where TERM = #{termBefore}
+    </update>
+
+    <select id="findAllTerms" resultMap="termList">
+        SELECT * from cqupt_term
+    </select>
+
+</mapper>

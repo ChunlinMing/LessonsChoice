@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <th:block th:include="manager/header"/>
+    <meta charset="UTF-8"/>
+    <title>更改学期</title>
+    <script src="/js/changeTerm.js"></script>
+
+    <link rel="stylesheet" type="text/css"
+          href="http://cdn.bootcss.com/bootstrap-select/2.0.0-beta1/css/bootstrap-select.css"/>
+    <script type="text/javascript"
+            src="http://cdn.bootcss.com/bootstrap-select/2.0.0-beta1/js/bootstrap-select.js"></script>
+</head>
+<body>
+<div style="width: 70%;margin-left: 15%;margin-top: 45px;">
+    <h4>请选择要更改的学期</h4><br/>
+    <div class="container" style="width: 60%;float: left">
+        <form class="form-horizontal" role="form">
+            <div class="form-group">
+                <div class="col-lg-10">
+                    <select id="bs3Select" class="form-control">
+                        <option th:each="term:${termList}" th:text="${term.term}"></option>
+                    </select>
+                </div>
+            </div>
+        </form>
+    </div>
+    <div style="clear: both;"></div>
+    <br/>
+    <div>
+        <h4>请输入更改后的学期</h4><br/>
+        <div class="col-lg-6">
+            <input type="number" class="form-control"/>
+            <div id="hint-div">
+
+            </div>
+        </div>
+        <div style="clear: both;"></div>
+    </div>
+    <br/>
+    <div class="btn-group" style="margin-left: 15px;margin-top: 50px;">
+        <button id="confirmBtn" type="button" class="btn btn-primary" style="width: 425px;height: 35px;">
+            确定更改
+        </button>
+    </div>
+</div>
+</body>
+</html>

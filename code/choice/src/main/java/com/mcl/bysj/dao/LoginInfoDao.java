@@ -6,7 +6,8 @@ import com.mcl.bysj.entity.LoginInfo;
  * LoginInfo实体Dao接口类
  * Created by mingchunlin on 17/4/14.
  */
-public interface LoginInfoDao {
+public interface LoginInfoDao
+{
     /**
      * 查询用户类型
      * @param loginInfo 用户登录信息
