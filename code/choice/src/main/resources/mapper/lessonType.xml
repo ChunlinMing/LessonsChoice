@@ -23,4 +23,8 @@
     <update id="updateLessonType" parameterMap="ChangeLessonType">
         update cqupt_lesson_type set LESSON_TYPE_NAME = #{lessonTypeAfter} where LESSON_TYPE_NAME = #{lessonTypeBefore}
     </update>
+
+    <delete id="deleteLessonType" parameterMap="LessonType">
+        DELETE FROM cqupt_lesson_type WHERE LESSON_TYPE_NAME = #{lessonTypeName}
+    </delete>
 </mapper>

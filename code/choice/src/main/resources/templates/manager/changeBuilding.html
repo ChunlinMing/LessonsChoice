@@ -3,8 +3,8 @@
 <head>
     <th:block th:include="manager/header"/>
     <meta charset="UTF-8"/>
-    <title>更改课程类型</title>
-    <script src="/js/changeLessonType.js"></script>
+    <title>更改教学楼名称</title>
+    <script src="/js/changeBuilding.js"></script>
 
     <link rel="stylesheet" type="text/css"
           href="http://cdn.bootcss.com/bootstrap-select/2.0.0-beta1/css/bootstrap-select.css"/>
@@ -13,16 +13,16 @@
 </head>
 <body>
 <div style="width: 70%;margin-left: 15%;margin-top: 45px;">
-    <h4>请选择要操作的课程类型</h4><br/>
+    <h4>请选择要操作的教学楼</h4><br/>
     <div class="container" style="width: 80%;float: left">
         <form class="form-horizontal" role="form">
             <div class="form-group">
                 <div class="col-lg-10" style="width: 62.5%;">
                     <select id="bs3Select" class="form-control">
-                        <option th:each="lessonType:${lessonTypeList}" th:text="${lessonType.lessonTypeName}"></option>
+                        <option th:each="building:${buildingList}" th:text="${building.building}"></option>
                     </select>
                 </div>
-                <button type="button" class="btn btn-warning" data-toggle="modal" data-target="#myModal">删除所选课程类型</button>
+                <button type="button" class="btn btn-warning" data-toggle="modal" data-target="#myModal">删除选中的教学楼</button>
             </div>
             <div id="hint-delete">
 
@@ -32,7 +32,7 @@
     <div style="clear: both;"></div>
     <br/>
     <div>
-        <h4>请输入更改后的课程类型名称</h4><br/>
+        <h4>请输入更改后的教学楼名称</h4><br/>
         <div class="col-lg-6">
             <input type="text" class="form-control"/>
             <div id="hint-div">
@@ -53,9 +53,9 @@
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                <h4 class="modal-title" id="myModalLabel">删除课程类型</h4>
+                <h4 class="modal-title" id="myModalLabel">删除教学楼</h4>
             </div>
-            <div class="modal-body">是否删除选中的课程类型？</div>
+            <div class="modal-body">是否删除选中的教学楼？</div>
             <div class="modal-footer">
                 <button id="deleteBtn" type="button" class="btn btn-warning" data-dismiss="modal">确定删除</button>
                 <button type="button" class="btn btn-primary" data-dismiss="modal">取消删除</button>

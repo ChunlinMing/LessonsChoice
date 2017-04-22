@@ -16,6 +16,11 @@ public class ChangeLessonType
      */
     private String lessonTypeAfter;
 
+    /**
+     * 0为删除，1为更改
+     */
+    private int flag;
+
     public String getLessonTypeBefore()
     {
         return lessonTypeBefore;
@@ -34,5 +39,15 @@ public class ChangeLessonType
     public void setLessonTypeAfter(String lessonTypeAfter)
     {
         this.lessonTypeAfter = lessonTypeAfter;
+    }
+
+    public int getFlag()
+    {
+        return flag;
+    }
+
+    public void setFlag(int flag)
+    {
+        this.flag = flag;
     }
 }

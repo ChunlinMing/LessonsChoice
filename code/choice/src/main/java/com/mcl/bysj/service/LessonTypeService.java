@@ -16,4 +16,6 @@ public interface LessonTypeService
     List<LessonType> findAllLessonTypes();
 
     int updateLessonType(ChangeLessonType changeLessonType);
+
+    int deleteLessonType(LessonType lessonType);
 }

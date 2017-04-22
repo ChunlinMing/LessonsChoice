@@ -37,4 +37,11 @@ public interface LessonTypeDao
      * @return 更改成功1，失败0
      */
     int updateLessonType(ChangeLessonType changeLessonType);
+
+    /**
+     * 删除课程类型
+     * @param lessonType 课程类型
+     * @return 删除成功1，失败0
+     */
+    int deleteLessonType(LessonType lessonType);
 }

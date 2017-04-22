@@ -72,10 +72,18 @@ public class LessonTypeAction
     public int changeLessonType(HttpServletResponse response, ChangeLessonType changeLessonType)
     {
         response.setHeader("Access-Control-Allow-Origin", "*");
-        if (null != changeLessonType && !Helper.isEmpty(changeLessonType.getLessonTypeAfter())
-                && !Helper.isEmpty(changeLessonType.getLessonTypeBefore()))
+        if (null != changeLessonType && !Helper.isEmpty(changeLessonType.getLessonTypeBefore()))
         {
-            return lessonTypeService.updateLessonType(changeLessonType);
+            if (!Helper.isEmpty(changeLessonType.getLessonTypeAfter()) && changeLessonType.getFlag() == 1)
+            {
+                return lessonTypeService.updateLessonType(changeLessonType);
+            }
+            else if (Helper.isEmpty(changeLessonType.getLessonTypeAfter()) && changeLessonType.getFlag() == 0)
+            {
+                LessonType lessonType = new LessonType();
+                lessonType.setLessonTypeName(changeLessonType.getLessonTypeBefore());
+                return lessonTypeService.deleteLessonType(lessonType);
+            }
         }
         return 0;
     }

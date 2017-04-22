@@ -57,4 +57,14 @@ public class LessonTypeServiceImpl implements LessonTypeService
         }
         return -100;
     }
+
+    /**
+     * 删除课程类型
+     * @param lessonType 课程类型
+     * @return 成功1，失败0
+     */
+    public int deleteLessonType(LessonType lessonType)
+    {
+        return lessonTypeDao.deleteLessonType(lessonType);
+    }
 }

@@ -1,20 +1,20 @@
 $(document).ready(function () {
     $("#confirmBtn").click(function () {
         var value = $("input[type='text']").val();
-        if (value.length > 4) {
-            $("#hint-div").html("<span style='color: red;'>课程类型名称不应超过4个字！</span>");
+        if (value.length > 10) {
+            $("#hint-div").html("<span style='color: red;'>教学楼名称过长！</span>");
         }
         else {
-            var changeLessonType = {};
+            var changeBuilding = {};
             var v = $("#bs3Select").val();
-            changeLessonType.lessonTypeBefore = v;
-            changeLessonType.lessonTypeAfter = value;
-            changeLessonType.flag = 1;
+            changeBuilding.buildingBefore = v;
+            changeBuilding.buildingAfter = value;
+            changeBuilding.flag = 1;
             $.ajax({
                 type: 'post',
-                url: 'http://localhost:8080/changeLessonType',
+                url: 'http://localhost:8080/changeBuilding',
                 datatype: 'application/json; charset=UTF-8',
-                data: changeLessonType,
+                data: changeBuilding,
                 success: function (result) {
                     if (result == 1) {
                         $("#bs3Select option").each(function () {
@@ -24,13 +24,13 @@ $(document).ready(function () {
                                 $("#bs3Select").append("<option>"+value+"</option>");
                             }
                         });
-                        $("#hint-div").html("<span>更改课程类型成功！</span>");
+                        $("#hint-div").html("<span>更改教学楼名称成功！</span>");
                     }
                     else if (result == 0) {
-                        $("#hint-div").html("<span style='color: red;'>更改课程类型失败！</span>");
+                        $("#hint-div").html("<span style='color: red;'>更改教学楼名称失败！</span>");
                     }
                     else if (result == -100) {
-                        $("#hint-div").html("<span style='color: red;'>课程类型已存在！</span>");
+                        $("#hint-div").html("<span style='color: red;'>教学楼名称已存在！</span>");
                     }
                 },
                 error: function () {
@@ -42,15 +42,15 @@ $(document).ready(function () {
     });
 
     $("#deleteBtn").click(function () {
-        var changeLessonType = {};
+        var changeBuilding = {};
         var v = $("#bs3Select").val();
-        changeLessonType.lessonTypeBefore = v;
-        changeLessonType.flag = 0;
+        changeBuilding.buildingBefore = v;
+        changeBuilding.flag = 0;
         $.ajax({
             type: 'post',
-            url: 'http://localhost:8080/changeLessonType',
+            url: 'http://localhost:8080/changeBuilding',
             datatype: 'application/json; charset=UTF-8',
-            data: changeLessonType,
+            data: changeBuilding,
             success: function (result) {
                 if (result == 1) {
                     $("#bs3Select option").each(function () {
@@ -59,10 +59,10 @@ $(document).ready(function () {
                             $(this).remove();
                         }
                     });
-                    $("#hint-delete").html("<span>删除课程类型成功！</span>");
+                    $("#hint-delete").html("<span>删除教学楼成功！</span>");
                 }
                 else if (result == 0) {
-                    $("#hint-delete").html("<span style='color: red;'>删除课程类型失败！</span>");
+                    $("#hint-delete").html("<span style='color: red;'>删除教学楼失败！</span>");
                 }
             },
             error: function () {

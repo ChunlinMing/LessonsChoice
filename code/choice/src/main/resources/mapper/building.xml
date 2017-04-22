@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.mcl.bysj.dao.BuildingDao">
+
+    <parameterMap id="Building" type="com.mcl.bysj.entity.Building"/>
+    <parameterMap id="ChangeBuilding" type="com.mcl.bysj.vo.ChangeBuilding"/>
+    <resultMap id="buildingList" type="Building">
+        <result property="building" column="BUILDING"/>
+    </resultMap>
+
+    <select id="findBuilding" resultType="java.lang.String" parameterMap="Building">
+        SELECT BUILDING FROM cqupt_building WHERE BUILDING = #{building}
+    </select>
+
+    <insert id="insertBuilding" parameterMap="Building">
+        INSERT INTO cqupt_building (BUILDING) VALUES (#{building})
+    </insert>
+
+    <select id="findAllBuildings" resultMap="buildingList">
+        SELECT * from cqupt_building
+    </select>
+
+    <update id="updateBuilding" parameterMap="ChangeBuilding">
+        update cqupt_building set BUILDING = #{buildingAfter} where BUILDING = #{buildingBefore}
+    </update>
+
+    <delete id="deleteBuilding" parameterMap="Building">
+        DELETE FROM cqupt_building WHERE BUILDING = #{building}
+    </delete>
+</mapper>
