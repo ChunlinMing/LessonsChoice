@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.mcl.bysj.dao.StuClassDao">
+
+    <parameterMap id="StuClass" type="com.mcl.bysj.entity.StuClass"/>
+    <parameterMap id="School" type="com.mcl.bysj.entity.School"/>
+    <parameterMap id="ChangeClass" type="com.mcl.bysj.vo.ChangeClass"/>
+    <resultMap id="stuClassObjOrList" type="StuClass">
+        <result property="stuClass" column="CLASS"/>
+        <result property="school" column="SCHOOL"/>
+    </resultMap>
+
+    <select id="findClass" resultMap="stuClassObjOrList" parameterMap="StuClass">
+        SELECT * FROM cqupt_class WHERE CLASS = #{stuClass}
+    </select>
+
+    <select id="findAllClassBySchool" resultMap="stuClassObjOrList" parameterMap="School">
+        SELECT * from cqupt_class WHERE SCHOOL = #{school}
+    </select>
+
+    <insert id="insertClass" parameterMap="StuClass">
+        INSERT INTO cqupt_class (CLASS, SCHOOL) VALUES (#{stuClass}, #{school})
+    </insert>
+
+    <update id="updateClass" parameterMap="ChangeClass">
+        update cqupt_class set CLASS = #{stuClassAfter}, SCHOOL = #{schoolAfter} where CLASS = #{stuClassBefore}
+    </update>
+
+    <delete id="deleteClass" parameterMap="StuClass">
+        DELETE FROM cqupt_class WHERE CLASS = #{stuClass}
+    </delete>
+</mapper>

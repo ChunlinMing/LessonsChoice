@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <th:block th:include="manager/header"/>
+    <meta charset="UTF-8"/>
+    <title>新增教学班</title>
+
+    <script src="/js/addClass.js"></script>
+
+    <link rel="stylesheet" type="text/css"
+          href="http://cdn.bootcss.com/bootstrap-select/2.0.0-beta1/css/bootstrap-select.css"/>
+    <script type="text/javascript"
+            src="http://cdn.bootcss.com/bootstrap-select/2.0.0-beta1/js/bootstrap-select.js"></script>
+</head>
+<body>
+<div style="width: 70%;margin-left: 15%;margin-top: 45px;padding-left: 30px;padding-top:45px;background-color: papayawhip;height:100%;min-height: 600px;">
+    <h4>请选择新增教学班所在的学院</h4><br/>
+    <div class="container" style="width: 80%;float: left">
+        <form class="form-horizontal" role="form">
+            <div class="form-group">
+                <div class="col-lg-10" style="width: 62.5%;">
+                    <select id="bs3Select" class="form-control">
+                        <option th:each="school:${schoolList}" th:text="${school.school}"></option>
+                    </select>
+                </div>
+            </div>
+        </form>
+    </div>
+    <div style="clear: both;"></div>
+    <br/>
+    <div>
+        <h4>请输入新增教学班的班号</h4><br/>
+        <div class="col-lg-6">
+            <input type="text" class="form-control"/>
+            <div id="hint-div">
+
+            </div>
+        </div>
+        <div style="clear: both;"></div>
+    </div>
+    <br/>
+    <div class="btn-group" style="margin-left: 15px;margin-top: 50px;">
+        <button id="confirmBtn" type="button" class="btn btn-primary" style="width: 425px;height: 35px;">
+            确定新增
+        </button>
+    </div>
+</div>
+</body>
+</html>
