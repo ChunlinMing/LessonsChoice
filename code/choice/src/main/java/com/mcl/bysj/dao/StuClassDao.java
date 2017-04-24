@@ -20,6 +20,13 @@ public interface StuClassDao
     StuClass findClass(StuClass stuClass);
 
     /**
+     * 根据指定教学班和学院查找教学班
+     * @param stuClass 教学班和学院的实体对象
+     * @return 查找结果
+     */
+    StuClass findClassByEntity(StuClass stuClass);
+
+    /**
      * 查找指定学院的所有班级
      * @param school 学院
      * @return 班级集合

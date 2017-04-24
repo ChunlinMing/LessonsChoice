@@ -1,12 +1,14 @@
 $(document).ready(function () {
     $("#changeBtn").click(function () {
         var value = $("#selectSchool").val();
+        var v = $("#selectClass").val();
         $("#bs3Select option").each(function () {
             if (value == $(this).val())
             {
                 $("#bs3Select").val(value);
             }
         });
+        $("input[type='text']").val(v);
     });
 
     $("#confirmBtn").click(function () {

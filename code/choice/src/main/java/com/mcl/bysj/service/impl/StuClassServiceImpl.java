@@ -20,8 +20,10 @@ public class StuClassServiceImpl implements StuClassService
 {
     @Autowired
     StuClassDao stuClassDao;
+
     /**
      * 查找指定的教学班
+     *
      * @param stuClass 教学班对象
      * @return 查找结果
      */
@@ -32,6 +34,7 @@ public class StuClassServiceImpl implements StuClassService
 
     /**
      * 查找指定学院的所有班级
+     *
      * @param school 学院
      * @return 班级集合
      */
@@ -42,6 +45,7 @@ public class StuClassServiceImpl implements StuClassService
 
     /**
      * 添加新的教学班
+     *
      * @param stuClass 教学班对象
      * @return 成功1，失败0，已存在-100
      */
@@ -56,6 +60,7 @@ public class StuClassServiceImpl implements StuClassService
 
     /**
      * 更改教学班信息
+     *
      * @param changeClass 更改教学班对象
      * @return 成功1，失败0，已存在-100
      */
@@ -63,19 +68,34 @@ public class StuClassServiceImpl implements StuClassService
     {
         StuClass stuClass = new StuClass();
         stuClass.setStuClass(changeClass.getStuClassAfter());
-        if (null == stuClassDao.findClass(stuClass))
+
+        if (changeClass.getStuClassAfter().equals(changeClass.getStuClassBefore()))
         {
-            return stuClassDao.updateClass(changeClass);
+            stuClass.setSchool(changeClass.getSchoolAfter());
+            if (null == stuClassDao.findClassByEntity(stuClass))
+            {
+                return stuClassDao.updateClass(changeClass);
+            }
         }
+        else
+        {
+            if (null == stuClassDao.findClass(stuClass))
+            {
+                return stuClassDao.updateClass(changeClass);
+            }
+        }
+
         return -100;
     }
 
     /**
      * 删除教学班
+     *
      * @param stuClass 教学班对象
      * @return 成功1，失败0，要删除的班级不存在-200
      */
-    public int deleteClass(StuClass stuClass){
+    public int deleteClass(StuClass stuClass)
+    {
         StuClass result = stuClassDao.findClass(stuClass);
         if (null != result && !Helper.isEmpty(result.getStuClass()))
         {

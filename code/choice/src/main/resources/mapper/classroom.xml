@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.mcl.bysj.dao.ClassroomDao">
+
+    <parameterMap id="Classroom" type="com.mcl.bysj.entity.Classroom"/>
+    <parameterMap id="Building" type="com.mcl.bysj.entity.Building"/>
+    <parameterMap id="ChangeClassroom" type="com.mcl.bysj.vo.ChangeClassroom"/>
+    <resultMap id="ClassroomObjOrList" type="Classroom">
+        <result property="classroom" column="CLASSROOM"/>
+        <result property="building" column="BUILDING"/>
+    </resultMap>
+
+    <select id="findClassroom" resultMap="ClassroomObjOrList" parameterMap="Classroom">
+        SELECT * FROM cqupt_classroom_info WHERE CLASSROOM = #{classroom}
+    </select>
+
+    <select id="findClassroomByEntity" resultMap="ClassroomObjOrList" parameterMap="Classroom">
+        SELECT * FROM cqupt_classroom_info WHERE CLASSROOM = #{classroom} AND BUILDING = #{building}
+    </select>
+
+    <select id="findAllClassroomByBuilding" resultMap="ClassroomObjOrList" parameterMap="Building">
+        SELECT * from cqupt_classroom_info WHERE BUILDING = #{building}
+    </select>
+
+    <insert id="insertClassroom" parameterMap="Classroom">
+        INSERT INTO cqupt_classroom_info (CLASSROOM, BUILDING) VALUES (#{classroom}, #{building})
+    </insert>
+
+    <update id="updateClassroom" parameterMap="ChangeClassroom">
+        update cqupt_classroom_info set CLASSROOM = #{classroomAfter}, BUILDING = #{buildingAfter} where CLASSROOM = #{classroomBefore}
+    </update>
+
+    <delete id="deleteClassroom" parameterMap="Classroom">
+        DELETE FROM cqupt_classroom_info WHERE CLASSROOM = #{classroom}
+    </delete>
+</mapper>

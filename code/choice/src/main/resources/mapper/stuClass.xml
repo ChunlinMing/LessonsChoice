@@ -14,6 +14,10 @@
         SELECT * FROM cqupt_class WHERE CLASS = #{stuClass}
     </select>
 
+    <select id="findClassByEntity" resultMap="stuClassObjOrList" parameterMap="StuClass">
+        SELECT * FROM cqupt_class WHERE CLASS = #{stuClass} AND SCHOOL = #{school}
+    </select>
+
     <select id="findAllClassBySchool" resultMap="stuClassObjOrList" parameterMap="School">
         SELECT * from cqupt_class WHERE SCHOOL = #{school}
     </select>
