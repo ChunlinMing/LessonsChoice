@@ -4,6 +4,7 @@ import com.mcl.bysj.entity.LoginInfo;
 import org.apache.commons.codec.binary.Base64;
 
 import javax.servlet.http.HttpSession;
+import java.util.List;
 
 /**
  * 工具类
@@ -92,6 +93,23 @@ public class Helper
             }
         }
 
-            return false;
+        return false;
+    }
+
+    /**
+     * 检查某个所有属性都为String类型的对象中是否有属性为空
+     * @param args 属性数组
+     * @return true OR false
+     */
+    public static boolean checkEmpty(List<String> list)
+    {
+        for (String str : list)
+        {
+            if (isEmpty(str))
+            {
+                return true;
+            }
+        }
+        return false;
     }
 }

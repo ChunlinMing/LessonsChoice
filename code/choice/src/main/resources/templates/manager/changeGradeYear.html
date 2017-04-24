@@ -4,6 +4,7 @@
     <th:block th:include="manager/header"/>
     <meta charset="UTF-8"/>
     <title>更改年级</title>
+
     <script src="/js/changeGradeYear.js"></script>
 
     <link rel="stylesheet" type="text/css"
@@ -14,10 +15,10 @@
 <body>
 <div style="width: 70%;margin-left: 15%;margin-top: 45px;">
     <h4>请选择要更改的年级</h4><br/>
-    <div class="container" style="width: 60%;float: left">
+    <div class="container" style="width: 80%;float: left">
         <form class="form-horizontal" role="form">
             <div class="form-group">
-                <div class="col-lg-10">
+                <div class="col-lg-10" style="width: 62.5%;">
                     <select id="bs3Select" class="form-control">
                         <option th:each="gradeYear:${gradeYearList}" th:text="${gradeYear.gradeYear}"></option>
                     </select>
@@ -29,7 +30,7 @@
     <br/>
     <div>
         <h4>请输入更改后的年级</h4><br/>
-        <div class="col-lg-6">
+        <div class="col-lg-6" style="float:left;width:50%">
             <input type="number" class="form-control"/>
             <div id="hint-div">
 
@@ -38,8 +39,8 @@
         <div style="clear: both;"></div>
     </div>
     <br/>
-    <div class="btn-group" style="margin-left: 15px;margin-top: 50px;">
-        <button id="confirmBtn" type="button" class="btn btn-primary" style="width: 425px;height: 35px;">
+    <div class="btn-group" style="margin-left: 15px;margin-top: 50px;width: 50%;">
+        <button id="confirmBtn" type="button" class="btn btn-primary" style="width: 93%;height: 35px;">
             确定更改
         </button>
     </div>

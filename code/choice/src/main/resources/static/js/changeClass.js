@@ -33,6 +33,7 @@ $(document).ready(function () {
                     if (result == 1) {
                         $("#selectSchool").val(school);
                         findClassBySchool();
+                        $("#selectClass").val(value);
                         $("#hint-div").html("<span>更改教学班班号成功！</span>");
                     }
                     else if (result == 0) {

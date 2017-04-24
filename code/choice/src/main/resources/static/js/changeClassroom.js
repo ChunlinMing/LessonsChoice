@@ -33,6 +33,7 @@ $(document).ready(function () {
                     if (result == 1) {
                         $("#selectBuilding").val(building);
                         findClassroomByBuilding();
+                        $("#selectClassroom").val(value);
                         $("#hint-div").html("<span>更改教室名称成功！</span>");
                     }
                     else if (result == 0) {

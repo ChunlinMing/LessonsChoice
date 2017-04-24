@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.mcl.bysj.dao.TeacherDao">
+
+    <parameterMap id="Teacher" type="com.mcl.bysj.entity.Teacher"/>
+    <parameterMap id="School" type="com.mcl.bysj.entity.School"/>
+    <parameterMap id="ChangeTeacher" type="com.mcl.bysj.vo.ChangeTeacher"/>
+    <resultMap id="TeacherObjOrList" type="Teacher">
+        <result property="teacherId" column="TEACHER_ID"/>
+        <result property="teacherName" column="TEACHER_NAME"/>
+        <result property="teacherGender" column="TEACHER_GENDER"/>
+        <result property="teacherSchool" column="SCHOOL"/>
+        <result property="teacherEmail" column="TEACHER_EMAIL"/>
+    </resultMap>
+
+    <select id="findTeacher" resultMap="TeacherObjOrList" parameterMap="Teacher">
+        SELECT * FROM cqupt_teacher_info WHERE TEACHER_ID = #{teacherId}
+    </select>
+
+    <select id="findTeacherByEntity" resultMap="TeacherObjOrList" parameterMap="Teacher">
+        SELECT * FROM cqupt_teacher_info
+        WHERE TEACHER_ID = #{teacherId}
+        AND TEACHER_NAME = #{teacherName}
+        AND TEACHER_GENDER = #{teacherGender}
+        AND SCHOOL = #{teacherSchool}
+        AND TEACHER_EMAIL = #{teacherEmail}
+    </select>
+
+    <select id="findAllTeacherBySchool" resultMap="TeacherObjOrList" parameterMap="School">
+        SELECT * from cqupt_teacher_info WHERE SCHOOL = #{school}
+    </select>
+
+    <insert id="insertTeacher" parameterMap="Teacher">
+        INSERT INTO cqupt_teacher_info (TEACHER_ID, TEACHER_NAME, TEACHER_GENDER, SCHOOL, TEACHER_EMAIL)
+        VALUES (#{teacherId}, #{teacherName}, #{teacherGender}, #{teacherSchool}, #{teacherEmail})
+    </insert>
+
+    <update id="updateTeacher" parameterMap="ChangeTeacher">
+        update cqupt_teacher_info
+        set TEACHER_ID = #{teacherIdAfter},
+        TEACHER_NAME = #{teacherNameAfter},
+        TEACHER_GENDER = #{teacherGenderAfter},
+        SCHOOL = #{teacherSchoolAfter},
+        TEACHER_EMAIL = #{teacherEmailAfter}
+        where TEACHER_ID = #{teacherIdBefore}
+    </update>
+
+    <delete id="deleteTeacher" parameterMap="Teacher">
+        DELETE FROM cqupt_teacher_info WHERE TEACHER_ID = #{teacherId}
+    </delete>
+</mapper>

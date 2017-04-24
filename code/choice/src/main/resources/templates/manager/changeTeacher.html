@@ -3,25 +3,25 @@
 <head>
     <th:block th:include="manager/header"/>
     <meta charset="UTF-8"/>
-    <title>更改教室信息</title>
+    <title>更改教师信息</title>
 
-    <script src="/js/changeClassroom.js"></script>
+    <script src="/js/changeTeacher.js"></script>
 
     <link rel="stylesheet" type="text/css"
           href="http://cdn.bootcss.com/bootstrap-select/2.0.0-beta1/css/bootstrap-select.css"/>
     <script type="text/javascript"
             src="http://cdn.bootcss.com/bootstrap-select/2.0.0-beta1/js/bootstrap-select.js"></script>
 </head>
-<body onload="findClassroomByBuilding();">
+<body onload="findTeacherBySchool();">
 <div style="width: 70%;margin-left: 15%;margin-top: 45px;">
     <div>
-        <h4>请选择要操作的教室所在教学楼</h4><br/>
+        <h4>请选择要操作的教师所在学院</h4><br/>
         <div class="container" style="width: 80%;float: left">
             <form class="form-horizontal" role="form">
                 <div class="form-group">
                     <div class="col-lg-10" style="width: 62.5%;">
-                        <select id="selectBuilding" class="form-control" onchange="findClassroomByBuilding();">
-                            <option th:each="building:${buildingList}" th:text="${building.building}"></option>
+                        <select id="selectSchool" class="form-control" onchange="findTeacherBySchool();">
+                            <option th:each="school:${schoolList}" th:text="${school.school}"></option>
                         </select>
                     </div>
                 </div>
@@ -30,12 +30,12 @@
         <div style="clear: both;"></div>
         <br/>
         <div>
-            <h4>请选择教室</h4><br/>
+            <h4>请选择教师</h4><br/>
             <div class="container" style="width: 80%;float: left">
                 <form class="form-horizontal" role="form">
                     <div class="form-group">
                         <div class="col-lg-10" style="width: 62.5%;">
-                            <select id="selectClassroom" class="form-control">
+                            <select id="selectTeacher" class="form-control" onchange="findTeacherById($(this).val());">
 
                             </select>
                         </div>
@@ -48,16 +48,21 @@
         <div id="hint-delete">
 
         </div>
+        <div style="display: none;">
+            <input id="hide-name"/>
+            <input id="hide-gender"/>
+            <input id="hide-email"/>
+        </div>
         <div class="btn-group" style="margin-left: 15px;margin-top: 20px;width: 50%;">
             <button id="changeBtn" type="button" class="btn btn-primary" data-toggle="modal" data-target="#changeModal" style="width: 93%;height: 35px;">
-                更改教室信息
+                更改教师信息
             </button>
         </div>
     </div>
     <div class="btn-group" style="margin-left: 15px;margin-top: 35px;width: 50%;">
         <button type="button" class="btn btn-warning" data-toggle="modal" data-target="#myModal"
                 style="width: 93%;height: 35px;">
-            删除选中的教室
+            删除选中的教师
         </button>
     </div>
 </div>
@@ -66,35 +71,72 @@
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                <h4 class="modal-title" id="changeModalLabel">更改教室信息</h4>
+                <h4 class="modal-title" id="changeModalLabel">更改教师信息</h4>
             </div>
-            <div class="modal-body">
+            <div class="modal-body" style="padding-left: 50px;">
                 <div>
-                    <h4>请选择新教学楼</h4><br/>
-                    <div class="container" style="width: 80%;float: left">
-                        <form class="form-horizontal" role="form">
-                            <div class="form-group">
-                                <div class="col-lg-10" style="width: 100%;">
-                                    <select id="bs3Select" class="form-control">
-                                        <option th:each="building:${buildingList}" th:text="${building.building}"></option>
-                                    </select>
-                                </div>
-                            </div>
-                        </form>
+                    <h4 style="float:left">教师工号</h4>
+                    <div class="col-lg-6" style="float:left;width:70%">
+                        <input id="input-id" type="text" class="form-control"/>
+                        <div id="hint-id">
+
+                        </div>
                     </div>
                     <div style="clear: both;"></div>
-                    <br/>
-                    <div>
-                        <h4>请输入更改后的教室名称</h4><br/>
-                        <div class="col-lg-6" style="width: 80%;">
-                            <input type="text" class="form-control"/>
-                            <div id="hint-div">
+                </div>
+                <br/>
+                <div>
+                    <h4 style="float:left">教师姓名</h4>
+                    <div class="col-lg-6" style="float:left;width:70%">
+                        <input id="input-name" type="text" class="form-control"/>
+                        <div id="hint-name">
 
+                        </div>
+                    </div>
+                    <div style="clear: both;"></div>
+                </div>
+                <br/>
+
+                <h4 style="float:left">教师性别</h4>
+                <div class="container" style="width: 70%;float: left">
+                    <form class="form-horizontal" role="form">
+                        <div class="form-group">
+                            <div class="col-lg-10" style="width: 100%;">
+                                <select id="selectGender" class="form-control">
+                                    <option>男</option>
+                                    <option>女</option>
+                                </select>
                             </div>
                         </div>
-                        <div style="clear: both;"></div>
+                    </form>
+                </div>
+                <div style="clear: both;"></div>
+                <br/>
+
+                <h4 style="float:left">教师学院</h4>
+                <div class="container" style="width: 70%;float: left">
+                    <form class="form-horizontal" role="form">
+                        <div class="form-group">
+                            <div class="col-lg-10" style="width: 100%;">
+                                <select id="bs3Select" class="form-control">
+                                    <option th:each="school:${schoolList}" th:text="${school.school}"></option>
+                                </select>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div style="clear: both;"></div>
+                <br/>
+
+                <div>
+                    <h4 style="float:left">教师邮箱</h4>
+                    <div class="col-lg-6" style="float:left;width:70%">
+                        <input id="input-email" type="email" class="form-control"/>
+                        <div id="hint-email">
+
+                        </div>
                     </div>
-                    <br/>
+                    <div style="clear: both;"></div>
                 </div>
             </div>
             <div class="modal-footer" style="margin-right: 6%;">
@@ -111,9 +153,9 @@
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
-                <h4 class="modal-title" id="myModalLabel">删除教室</h4>
+                <h4 class="modal-title" id="myModalLabel">删除教师</h4>
             </div>
-            <div class="modal-body">是否删除选中的教室？</div>
+            <div class="modal-body">是否删除选中的教师？</div>
             <div class="modal-footer">
                 <button id="deleteBtn" type="button" class="btn btn-warning" data-dismiss="modal">确定删除</button>
                 <button type="button" class="btn btn-primary" data-dismiss="modal">取消删除</button>
