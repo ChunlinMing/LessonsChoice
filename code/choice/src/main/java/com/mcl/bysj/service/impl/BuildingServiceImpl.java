@@ -17,7 +17,7 @@ import java.util.List;
 public class BuildingServiceImpl implements BuildingService
 {
     @Autowired
-    BuildingDao buildingDao;
+    private BuildingDao buildingDao;
 
     /**
      * 查找所有教学楼

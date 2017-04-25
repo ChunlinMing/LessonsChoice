@@ -1,10 +1,12 @@
 package com.mcl.bysj.vo;
 
+import java.io.Serializable;
+
 /**
  * 更改学院名称实体类
  * Created by mingchunlin on 17/4/21.
  */
-public class ChangeSchool
+public class ChangeSchool implements Serializable
 {
     /**
      * 要更改的学院名称

@@ -1,10 +1,12 @@
 package com.mcl.bysj.vo;
 
+import java.io.Serializable;
+
 /**
  * 更改选课学分上限实体类
  * Created by mingchunlin on 17/4/21.
  */
-public class ChangeScoreLimit
+public class ChangeScoreLimit implements Serializable
 {
     /**
      * 原选课学分上限

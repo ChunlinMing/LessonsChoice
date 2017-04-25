@@ -19,7 +19,7 @@ import java.util.List;
 public class ClassroomServiceImpl implements ClassroomService
 {
     @Autowired
-    ClassroomDao classroomDao;
+    private ClassroomDao classroomDao;
 
     /**
      * 根据教学楼查找教室

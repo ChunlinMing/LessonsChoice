@@ -17,7 +17,7 @@ import java.util.List;
 public class SchoolServiceImpl implements SchoolService
 {
     @Autowired
-    SchoolDao schoolDao;
+    private SchoolDao schoolDao;
 
     /**
      * 查找所有学院

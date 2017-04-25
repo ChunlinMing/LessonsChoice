@@ -17,7 +17,7 @@ import java.util.List;
 public class LessonTypeServiceImpl implements LessonTypeService
 {
     @Autowired
-    LessonTypeDao lessonTypeDao;
+    private LessonTypeDao lessonTypeDao;
 
     /**
      * 添加课程类型

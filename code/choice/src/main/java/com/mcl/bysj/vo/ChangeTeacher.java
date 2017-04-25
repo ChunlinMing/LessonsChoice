@@ -1,10 +1,12 @@
 package com.mcl.bysj.vo;
 
+import java.io.Serializable;
+
 /**
  * 更改教师实体
  * Created by mingchunlin on 17/4/24.
  */
-public class ChangeTeacher
+public class ChangeTeacher implements Serializable
 {
     /**
      * 要更改的教师ID

@@ -1,10 +1,12 @@
 package com.mcl.bysj.vo;
 
+import java.io.Serializable;
+
 /**
  * 更改教室信息实体类
  * Created by mingchunlin on 17/4/23.
  */
-public class ChangeClassroom
+public class ChangeClassroom implements Serializable
 {
     /**
      * 要更改的教室

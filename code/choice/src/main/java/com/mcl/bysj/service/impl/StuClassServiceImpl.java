@@ -19,7 +19,7 @@ import java.util.List;
 public class StuClassServiceImpl implements StuClassService
 {
     @Autowired
-    StuClassDao stuClassDao;
+    private StuClassDao stuClassDao;
 
     /**
      * 查找指定的教学班

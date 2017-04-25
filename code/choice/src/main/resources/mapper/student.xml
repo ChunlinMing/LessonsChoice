@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.mcl.bysj.dao.StuDao">
+
+    <parameterMap id="Student" type="com.mcl.bysj.entity.Student"/>
+    <parameterMap id="StuClass" type="com.mcl.bysj.entity.StuClass"/>
+    <parameterMap id="ChangeStu" type="com.mcl.bysj.vo.ChangeStu"/>
+    <resultMap id="StudentObjOrList" type="Student">
+        <result property="stuId" column="STU_ID"/>
+        <result property="stuName" column="STU_NAME"/>
+        <result property="stuGender" column="STU_GENDER"/>
+        <result property="stuSchool" column="SCHOOL"/>
+        <result property="stuClass" column="CLASS"/>
+        <result property="gradeYear" column="GRADE_YEAR"/>
+        <result property="stuEmail" column="STU_EMAIL"/>
+    </resultMap>
+
+    <select id="findStudent" resultMap="StudentObjOrList" parameterMap="Student">
+        SELECT * FROM cqupt_stu_info WHERE STU_ID = #{stuId}
+    </select>
+
+    <select id="findStudentByEntity" resultMap="StudentObjOrList" parameterMap="Student">
+        SELECT * FROM cqupt_stu_info
+        WHERE STU_ID = #{stuId}
+        AND STU_NAME = #{stuName}
+        AND STU_GENDER = #{stuGender}
+        AND SCHOOL = #{stuSchool}
+        AND CLASS = #{stuClass}
+        AND GRADE_YEAR = #{gradeYear}
+        AND STU_EMAIL = #{stuEmail}
+    </select>
+
+    <select id="findAllStudentByStuClass" resultMap="StudentObjOrList" parameterMap="StuClass">
+        SELECT * from cqupt_stu_info WHERE CLASS = #{stuClass}
+    </select>
+
+    <insert id="insertStudent" parameterMap="Student">
+        INSERT INTO cqupt_stu_info (STU_ID, STU_NAME, STU_GENDER, SCHOOL, CLASS, GRADE_YEAR, STU_EMAIL)
+        VALUES (#{stuId}, #{stuName}, #{stuGender}, #{stuSchool}, #{stuClass}, #{gradeYear}, #{stuEmail})
+    </insert>
+
+    <update id="updateStudent" parameterMap="ChangeStu">
+        update cqupt_stu_info
+        set STU_ID = #{stuIdAfter},
+        STU_NAME = #{stuNameAfter},
+        STU_GENDER = #{stuGenderAfter},
+        SCHOOL = #{stuSchoolAfter},
+        CLASS = #{stuClassAfter},
+        GRADE_YEAR = #{gradeYearAfter},
+        STU_EMAIL = #{stuEmailAfter}
+        where STU_ID = #{stuIdBefore}
+    </update>
+
+    <delete id="deleteStudent" parameterMap="Student">
+        DELETE FROM cqupt_stu_info WHERE STU_ID = #{stuId}
+    </delete>
+</mapper>

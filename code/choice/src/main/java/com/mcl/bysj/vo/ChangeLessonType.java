@@ -1,10 +1,12 @@
 package com.mcl.bysj.vo;
 
+import java.io.Serializable;
+
 /**
  * 更改课程类型实体类
  * Created by mingchunlin on 17/4/21.
  */
-public class ChangeLessonType
+public class ChangeLessonType implements Serializable
 {
     /**
      * 要更改的课程类型

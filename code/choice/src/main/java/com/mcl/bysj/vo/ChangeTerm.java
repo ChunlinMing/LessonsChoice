@@ -1,10 +1,12 @@
 package com.mcl.bysj.vo;
 
+import java.io.Serializable;
+
 /**
  * 更改学期的实体类
  * Created by mingchunlin on 17/4/20.
  */
-public class ChangeTerm
+public class ChangeTerm implements Serializable
 {
     /**
      * 要更改的学期

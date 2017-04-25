@@ -17,7 +17,7 @@ import java.util.List;
 public class GradeYearServiceImpl implements GradeYearService
 {
     @Autowired
-    GradeYearDao gradeYearDao;
+    private GradeYearDao gradeYearDao;
 
     /**
      * 添加年级

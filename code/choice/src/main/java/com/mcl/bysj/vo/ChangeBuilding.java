@@ -1,10 +1,12 @@
 package com.mcl.bysj.vo;
 
+import java.io.Serializable;
+
 /**
  * 更改教学楼实体类
  * Created by mingchunlin on 17/4/22.
  */
-public class ChangeBuilding
+public class ChangeBuilding implements Serializable
 {
     /**
      * 要更改的教学楼名称

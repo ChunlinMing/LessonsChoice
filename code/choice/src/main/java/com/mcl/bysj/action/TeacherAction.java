@@ -87,15 +87,15 @@ public class TeacherAction
     public int changeTeacher(HttpServletResponse response, ChangeTeacher changeTeacher)
     {
         response.setHeader("Access-Control-Allow-Origin", "*");
-        if (null != changeTeacher && null != changeTeacher.getTeacherIdBefore())
+        if (null != changeTeacher && !Helper.isEmpty(changeTeacher.getTeacherIdBefore()))
         {
-            if (changeTeacher.getFlag() == 0)
+            if (0 == changeTeacher.getFlag())
             {
                 Teacher teacher = new Teacher();
                 teacher.setTeacherId(changeTeacher.getTeacherIdBefore());
                 return teacherService.deleteTeacher(teacher);
             }
-            else if (changeTeacher.getFlag() == 1)
+            else if (1 == changeTeacher.getFlag())
             {
                 List<String> list = new ArrayList<>(5);
                 list.add(changeTeacher.getTeacherIdAfter());

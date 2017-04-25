@@ -18,7 +18,7 @@ import java.util.List;
 public class TeacherServiceImpl implements TeacherService
 {
     @Autowired
-    TeacherDao teacherDao;
+    private TeacherDao teacherDao;
 
     /**
      * 根据id查找教师

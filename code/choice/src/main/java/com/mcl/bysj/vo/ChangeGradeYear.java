@@ -1,10 +1,12 @@
 package com.mcl.bysj.vo;
 
+import java.io.Serializable;
+
 /**
  * 更改年级实体类
  * Created by mingchunlin on 17/4/21.
  */
-public class ChangeGradeYear
+public class ChangeGradeYear implements Serializable
 {
     /**
      * 要更改的学期

@@ -17,7 +17,7 @@ import java.util.List;
 public class TermServiceImpl implements TermService
 {
     @Autowired
-    TermDao termDao;
+    private TermDao termDao;
 
     /**
      * 添加学期

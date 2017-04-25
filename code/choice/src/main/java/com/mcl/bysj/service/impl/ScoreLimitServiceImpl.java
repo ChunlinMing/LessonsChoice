@@ -17,7 +17,7 @@ import java.util.List;
 public class ScoreLimitServiceImpl implements ScoreLimitService
 {
     @Autowired
-    ScoreLimitDao scoreLimitDao;
+    private ScoreLimitDao scoreLimitDao;
 
     /**
      * 更改选课学分上限
