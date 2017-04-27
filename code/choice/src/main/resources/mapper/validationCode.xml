@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.mcl.bysj.dao.ValidationCodeDao">
+    <parameterMap id="ValidationCode" type="com.mcl.bysj.entity.ValidationCode"/>
+    <parameterMap id="UpdateValidationCode" type="com.mcl.bysj.vo.UpdateValidationCode"/>
+    <resultMap id="validationCodeObjOrList" type="ValidationCode">
+        <result property="userId" column="USER_ID"/>
+        <result property="validationCode" column="VALIDATION_CODE"/>
+        <result property="expireFlag" column="EXPIRE_FLAG"/>
+    </resultMap>
+
+    <select id="findValidationCode" resultMap="validationCodeObjOrList" parameterMap="ValidationCode">
+        SELECT * FROM cqupt_validation_code
+        WHERE USER_ID = #{userId}
+        AND VALIDATION_CODE = #{validationCode}
+        AND EXPIRE_FLAG = #{expireFlag}
+    </select>
+
+    <select id="findUnExpiredCode" resultMap="validationCodeObjOrList" parameterMap="ValidationCode">
+        SELECT * FROM cqupt_validation_code
+        WHERE USER_ID = #{userId}
+        AND EXPIRE_FLAG = #{expireFlag}
+    </select>
+
+    <insert id="insertValidationCode" parameterMap="ValidationCode">
+        INSERT INTO cqupt_validation_code (USER_ID, VALIDATION_CODE, EXPIRE_FLAG)
+        VALUES (#{userId}, #{validationCode}, #{expireFlag})
+    </insert>
+
+    <update id="updateValidationCode" parameterMap="UpdateValidationCode">
+        update cqupt_validation_code
+        set EXPIRE_FLAG = #{expireFlagAfter}
+        where USER_ID = #{userId}
+        AND EXPIRE_FLAG = #{expireFlagBefore};
+    </update>
+</mapper>

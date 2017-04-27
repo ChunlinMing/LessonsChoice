@@ -2,9 +2,11 @@ package com.mcl.bysj.utils;
 
 import com.mcl.bysj.entity.LoginInfo;
 import org.apache.commons.codec.binary.Base64;
+import org.springframework.mail.SimpleMailMessage;
 
 import javax.servlet.http.HttpSession;
 import java.util.List;
+import java.util.Random;
 
 /**
  * 工具类
@@ -97,8 +99,8 @@ public class Helper
     }
 
     /**
-     * 检查某个所有属性都为String类型的对象中是否有属性为空
-     * @param args 属性数组
+     * 检查一个List<String>对象中是否有元素为空
+     * @param list List对象
      * @return true OR false
      */
     public static boolean checkEmpty(List<String> list)
@@ -111,5 +113,30 @@ public class Helper
             }
         }
         return false;
+    }
+
+    /**
+     * 产生15位随机字符串
+     * @return 随机字符串
+     */
+    public static String produceValidationCode()
+    {
+        String str = "1234567890abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ";
+        StringBuffer sb = new StringBuffer();
+        for(int i = 0;i < 15;i++)
+        {
+            sb.append(str.charAt(new Random().nextInt(62)));
+        }
+        return sb.toString();
+    }
+
+    public static SimpleMailMessage mailConfig(String toMail, String userId, String code)
+    {
+        SimpleMailMessage message = new SimpleMailMessage();
+        message.setFrom("1432608191@qq.com");//发送者
+        message.setTo(toMail);//接收者
+        message.setSubject("邮件验证码");//邮件主题
+        message.setText(userId + "，这是你的邮件验证码：" + code);//邮件内容
+        return message;
     }
 }

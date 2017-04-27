@@ -15,5 +15,23 @@ public interface LoginInfoDao
      */
     Integer findUserType(LoginInfo loginInfo);
 
+    /**
+     * 根据登录账户查找用户
+     * @param loginInfo 登录信息
+     * @return 查找结果
+     */
+    LoginInfo findUserById(LoginInfo loginInfo);
 
+    /**
+     * 注册用户
+     * @return 成功1，失败0
+     */
+    int insertUser(LoginInfo loginInfo);
+
+    /**
+     * 更改用户密码
+     * @param loginInfo 用户登录信息
+     * @return 成功1，失败0
+     */
+    int updateUser(LoginInfo loginInfo);
 }

@@ -9,4 +9,10 @@ import com.mcl.bysj.entity.LoginInfo;
 public interface LoginInfoService
 {
     Integer findUserType(LoginInfo loginInfo);
+
+    int findUserById(LoginInfo loginInfo);
+
+    int insertUser(LoginInfo loginInfo);
+
+    int updateUser(LoginInfo loginInfo);
 }

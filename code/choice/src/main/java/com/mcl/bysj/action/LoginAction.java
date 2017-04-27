@@ -1,16 +1,20 @@
 package com.mcl.bysj.action;
 
 import com.mcl.bysj.entity.LoginInfo;
+import com.mcl.bysj.entity.ValidationCode;
 import com.mcl.bysj.service.LoginInfoService;
+import com.mcl.bysj.service.ValidationCodeService;
 import com.mcl.bysj.utils.Helper;
-import org.apache.log4j.Logger;
+import com.mcl.bysj.vo.UpdateValidationCode;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
+import javax.servlet.http.HttpServletResponse;
+import java.util.List;
 
 /**
  * 用于登录的控制器
@@ -21,6 +25,12 @@ public class LoginAction
 {
     @Autowired
     private LoginInfoService loginInfoService;
+
+    @Autowired
+    private ValidationCodeService validationCodeService;
+
+    @Autowired
+    private JavaMailSender mailSender;
 
     @RequestMapping(value="/", method = RequestMethod.GET)
     public String login(HttpServletRequest request)
@@ -53,6 +63,192 @@ public class LoginAction
     {
         request.getSession().invalidate();
         return "redirect:/";
+    }
+
+    @RequestMapping(value = "/signUp", method = RequestMethod.GET)
+    public String signUpPage()
+    {
+        return "signUp";
+    }
+
+    @RequestMapping(value = "/signUp", method = RequestMethod.POST)
+    public String SignUp(@ModelAttribute LoginInfo loginInfo, @RequestParam int length,
+                         @RequestParam String code, Model model)
+    {
+        if (null != loginInfo && !Helper.isEmpty(code) && length > 0)
+        {
+            ValidationCode validationCode = new ValidationCode();
+            validationCode.setUserId(loginInfo.getUserId());
+            validationCode.setValidationCode(code);
+            validationCode.setExpireFlag(false);
+            ValidationCode findCodeResult = validationCodeService.findValidationCode(validationCode);
+            UpdateValidationCode updateValidationCode = new UpdateValidationCode();
+            updateValidationCode.setUserId(loginInfo.getUserId());
+            updateValidationCode.setExpireFlagBefore(false);
+            updateValidationCode.setExpireFlagAfter(true);
+            validationCodeService.updateValidationCode(updateValidationCode);
+            if (null != findCodeResult)
+            {
+                loginInfo.setUserType(loginInfoService.findUserById(loginInfo));
+                loginInfo.setUserPwd(Helper.EncodePwd(loginInfo.getUserPwd(),length));
+                if (1 == loginInfoService.insertUser(loginInfo))
+                {
+                    model.addAttribute("userResult","注册成功！");
+                    return "success";
+                }
+            }
+            else
+            {
+                model.addAttribute("codeResult","验证码错误，请点击“发送邮件验证码”按钮重新获取验证码！");
+            }
+        }
+        return "signUp";
+    }
+
+    @RequestMapping(value = "/forgotPwd", method = RequestMethod.GET)
+    public String forgotPasswordPage()
+    {
+        return "forgotPwd";
+    }
+
+    @RequestMapping(value = "resetPwd", method = RequestMethod.POST)
+    public String resetPwd(HttpServletRequest request, @ModelAttribute LoginInfo loginInfo,
+                           @RequestParam int length, @RequestParam String code, Model model)
+    {
+        if (null != loginInfo && !Helper.isEmpty(code) && length > 0)
+        {
+            ValidationCode validationCode = new ValidationCode();
+            validationCode.setUserId(loginInfo.getUserId());
+            validationCode.setValidationCode(code);
+            validationCode.setExpireFlag(false);
+            ValidationCode findCodeResult = validationCodeService.findValidationCode(validationCode);
+            UpdateValidationCode updateValidationCode = new UpdateValidationCode();
+            updateValidationCode.setUserId(loginInfo.getUserId());
+            updateValidationCode.setExpireFlagBefore(false);
+            updateValidationCode.setExpireFlagAfter(true);
+            validationCodeService.updateValidationCode(updateValidationCode);
+            if (null != findCodeResult)
+            {
+                loginInfo.setUserPwd(Helper.EncodePwd(loginInfo.getUserPwd(),length));
+                if (1 == loginInfoService.updateUser(loginInfo))
+                {
+                    model.addAttribute("userResult","更改密码成功！");
+                    if (null != request.getSession(false))
+                    {
+                        request.getSession().invalidate();
+                    }
+                    return "success";
+                }
+            }
+            else
+            {
+                model.addAttribute("codeResult","验证码错误，请点击“发送邮件验证码”按钮重新获取验证码！");
+            }
+        }
+        if (null != request.getSession(false))
+        {
+            return "resetPwd";
+        }
+        return "forgotPwd";
+    }
+
+    @RequestMapping(value = "sendSignUpMail", method = RequestMethod.POST)
+    @ResponseBody
+    public int sendSignUpMail(HttpServletResponse response, LoginInfo loginInfo)
+    {
+        response.setHeader("Access-Control-Allow-Origin", "*");
+        if (null != loginInfo && !Helper.isEmpty(loginInfo.getUserId()))
+        {
+            int res = loginInfoService.findUserById(loginInfo);
+            if (1 == res || 2 == res)
+            {
+                ValidationCode validationCode = new ValidationCode();
+                validationCode.setExpireFlag(false);
+                validationCode.setUserId(loginInfo.getUserId());
+                List<ValidationCode> list = validationCodeService.findUnExpiredCode(validationCode);
+                if (null != list)
+                {
+                    UpdateValidationCode updateValidationCode = new UpdateValidationCode();
+                    updateValidationCode.setUserId(loginInfo.getUserId());
+                    updateValidationCode.setExpireFlagAfter(true);
+                    updateValidationCode.setExpireFlagBefore(false);
+                    validationCodeService.updateValidationCode(updateValidationCode);
+                }
+
+                String code = Helper.produceValidationCode();
+                validationCode.setValidationCode(code);
+                int insertResult = validationCodeService.insertValidationCode(validationCode);
+                if (1 == insertResult)
+                {
+                    mailSender.send(Helper.mailConfig(validationCodeService.findEmail(loginInfo.getUserId()),
+                            loginInfo.getUserId(), code));
+                }
+                else
+                {
+                    return insertResult;
+                }
+            }
+            else
+            {
+                return res;
+            }
+        }
+        else
+        {
+            return 0;
+        }
+        return 1;
+    }
+
+    @RequestMapping(value = "sendResetPwdMail", method = RequestMethod.POST)
+    @ResponseBody
+    public int sendResetPwdMail(HttpServletResponse response, LoginInfo loginInfo)
+    {
+        response.setHeader("Access-Control-Allow-Origin", "*");
+        if (null != loginInfo && !Helper.isEmpty(loginInfo.getUserId()))
+        {
+            int res = loginInfoService.findUserById(loginInfo);
+            if (-100 == res)
+            {
+                ValidationCode validationCode = new ValidationCode();
+                validationCode.setUserId(loginInfo.getUserId());
+                validationCode.setExpireFlag(false);
+                List<ValidationCode> list = validationCodeService.findUnExpiredCode(validationCode);
+                if (null != list)
+                {
+                    UpdateValidationCode updateValidationCode = new UpdateValidationCode();
+                    updateValidationCode.setUserId(loginInfo.getUserId());
+                    updateValidationCode.setExpireFlagBefore(false);
+                    updateValidationCode.setExpireFlagAfter(true);
+                    validationCodeService.updateValidationCode(updateValidationCode);
+                }
+                String code = Helper.produceValidationCode();
+                validationCode.setValidationCode(code);
+                int insertResult = validationCodeService.insertValidationCode(validationCode);
+                if (1 == insertResult)
+                {
+                    mailSender.send(Helper.mailConfig(validationCodeService.findEmail(loginInfo.getUserId()),
+                            loginInfo.getUserId(), code));
+                }
+                else
+                {
+                    return insertResult;
+                }
+            }
+            else if (1 == res || 2 == res)
+            {
+                return 2;
+            }
+            else
+            {
+                return res;
+            }
+        }
+        else
+        {
+            return 0;
+        }
+        return 1;
     }
 
     @RequestMapping(value="/manager")

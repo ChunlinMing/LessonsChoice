@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+    <title>忘记密码</title>
+    <link rel="stylesheet" href="http://cdn.static.runoob.com/libs/bootstrap/3.3.7/css/bootstrap.min.css" />
+    <script src="http://cdn.bootcss.com/jquery/3.2.1/jquery.min.js"></script>
+    <script src="http://cdn.static.runoob.com/libs/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script th:src="@{/encrypt/jsencrypt.min.js}" type="text/javascript" charset="utf-8"></script>
+    <script src="/js/forgotPwd.js"></script>
+</head>
+<body>
+<div style="width: 70%;margin-left: 15%;margin-top: 45px;padding-left: 30px;padding-top:45px;background-color: papayawhip;height:100%;min-height: 600px;">
+    <div id="hint-field" style="margin-left: 90px;margin-bottom: 5px;" th:unless="${codeResult == null}">
+        <span style="color:#ec3627;" th:text="${codeResult}">Hint</span>
+    </div>
+    <div id="hint-div" style="margin-left: 90px;margin-bottom: 5px;">
+
+    </div>
+    <form th:action="@{/resetPwd}" id="signUp_form" method="post" name="rsa">
+        <input name="userId" type="hidden" value=""/>
+        <input name="userPwd" type="hidden" value=""/>
+        <input name="code" type="hidden" value=""/>
+        <input type="hidden" name="length" value=""/>
+    </form>
+    <div>
+        <h4 style="float:left">账&#12288;&#12288;号</h4>
+        <div class="col-lg-6" style="float:left;width:50%">
+            <input id="input-id" type="text" class="form-control"/>
+        </div>
+        <button id="codeBtn" type="button" class="btn btn-success">发送邮件验证码</button>
+        <div style="clear: both;"></div>
+    </div>
+    <br/>
+    <div>
+        <h4 style="float:left">验&#8194;证&#8194;码</h4>
+        <div class="col-lg-6" style="float:left;width:50%">
+            <input id="input-code" type="text" class="form-control"/>
+        </div>
+        <div style="clear: both;"></div>
+    </div>
+    <br/>
+
+    <div>
+        <h4 style="float:left">密&#12288;&#12288;码</h4>
+        <div class="col-lg-6" style="float:left;width:50%">
+            <input id="input-pwd" type="password" class="form-control"/>
+        </div>
+        <div style="clear: both;"></div>
+    </div>
+    <br/>
+
+    <div>
+        <h4 style="float:left">确认密码</h4>
+        <div class="col-lg-6" style="float:left;width:50%">
+            <input id="input-confirmPwd" type="password" class="form-control"/>
+        </div>
+        <div style="clear: both;"></div>
+    </div>
+    <br/>
+    <div class="btn-group" style="margin-left: 87px;margin-top: 35px;width:50%;">
+        <button id="signUpBtn" type="button" class="btn btn-primary" style="width: 93%;height: 35px;">
+            更改密码
+        </button>
+    </div>
+</div>
+</body>
+</html>
