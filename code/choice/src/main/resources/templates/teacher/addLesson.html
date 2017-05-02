@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <th:block th:include="teacher/header"/>
+    <meta charset="UTF-8"/>
+    <title>添加课程</title>
+
+    <script src="/js/teacher/addLesson.js"></script>
+
+    <link rel="stylesheet" type="text/css"
+          href="http://cdn.bootcss.com/bootstrap-select/2.0.0-beta1/css/bootstrap-select.css"/>
+    <script type="text/javascript"
+            src="http://cdn.bootcss.com/bootstrap-select/2.0.0-beta1/js/bootstrap-select.js"></script>
+</head>
+<body onload="findClassroomByBuilding();">
+<div style="width: 70%;margin-left: 15%;margin-top: 45px;padding-left: 30px;padding-top:45px;background-color: papayawhip;height:100%;min-height: 900px;">
+    <div>
+        <h4 style="float:left">课&#8194;程&#8194;号</h4>
+        <div class="col-lg-6" style="float:left;width:50%">
+            <input id="input-id" type="text" class="form-control"/>
+        </div>
+        <div style="clear: both;"></div>
+    </div>
+    <br/>
+    <div>
+        <h4 style="float:left">课&#8194;程&#8194;名</h4>
+        <div class="col-lg-6" style="float:left;width:50%">
+            <input id="input-name" type="text" class="form-control"/>
+        </div>
+        <div style="clear: both;"></div>
+    </div>
+    <br/>
+
+    <h4 style="float:left">上课地点</h4>
+    <div class="container" style="width: 80%;float: left">
+        <form class="form-horizontal" role="form">
+            <div class="form-group">
+                <div class="col-lg-10" style="width: 62.5%;">
+                    <select id="select-building" class="form-control" style="width: 50%;float: left;" onchange="findClassroomByBuilding();">
+                        <option th:each="building:${buildingList}" th:text="${building.building}"></option>
+                    </select>
+                    <select id="select-classroom" class="form-control" style="width: 50%;float: left;">
+
+                    </select>
+                </div>
+            </div>
+        </form>
+    </div>
+    <div style="clear: both;"></div>
+    <br/>
+
+    <h4 style="float:left">上课时间</h4>
+    <div class="container" style="width: 80%;float: left">
+        <form class="form-horizontal" role="form">
+            <div class="form-group">
+                <div class="col-lg-10" style="width: 62.5%;">
+                    <select id="select-day" class="form-control" style="width: 50%;float: left;">
+                        <option>周一</option>
+                        <option>周二</option>
+                        <option>周三</option>
+                        <option>周四</option>
+                        <option>周五</option>
+                        <option>周六</option>
+                        <option>周日</option>
+                    </select>
+                    <select id="select-time" class="form-control" style="width: 50%;float: left;">
+                        <option>1、2节</option>
+                        <option>3、4节</option>
+                        <option>5、6节</option>
+                        <option>7、8节</option>
+                        <option>9、10节</option>
+                        <option>11、12节</option>
+                    </select>
+                </div>
+                <div class="checkbox" style="clear: both;margin-left: 50px;">
+                    <label>
+                        <input type="checkbox" id="three" name="check" value="三节连上"/> 三节连上
+                    </label>
+                    <label style="margin-left: 50px;">
+                        <input type="checkbox" id="four" name="check" value="四节连上"/> 四节连上
+                    </label>
+                </div>
+            </div>
+        </form>
+    </div>
+    <div style="clear: both;"></div>
+    <br/>
+
+    <h4 style="float:left">上课时段</h4>
+    <div class="container" style="width: 80%;float: left">
+        <form class="form-horizontal" role="form">
+            <div class="form-group">
+                <div class="col-lg-10" style="width: 62.5%;">
+                    <select id="select-week-start" class="form-control" style="width: 45%;float: left;">
+                        <option>1周</option>
+                        <option>2周</option>
+                        <option>3周</option>
+                        <option>4周</option>
+                        <option>5周</option>
+                        <option>6周</option>
+                        <option>7周</option>
+                        <option>8周</option>
+                        <option>9周</option>
+                        <option>10周</option>
+                        <option>11周</option>
+                        <option>12周</option>
+                        <option>13周</option>
+                        <option>14周</option>
+                        <option>15周</option>
+                        <option>16周</option>
+                        <option>17周</option>
+                        <option>18周</option>
+                        <option>19周</option>
+                        <option>20周</option>
+                    </select>
+                    <h5 style="float: left;text-align: center;width: 10%;">到</h5>
+                    <select id="select-week-end" class="form-control" style="width: 45%;float: left;">
+                        <option>1周</option>
+                        <option>2周</option>
+                        <option>3周</option>
+                        <option>4周</option>
+                        <option>5周</option>
+                        <option>6周</option>
+                        <option>7周</option>
+                        <option>8周</option>
+                        <option>9周</option>
+                        <option>10周</option>
+                        <option>11周</option>
+                        <option>12周</option>
+                        <option>13周</option>
+                        <option>14周</option>
+                        <option>15周</option>
+                        <option>16周</option>
+                        <option>17周</option>
+                        <option>18周</option>
+                        <option>19周</option>
+                        <option>20周</option>
+                    </select>
+                </div>
+            </div>
+        </form>
+    </div>
+    <div style="clear: both;"></div>
+    <br/>
+
+    <h4 style="float:left">课程类型</h4>
+    <div class="container" style="width: 80%;float: left">
+        <form class="form-horizontal" role="form">
+            <div class="form-group">
+                <div class="col-lg-10" style="width: 62.5%;">
+                    <select id="select-lessonType" class="form-control">
+                        <option th:each="lessonType:${lessonTypeList}" th:text="${lessonType.lessonTypeName}"></option>
+                    </select>
+                </div>
+            </div>
+        </form>
+    </div>
+    <div style="clear: both;"></div>
+    <br/>
+
+    <h4 style="float:left">课程学分</h4>
+    <div class="container" style="width: 80%;float: left">
+        <form class="form-horizontal" role="form">
+            <div class="form-group">
+                <div class="col-lg-10" style="width: 62.5%;">
+                    <select id="select-lessonScore-one" class="form-control" style="width: 50%;float: left;">
+                        <option>0</option>
+                        <option>1</option>
+                        <option>2</option>
+                        <option>3</option>
+                        <option>4</option>
+                        <option>5</option>
+                        <option>6</option>
+                        <option>7</option>
+                        <option>8</option>
+                        <option>9</option>
+                        <option>10</option>
+                        <option>11</option>
+                        <option>12</option>
+                        <option>13</option>
+                        <option>14</option>
+                        <option>15</option>
+                        <option>16</option>
+                        <option>17</option>
+                        <option>18</option>
+                        <option>19</option>
+                        <option>20</option>
+                    </select>
+                    <select id="select-lessonScore-two" class="form-control" style="width: 50%;float: left;">
+                        <option>0</option>
+                        <option>0.5</option>
+                    </select>
+                </div>
+            </div>
+        </form>
+    </div>
+    <div style="clear: both;"></div>
+    <br/>
+
+    <h4 style="float:left">上课学期</h4>
+    <div class="container" style="width: 80%;float: left">
+        <form class="form-horizontal" role="form">
+            <div class="form-group">
+                <div class="col-lg-10" style="width: 62.5%;">
+                    <select id="select-term" class="form-control">
+                        <option th:each="term:${termList}" th:text="${term.term}"></option>
+                    </select>
+                </div>
+            </div>
+        </form>
+    </div>
+    <div style="clear: both;"></div>
+    <br/>
+
+    <h4 style="float:left">可选年级</h4>
+    <div class="container" style="width: 80%;float: left">
+        <form class="form-horizontal" role="form">
+            <div class="form-group">
+                <div class="col-lg-10" style="width: 62.5%;float: left;">
+                    <select id="select-gradeYear" class="form-control">
+                        <option th:each="gradeYear:${gradeYearList}" th:text="${gradeYear.gradeYear}"></option>
+                    </select>
+                </div>
+                <div class="checkbox" style="float: left;width: 50px;">
+                    <label>
+                        <input type="checkbox" id="gradeYear-chooseAll"/> All
+                    </label>
+                </div>
+            </div>
+        </form>
+    </div>
+    <div style="clear: both;"></div>
+    <br/>
+
+    <h4 style="float:left">可选学院</h4>
+    <div class="container" style="width: 80%;float: left">
+        <form class="form-horizontal" role="form">
+            <div class="form-group">
+                <div class="col-lg-10" style="width: 62.5%;float: left;">
+                    <select id="select-school" class="form-control">
+                        <option th:each="school:${schoolList}" th:text="${school.school}"></option>
+                    </select>
+                </div>
+                <div class="checkbox" style="float: left;width: 50px;">
+                    <label>
+                        <input type="checkbox" id="school-chooseAll"/> All
+                    </label>
+                </div>
+            </div>
+        </form>
+    </div>
+    <div style="clear: both;"></div>
+    <br/>
+
+    <div>
+        <h4 style="float:left">可选人数</h4>
+        <div class="col-lg-6" style="float:left;width:50%">
+            <input id="input-unm" type="number" class="form-control"/>
+            <div id="hint-div">
+
+            </div>
+        </div>
+        <div style="clear: both;"></div>
+    </div>
+    <br/>
+    <div style="display: none;">
+        <input id="teacherId" th:value="${userId}"/>
+        <input id="teacherName" th:value="${teacherName}"/>
+    </div>
+
+    <div class="btn-group" style="margin-left: 88px;margin-top: 15px;width:50%;margin-bottom: 25px;">
+        <button id="addBtn" type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal"
+                style="width: 93%;height: 35px;">
+            添加课程
+        </button>
+    </div>
+</div>
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title" id="myModalLabel">确认课程信息</h4>
+            </div>
+            <div class="modal-body" style="color: #ec3627;">
+                <div id="id" style="margin-left: 20px;"></div>
+                <div id="name" style="margin-left: 20px;"></div>
+                <div id="classroom" style="margin-left: 20px;"></div>
+                <div id="time" style="margin-left: 20px;"></div>
+                <div id="week" style="margin-left: 20px;"></div>
+                <div id="lessonType" style="margin-left: 20px;"></div>
+                <div id="lessonScore" style="margin-left: 20px;"></div>
+                <div id="term" style="margin-left: 20px;"></div>
+                <div id="gradeYear" style="margin-left: 20px;"></div>
+                <div id="school" style="margin-left: 20px;"></div>
+                <div id="num" style="margin-left: 20px;"></div>
+            </div>
+            <div class="modal-footer" style="margin-right: 6%;">
+                <button id="confirmBtn" type="button" class="btn btn-warning" data-dismiss="modal" style="width: 46%;height: 35px;">
+                    确定添加
+                </button>
+                <button type="button" class="btn btn-primary" data-dismiss="modal" style="width: 46%;height: 35px;">
+                    取消
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

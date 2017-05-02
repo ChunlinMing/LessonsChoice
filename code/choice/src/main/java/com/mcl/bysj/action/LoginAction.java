@@ -1,8 +1,10 @@
 package com.mcl.bysj.action;
 
+import com.mcl.bysj.entity.LessonInfo;
 import com.mcl.bysj.entity.LoginInfo;
 import com.mcl.bysj.entity.ValidationCode;
 import com.mcl.bysj.service.LoginInfoService;
+import com.mcl.bysj.service.TeacherFuncService;
 import com.mcl.bysj.service.ValidationCodeService;
 import com.mcl.bysj.utils.Helper;
 import com.mcl.bysj.vo.UpdateValidationCode;
@@ -31,6 +33,9 @@ public class LoginAction
 
     @Autowired
     private JavaMailSender mailSender;
+
+    @Autowired
+    private TeacherFuncService teacherFuncService;
 
     @RequestMapping(value="/", method = RequestMethod.GET)
     public String login(HttpServletRequest request)
@@ -259,6 +264,23 @@ public class LoginAction
             if (request.getSession().getAttribute("userType").equals(0))
             {
                 return "manager/manager";
+            }
+        }
+        return Helper.checkUserType((Integer)request.getSession().getAttribute("userType"));
+    }
+
+    @RequestMapping(value = "/teacher", method = RequestMethod.GET)
+    public String showLesson(HttpServletRequest request, Model model)
+    {
+        if (request.getSession().getAttribute("userType") != null)
+        {
+            if (request.getSession().getAttribute("userType").equals(1))
+            {
+                String id = request.getSession().getAttribute("userId").toString();
+                List<LessonInfo> lessonList = teacherFuncService.findLessonByTeacher(id);
+                model.addAttribute("userId",id);
+                model.addAttribute("lessonList",lessonList);
+                return "teacher/showLesson";
             }
         }
         return Helper.checkUserType((Integer)request.getSession().getAttribute("userType"));

@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.mcl.bysj.dao.TeacherLessonDao">
+
+    <parameterMap id="LessonInfo" type="com.mcl.bysj.entity.LessonInfo"/>
+    <parameterMap id="UpdateLesson" type="com.mcl.bysj.vo.UpdateLesson"/>
+    <resultMap id="LessonObjOrList" type="LessonInfo">
+        <result property="lessonId" column="LESSON_ID"/>
+        <result property="lessonName" column="LESSON_NAME"/>
+        <result property="teacherId" column="TEACHER_ID"/>
+        <result property="teacherName" column="TEACHER_NAME"/>
+        <result property="classroom" column="CLASSROOM"/>
+        <result property="lessonTime" column="LESSON_TIME"/>
+        <result property="lessonWeeks" column="LESSON_WEEKS"/>
+        <result property="lessonOptionalStu" column="LESSON_OPTIONAL_STU"/>
+        <result property="lessonChosedStu" column="LESSON_CHOSED_STU"/>
+        <result property="lessonType" column="LESSON_TYPE"/>
+        <result property="term" column="TERM"/>
+        <result property="lessonScore" column="LESSON_SCORE"/>
+        <result property="gradeYear" column="GRADE_YEAR"/>
+        <result property="school" column="SCHOOL"/>
+    </resultMap>
+
+    <select id="findLessonById" resultMap="LessonObjOrList" parameterType="java.lang.String">
+        SELECT * FROM cqupt_lesson_info WHERE LESSON_ID = #{lessonId}
+    </select>
+
+    <select id="findLessonByEntity" resultMap="LessonObjOrList" parameterMap="LessonInfo">
+        SELECT * FROM cqupt_lesson_info
+        WHERE LESSON_ID = #{lessonId}
+        AND LESSON_NAME = #{lessonName}
+        AND LESSON_SCORE = #{lessonScore}
+        AND GRADE_YEAR = #{gradeYear}
+        AND CLASSROOM = #{classroom}
+        AND LESSON_TIME = #{lessonTime}
+        AND LESSON_WEEKS = #{lessonWeeks}
+        AND LESSON_OPTIONAL_STU = #{lessonOptionalStu}
+        AND SCHOOL = #{school}
+        AND LESSON_TYPE = #{lessonType}
+        AND TERM = #{term}
+        AND TEACHER_ID = #{teacherId}
+        AND TEACHER_NAME = #{teacherName}
+        AND LESSON_CHOSED_STU = #{lessonChosedStu}
+    </select>
+
+    <select id="findLessonByTeacher" resultMap="LessonObjOrList" parameterType="java.lang.String">
+        SELECT * from cqupt_lesson_info WHERE TEACHER_ID = #{teacherId}
+    </select>
+
+    <select id="findChoseStuByLesson" parameterType="java.lang.String">
+        SELECT LESSON_CHOSED_STU from cqupt_lesson_info WHERE LESSON_ID = #{lessonId}
+    </select>
+
+    <select id="findOptionalStuByLesson" parameterType="java.lang.String">
+        SELECT LESSON_OPTIONAL_STU from cqupt_lesson_info WHERE LESSON_ID = #{lessonId}
+    </select>
+
+    <insert id="insertLesson" parameterMap="LessonInfo">
+        INSERT INTO cqupt_lesson_info (LESSON_ID, LESSON_NAME, TEACHER_ID, TEACHER_NAME, CLASSROOM, LESSON_TIME,
+        LESSON_WEEKS, LESSON_OPTIONAL_STU, LESSON_CHOSED_STU, LESSON_TYPE, TERM, LESSON_SCORE, GRADE_YEAR, SCHOOL)
+        VALUES (#{lessonId}, #{lessonName}, #{teacherId}, #{teacherName}, #{classroom}, #{lessonTime}, #{lessonWeeks},
+        #{lessonOptionalStu}, #{lessonChosedStu}, #{lessonType}, #{term}, #{lessonScore}, #{gradeYear}, #{school})
+    </insert>
+
+    <update id="updateLesson" parameterMap="UpdateLesson">
+        update cqupt_lesson_info
+        set LESSON_ID = #{lessonIdAfter}
+        LESSON_NAME = #{lessonNameAfter}
+        LESSON_SCORE = #{lessonScoreAfter}
+        GRADE_YEAR = #{gradeYearAfter}
+        CLASSROOM = #{classroomAfter}
+        LESSON_TIME = #{lessonTimeAfter}
+        LESSON_WEEKS = #{lessonWeeksAfter}
+        LESSON_OPTIONAL_STU = #{lessonOptionalStuAfter}
+        SCHOOL = #{schoolAfter}
+        LESSON_TYPE = #{lessonTypeAfter}
+        TERM = #{termAfter}
+        where LESSON_ID = #{lessonIdBefore}
+    </update>
+
+    <delete id="deleteLesson" parameterType="java.lang.String">
+        DELETE FROM cqupt_lesson_info WHERE LESSON_ID = #{lessonId}
+    </delete>
+</mapper>
