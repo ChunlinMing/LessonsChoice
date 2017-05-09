@@ -49,11 +49,6 @@ public class UpdateLesson implements Serializable
     private String lessonTypeAfter;
 
     /**
-     * 更改为此上课学期
-     */
-    private Integer termAfter;
-
-    /**
      * 更改为此学分
      */
     private Double lessonScoreAfter;
@@ -146,16 +141,6 @@ public class UpdateLesson implements Serializable
     public void setLessonTypeAfter(String lessonTypeAfter)
     {
         this.lessonTypeAfter = lessonTypeAfter;
-    }
-
-    public Integer getTermAfter()
-    {
-        return termAfter;
-    }
-
-    public void setTermAfter(Integer termAfter)
-    {
-        this.termAfter = termAfter;
     }
 
     public Double getLessonScoreAfter()

@@ -17,7 +17,7 @@ import java.util.List;
 public class TeacherFuncServiceImpl implements TeacherFuncService
 {
     @Autowired
-    TeacherLessonDao teacherLessonDao;
+    private TeacherLessonDao teacherLessonDao;
 
     /**
      * 根据教师id查找课程
@@ -46,15 +46,10 @@ public class TeacherFuncServiceImpl implements TeacherFuncService
     /**
      * 更改课程信息
      * @param updateLesson 更改课程对象
-     * @return 成功1，失败0，已存在-100，不可更改-500
+     * @return 成功1，失败0，已存在-100
      */
     public int updateLesson(UpdateLesson updateLesson)
     {
-        int choseStu = teacherLessonDao.findChoseStuByLesson(updateLesson.getLessonIdBefore());
-        if (choseStu > 0)
-        {
-            return -500;
-        }
         if (updateLesson.getLessonIdAfter().equals(updateLesson.getLessonIdBefore()))
         {
             LessonInfo lessonInfo = new LessonInfo();
@@ -68,7 +63,6 @@ public class TeacherFuncServiceImpl implements TeacherFuncService
             lessonInfo.setLessonType(updateLesson.getLessonTypeAfter());
             lessonInfo.setLessonWeeks(updateLesson.getLessonWeeksAfter());
             lessonInfo.setSchool(updateLesson.getSchoolAfter());
-            lessonInfo.setTerm(updateLesson.getTermAfter());
             if (null == teacherLessonDao.findLessonByEntity(lessonInfo))
             {
                 return teacherLessonDao.updateLesson(updateLesson);
@@ -76,7 +70,7 @@ public class TeacherFuncServiceImpl implements TeacherFuncService
         }
         else
         {
-            if (null == teacherLessonDao.findLessonById(updateLesson.getLessonIdBefore()))
+            if (null == teacherLessonDao.findLessonById(updateLesson.getLessonIdAfter()))
             {
                 return teacherLessonDao.updateLesson(updateLesson);
             }
@@ -87,17 +81,12 @@ public class TeacherFuncServiceImpl implements TeacherFuncService
     /**
      * 删除课程
      * @param lessonId 课程id
-     * @return 成功1，失败0，不存在-200，不可删除-500
+     * @return 成功1，失败0，不存在-200
      */
     public int deleteLesson(String lessonId)
     {
         if (null != teacherLessonDao.findLessonById(lessonId))
         {
-            int choseStu = teacherLessonDao.findChoseStuByLesson(lessonId);
-            if (choseStu > 0)
-            {
-                return -500;
-            }
             return teacherLessonDao.deleteLesson(lessonId);
         }
         return -200;

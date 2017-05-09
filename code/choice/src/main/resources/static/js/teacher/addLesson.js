@@ -111,12 +111,12 @@ $(document).ready(function () {
         {
             $("#hint-div").html("<span style='color: red;'>上课时段开始周不能大于结束周！</span>");
         }
-        else if (i == j)
-        {
-            v5 = i;
-        }
         else
         {
+            if (i == j)
+            {
+                v5 = i+"周";
+            }
             var lessonInfo = {};
             lessonInfo.lessonId = v1;
             lessonInfo.lessonName = v2;

@@ -130,7 +130,7 @@ public class Helper
         return sb.toString();
     }
 
-    public static SimpleMailMessage mailConfig(String toMail, String userId, String code)
+    public static SimpleMailMessage mailConfig(String toMail, String userId, String code) throws Exception
     {
         SimpleMailMessage message = new SimpleMailMessage();
         message.setFrom("1432608191@qq.com");//发送者

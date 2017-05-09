@@ -64,17 +64,16 @@
 
     <update id="updateLesson" parameterMap="UpdateLesson">
         update cqupt_lesson_info
-        set LESSON_ID = #{lessonIdAfter}
-        LESSON_NAME = #{lessonNameAfter}
-        LESSON_SCORE = #{lessonScoreAfter}
-        GRADE_YEAR = #{gradeYearAfter}
-        CLASSROOM = #{classroomAfter}
-        LESSON_TIME = #{lessonTimeAfter}
-        LESSON_WEEKS = #{lessonWeeksAfter}
-        LESSON_OPTIONAL_STU = #{lessonOptionalStuAfter}
-        SCHOOL = #{schoolAfter}
+        set LESSON_ID = #{lessonIdAfter},
+        LESSON_NAME = #{lessonNameAfter},
+        LESSON_SCORE = #{lessonScoreAfter},
+        GRADE_YEAR = #{gradeYearAfter},
+        CLASSROOM = #{classroomAfter},
+        LESSON_TIME = #{lessonTimeAfter},
+        LESSON_WEEKS = #{lessonWeeksAfter},
+        LESSON_OPTIONAL_STU = #{lessonOptionalStuAfter},
+        SCHOOL = #{schoolAfter},
         LESSON_TYPE = #{lessonTypeAfter}
-        TERM = #{termAfter}
         where LESSON_ID = #{lessonIdBefore}
     </update>
 

@@ -3,6 +3,7 @@ package com.mcl.bysj.action;
 import com.mcl.bysj.entity.*;
 import com.mcl.bysj.service.*;
 import com.mcl.bysj.utils.Helper;
+import com.mcl.bysj.vo.UpdateLesson;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -23,28 +24,25 @@ import java.util.List;
 public class TeacherFuncAction
 {
     @Autowired
-    TeacherService teacherService;
+    private TeacherService teacherService;
 
     @Autowired
-    TeacherFuncService teacherFuncService;
+    private TeacherFuncService teacherFuncService;
 
     @Autowired
-    BuildingService buildingService;
+    private BuildingService buildingService;
 
     @Autowired
-    ClassroomService classroomService;
+    private LessonTypeService lessonTypeService;
 
     @Autowired
-    LessonTypeService lessonTypeService;
+    private TermService termService;
 
     @Autowired
-    TermService termService;
+    private GradeYearService gradeYearService;
 
     @Autowired
-    GradeYearService gradeYearService;
-
-    @Autowired
-    SchoolService schoolService;
+    private SchoolService schoolService;
 
     @RequestMapping(value = "/showStudent", method = RequestMethod.POST)
     public String showStudent(HttpServletRequest request, Model model)
@@ -125,15 +123,38 @@ public class TeacherFuncAction
 
     @RequestMapping(value = "/changeLesson", method = RequestMethod.POST)
     @ResponseBody
-    public int changeLesson(HttpServletResponse response)
+    public int changeLesson(HttpServletResponse response, UpdateLesson updateLesson)
     {
+        response.setHeader("Access-Control-Allow-Origin", "*");
+        if (null != updateLesson)
+        {
+            List<String> list = new ArrayList<>(8);
+            list.add(updateLesson.getLessonIdBefore());
+            list.add(updateLesson.getLessonIdAfter());
+            list.add(updateLesson.getLessonNameAfter());
+            list.add(updateLesson.getClassroomAfter());
+            list.add(updateLesson.getLessonTimeAfter());
+            list.add(updateLesson.getLessonWeeksAfter());
+            list.add(updateLesson.getLessonTypeAfter());
+            list.add(updateLesson.getSchoolAfter());
+            if (!Helper.checkEmpty(list) && null != updateLesson.getGradeYearAfter() &&
+                    null != updateLesson.getLessonOptionalStuAfter() && null != updateLesson.getLessonScoreAfter())
+            {
+                return teacherFuncService.updateLesson(updateLesson);
+            }
+        }
         return 0;
     }
 
     @RequestMapping(value = "/deleteLesson", method = RequestMethod.POST)
     @ResponseBody
-    public int deleteLesson(HttpServletResponse response)
+    public int deleteLesson(HttpServletResponse response, LessonInfo lessonInfo)
     {
+        response.setHeader("Access-Control-Allow-Origin", "*");
+        if (null != lessonInfo && !Helper.isEmpty(lessonInfo.getLessonId()))
+        {
+            return teacherFuncService.deleteLesson(lessonInfo.getLessonId());
+        }
         return 0;
     }
 }

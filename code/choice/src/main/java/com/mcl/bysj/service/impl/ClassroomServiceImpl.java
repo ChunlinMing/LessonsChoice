@@ -4,7 +4,6 @@ import com.mcl.bysj.dao.ClassroomDao;
 import com.mcl.bysj.entity.Building;
 import com.mcl.bysj.entity.Classroom;
 import com.mcl.bysj.service.ClassroomService;
-import com.mcl.bysj.utils.Helper;
 import com.mcl.bysj.vo.ChangeClassroom;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -20,6 +19,16 @@ public class ClassroomServiceImpl implements ClassroomService
 {
     @Autowired
     private ClassroomDao classroomDao;
+
+    /**
+     * 查找指定的教室
+     * @param classroom 教室
+     * @return 查找结果
+     */
+    public Classroom findClassroom(Classroom classroom)
+    {
+        return classroomDao.findClassroom(classroom);
+    }
 
     /**
      * 根据教学楼查找教室

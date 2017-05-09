@@ -103,4 +103,12 @@ public class ClassroomAction
         response.setHeader("Access-Control-Allow-Origin", "*");
         return classroomService.findAllClassroomByBuilding(building);
     }
+
+    @RequestMapping(value = "findBuildingByClassroom", method = RequestMethod.POST)
+    @ResponseBody
+    public String findBuildingByClassroom(HttpServletResponse response, Classroom classroom)
+    {
+        response.setHeader("Access-Control-Allow-Origin", "*");
+        return classroomService.findClassroom(classroom).getBuilding();
+    }
 }

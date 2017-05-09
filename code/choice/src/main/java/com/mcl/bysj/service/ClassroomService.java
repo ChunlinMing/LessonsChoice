@@ -12,6 +12,8 @@ import java.util.List;
  */
 public interface ClassroomService
 {
+    Classroom findClassroom(Classroom classroom);
+
     List<Classroom> findAllClassroomByBuilding(Building building);
 
     int insertClassroom(Classroom classroom);

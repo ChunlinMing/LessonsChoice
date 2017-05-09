@@ -1,11 +1,7 @@
 package com.mcl.bysj.action;
 
-import com.mcl.bysj.entity.LessonInfo;
-import com.mcl.bysj.entity.LoginInfo;
-import com.mcl.bysj.entity.ValidationCode;
-import com.mcl.bysj.service.LoginInfoService;
-import com.mcl.bysj.service.TeacherFuncService;
-import com.mcl.bysj.service.ValidationCodeService;
+import com.mcl.bysj.entity.*;
+import com.mcl.bysj.service.*;
 import com.mcl.bysj.utils.Helper;
 import com.mcl.bysj.vo.UpdateValidationCode;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,6 +12,7 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -36,6 +33,21 @@ public class LoginAction
 
     @Autowired
     private TeacherFuncService teacherFuncService;
+
+    @Autowired
+    private TeacherService teacherService;
+
+    @Autowired
+    private BuildingService buildingService;
+
+    @Autowired
+    private LessonTypeService lessonTypeService;
+
+    @Autowired
+    private SchoolService schoolService;
+
+    @Autowired
+    private GradeYearService gradeYearService;
 
     @RequestMapping(value="/", method = RequestMethod.GET)
     public String login(HttpServletRequest request)
@@ -185,8 +197,15 @@ public class LoginAction
                 int insertResult = validationCodeService.insertValidationCode(validationCode);
                 if (1 == insertResult)
                 {
-                    mailSender.send(Helper.mailConfig(validationCodeService.findEmail(loginInfo.getUserId()),
-                            loginInfo.getUserId(), code));
+                    try{
+                        mailSender.send(Helper.mailConfig(validationCodeService.findEmail(loginInfo.getUserId()),
+                                loginInfo.getUserId(), code));
+                    }
+                    catch (Exception e)
+                    {
+                        System.out.println("邮件发送失败！！"+e.toString());
+                        return -1000;
+                    }
                 }
                 else
                 {
@@ -232,8 +251,16 @@ public class LoginAction
                 int insertResult = validationCodeService.insertValidationCode(validationCode);
                 if (1 == insertResult)
                 {
-                    mailSender.send(Helper.mailConfig(validationCodeService.findEmail(loginInfo.getUserId()),
-                            loginInfo.getUserId(), code));
+                    try {
+                        mailSender.send(Helper.mailConfig(validationCodeService.findEmail(loginInfo.getUserId()),
+                                loginInfo.getUserId(), code));
+                    }
+                    catch (Exception e)
+                    {
+                        System.out.println("邮件发送失败！"+e.toString());
+                        return -1000;
+                    }
+
                 }
                 else
                 {
@@ -278,7 +305,22 @@ public class LoginAction
             {
                 String id = request.getSession().getAttribute("userId").toString();
                 List<LessonInfo> lessonList = teacherFuncService.findLessonByTeacher(id);
+                List<Building> buildingList = buildingService.findAllBuildings();
+                List<LessonType> lessonTypeList = lessonTypeService.findAllLessonTypes();
+                List<GradeYear> gradeYears = gradeYearService.findAllGradeYears();
+                List<School> schoolList = schoolService.findAllSchools();
+                List<GradeYear> gradeYearList = new ArrayList<>(1);
+                for (int i = 0; i < gradeYears.size(); i++)
+                {
+                    gradeYearList.add(gradeYears.get(gradeYears.size() - i - 1));
+                }
+                gradeYears = null;
+
                 model.addAttribute("userId",id);
+                model.addAttribute("buildingList",buildingList);
+                model.addAttribute("lessonTypeList",lessonTypeList);
+                model.addAttribute("gradeYearList",gradeYearList);
+                model.addAttribute("schoolList",schoolList);
                 model.addAttribute("lessonList",lessonList);
                 return "teacher/showLesson";
             }

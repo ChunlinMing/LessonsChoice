@@ -22,7 +22,7 @@ $(document).ready(function () {
                         $("#hint-div").html("<span>已将验证码发送至您的邮箱！</span>");
                         $("#hint-field").html("");
                     }
-                    else if (result == 0) {
+                    else if (result == 0 || result == -1000) {
                         $("#hint-div").html("<span style='color: red;'>验证码发送失败！</span>");
                         $("#hint-field").html("");
                     }
