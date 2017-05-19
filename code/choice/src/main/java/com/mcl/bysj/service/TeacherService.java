@@ -16,6 +16,8 @@ public interface TeacherService
 
     List<Teacher> findAllTeacherBySchool(School school);
 
+    List<Teacher> findAllTeacher(int page);
+
     int insertTeacher(Teacher teacher);
 
     int updateTeacher(ChangeTeacher changeTeacher);

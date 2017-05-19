@@ -34,6 +34,10 @@
         SELECT * from cqupt_stu_info WHERE CLASS = #{stuClass}
     </select>
 
+    <select id="findAllStudent" resultMap="StudentObjOrList">
+        SELECT * FROM cqupt_stu_info
+    </select>
+
     <insert id="insertStudent" parameterMap="Student">
         INSERT INTO cqupt_stu_info (STU_ID, STU_NAME, STU_GENDER, SCHOOL, CLASS, GRADE_YEAR, STU_EMAIL)
         VALUES (#{stuId}, #{stuName}, #{stuGender}, #{stuSchool}, #{stuClass}, #{gradeYear}, #{stuEmail})

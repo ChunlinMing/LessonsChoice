@@ -34,4 +34,11 @@ public interface LoginInfoDao
      * @return 成功1，失败0
      */
     int updateUser(LoginInfo loginInfo);
+
+    /**
+     * 删除用户
+     * @param userId 用户ID
+     * @return 成功1，失败0
+     */
+    int deleteUser(String userId);
 }

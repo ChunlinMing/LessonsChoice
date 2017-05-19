@@ -30,6 +30,10 @@
         SELECT * from cqupt_teacher_info WHERE SCHOOL = #{school}
     </select>
 
+    <select id="findAllTeacher" resultMap="TeacherObjOrList">
+        SELECT * from cqupt_teacher_info
+    </select>
+
     <insert id="insertTeacher" parameterMap="Teacher">
         INSERT INTO cqupt_teacher_info (TEACHER_ID, TEACHER_NAME, TEACHER_GENDER, SCHOOL, TEACHER_EMAIL)
         VALUES (#{teacherId}, #{teacherName}, #{teacherGender}, #{teacherSchool}, #{teacherEmail})

@@ -60,6 +60,8 @@ $(document).ready(function () {
             changeStudent.stuEmailAfter = v7;
             changeStudent.flag = 1;
             $.ajax({
+                catch: false,
+                async: false,
                 type: 'post',
                 url: 'http://localhost:8080/changeStudent',
                 datatype: 'application/json; charset=UTF-8',
@@ -94,6 +96,8 @@ $(document).ready(function () {
         changeStudent.stuIdBefore = value;
         changeStudent.flag = 0;
         $.ajax({
+            catch: false,
+            async: false,
             type: 'post',
             url: 'http://localhost:8080/changeStudent',
             datatype: 'application/json; charset=UTF-8',
@@ -130,6 +134,8 @@ function findClassBySchool(data, flag)
         var school = {};
         school.school = data;
         $.ajax({
+            catch: false,
+            async: false,
             type: 'post',
             url: 'http://localhost:8080/findClassBySchool',
             datatype: 'application/json; charset=UTF-8',
@@ -165,6 +171,8 @@ function findStudentByStuClass(data)
         var stuClass = {};
         stuClass.stuClass = stuClassValue;
         $.ajax({
+            catch: false,
+            async: false,
             type: 'post',
             url: 'http://localhost:8080/findStudentByStuClass',
             datatype: 'application/json; charset=UTF-8',
@@ -189,6 +197,8 @@ function findStudentById(data)
     var student = {};
     student.stuId = data;
     $.ajax({
+        catch: false,
+        async: false,
         type: 'post',
         url: 'http://localhost:8080/findStudentById',
         datatype: 'application/json; charset=UTF-8',

@@ -25,6 +25,8 @@ $(document).ready(function () {
             changeClass.stuClassAfter = value;
             changeClass.flag = 1;
             $.ajax({
+                catch: false,
+                async: false,
                 type: 'post',
                 url: 'http://localhost:8080/changeClass',
                 datatype: 'application/json; charset=UTF-8',
@@ -57,6 +59,8 @@ $(document).ready(function () {
         changeClass.stuClassBefore = v;
         changeClass.flag = 0;
         $.ajax({
+            catch: false,
+            async: false,
             type: 'post',
             url: 'http://localhost:8080/changeClass',
             datatype: 'application/json; charset=UTF-8',
@@ -94,6 +98,8 @@ function findClassBySchool()
         var school = {};
         school.school = schoolValue;
         $.ajax({
+            catch: false,
+            async: false,
             type: 'post',
             url: 'http://localhost:8080/findClassBySchool',
             datatype: 'application/json; charset=UTF-8',

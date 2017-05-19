@@ -64,6 +64,8 @@ $(document).ready(function () {
             changeTeacher.teacherEmailAfter = v5;
             changeTeacher.flag = 1;
             $.ajax({
+                catch: false,
+                async: false,
                 type: 'post',
                 url: 'http://localhost:8080/changeTeacher',
                 datatype: 'application/json; charset=UTF-8',
@@ -102,6 +104,8 @@ $(document).ready(function () {
         changeTeacher.teacherIdBefore = v;
         changeTeacher.flag = 0;
         $.ajax({
+            catch: false,
+            async: false,
             type: 'post',
             url: 'http://localhost:8080/changeTeacher',
             datatype: 'application/json; charset=UTF-8',
@@ -139,6 +143,8 @@ function findTeacherBySchool()
         var school = {};
         school.school = schoolValue;
         $.ajax({
+            catch: false,
+            async: false,
             type: 'post',
             url: 'http://localhost:8080/findTeacherBySchool',
             datatype: 'application/json; charset=UTF-8',
@@ -163,6 +169,8 @@ function findTeacherById(data)
     var teacher = {};
     teacher.teacherId = data;
     $.ajax({
+        catch: false,
+        async: false,
         type: 'post',
         url: 'http://localhost:8080/findTeacherById',
         datatype: 'application/json; charset=UTF-8',

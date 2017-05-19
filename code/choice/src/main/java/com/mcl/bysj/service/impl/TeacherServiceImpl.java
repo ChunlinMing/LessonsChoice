@@ -1,6 +1,9 @@
 package com.mcl.bysj.service.impl;
 
+import com.github.pagehelper.PageHelper;
+import com.mcl.bysj.dao.LoginInfoDao;
 import com.mcl.bysj.dao.TeacherDao;
+import com.mcl.bysj.entity.LoginInfo;
 import com.mcl.bysj.entity.School;
 import com.mcl.bysj.entity.Teacher;
 import com.mcl.bysj.service.TeacherService;
@@ -20,6 +23,9 @@ public class TeacherServiceImpl implements TeacherService
     @Autowired
     private TeacherDao teacherDao;
 
+    @Autowired
+    private LoginInfoDao loginInfoDao;
+
     /**
      * 根据id查找教师
      * @param teacher 教师对象
@@ -38,6 +44,17 @@ public class TeacherServiceImpl implements TeacherService
     public List<Teacher> findAllTeacherBySchool(School school)
     {
         return teacherDao.findAllTeacherBySchool(school);
+    }
+
+    /**
+     * 查询所有教师
+     * @param page 哪一页
+     * @return 教师集合
+     */
+    public List<Teacher> findAllTeacher(int page)
+    {
+        PageHelper.startPage(page, 15);
+        return teacherDao.findAllTeacher();
     }
 
     /**
@@ -93,6 +110,20 @@ public class TeacherServiceImpl implements TeacherService
     {
         if (null != teacherDao.findTeacher(teacher))
         {
+            LoginInfo loginInfo = new LoginInfo();
+            loginInfo.setUserId(teacher.getTeacherId());
+            if (null != loginInfoDao.findUserById(loginInfo))
+            {
+                int deleteRes = loginInfoDao.deleteUser(teacher.getTeacherId());
+                if (1 == deleteRes)
+                {
+                    return teacherDao.deleteTeacher(teacher);
+                }
+                else
+                {
+                    return 0;
+                }
+            }
             return teacherDao.deleteTeacher(teacher);
         }
         return -200;

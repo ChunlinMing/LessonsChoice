@@ -34,6 +34,12 @@ public interface TeacherDao
     List<Teacher> findAllTeacherBySchool(School school);
 
     /**
+     * 查询所有教师
+     * @return 教师集合
+     */
+    List<Teacher> findAllTeacher();
+
+    /**
      * 添加教师
      * @param teacher 教师
      * @return 成功1，失败0

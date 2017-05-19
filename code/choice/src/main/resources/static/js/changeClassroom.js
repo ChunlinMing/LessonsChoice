@@ -25,6 +25,8 @@ $(document).ready(function () {
             changeClassroom.classroomAfter = value;
             changeClassroom.flag = 1;
             $.ajax({
+                catch: false,
+                async: false,
                 type: 'post',
                 url: 'http://localhost:8080/changeClassroom',
                 datatype: 'application/json; charset=UTF-8',
@@ -57,6 +59,8 @@ $(document).ready(function () {
         changeClassroom.classroomBefore = v;
         changeClassroom.flag = 0;
         $.ajax({
+            catch: false,
+            async: false,
             type: 'post',
             url: 'http://localhost:8080/changeClassroom',
             datatype: 'application/json; charset=UTF-8',
@@ -94,6 +98,8 @@ function findClassroomByBuilding()
         var building = {};
         building.building = buildingValue;
         $.ajax({
+            catch: false,
+            async: false,
             type: 'post',
             url: 'http://localhost:8080/findClassroomByBuilding',
             datatype: 'application/json; charset=UTF-8',

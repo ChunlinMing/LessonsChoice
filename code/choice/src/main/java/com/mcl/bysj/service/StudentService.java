@@ -16,6 +16,8 @@ public interface StudentService
 
     List<Student> findAllStudentByStuClass(StuClass stuClass);
 
+    List<Student> findAllStudent(int page);
+
     int insertStudent(Student student);
 
     int updateStudent(ChangeStu changeStu);

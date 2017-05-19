@@ -34,6 +34,12 @@ public interface StuDao
     List<Student> findAllStudentByStuClass(StuClass stuClass);
 
     /**
+     * 查找所有学生
+     * @return 学生集合
+     */
+    List<Student> findAllStudent();
+
+    /**
      * 添加学生
      * @param student 学生
      * @return 成功1，失败0

@@ -1,6 +1,9 @@
 package com.mcl.bysj.service.impl;
 
+import com.github.pagehelper.PageHelper;
+import com.mcl.bysj.dao.LoginInfoDao;
 import com.mcl.bysj.dao.StuDao;
+import com.mcl.bysj.entity.LoginInfo;
 import com.mcl.bysj.entity.StuClass;
 import com.mcl.bysj.entity.Student;
 import com.mcl.bysj.service.StudentService;
@@ -18,6 +21,9 @@ import java.util.List;
 public class StudentServiceImpl implements StudentService {
     @Autowired
     private StuDao stuDao;
+
+    @Autowired
+    private LoginInfoDao loginInfoDao;
 
     /**
      * 根据学号查找学生
@@ -37,6 +43,12 @@ public class StudentServiceImpl implements StudentService {
      */
     public List<Student> findAllStudentByStuClass(StuClass stuClass) {
         return stuDao.findAllStudentByStuClass(stuClass);
+    }
+
+    public List<Student> findAllStudent(int page)
+    {
+        PageHelper.startPage(page, 15);
+        return stuDao.findAllStudent();
     }
 
     /**
@@ -89,6 +101,20 @@ public class StudentServiceImpl implements StudentService {
     {
         if (null != stuDao.findStudent(student))
         {
+            LoginInfo loginInfo = new LoginInfo();
+            loginInfo.setUserId(student.getStuId());
+            if (null != loginInfoDao.findUserById(loginInfo))
+            {
+                int deleteRes = loginInfoDao.deleteUser(student.getStuId());
+                if (1 == deleteRes)
+                {
+                    return stuDao.deleteStudent(student);
+                }
+                else
+                {
+                    return 0;
+                }
+            }
             return stuDao.deleteStudent(student);
         }
         return -200;

@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <th:block th:include="manager/header"/>
+    <meta charset="UTF-8"/>
+    <title>学生列表</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.6.4/css/bootstrap-datepicker3.min.css"/>
+</head>
+<body style="min-width: 800px;background-color: papayawhip;">
+<div class="row" style="margin: 15px 15%;min-height: 650px;">
+    <div class="col-md-8" style="width: 100%;">
+        <div class="content" style="align-content: center;width: 100%;">
+            <table class="table table-striped">
+                <thead>
+                <tr>
+                    <th style="text-align: center;">工号</th>
+                    <th style="text-align: center;">姓名</th>
+                    <th style="text-align: center;">性别</th>
+                    <th style="text-align: center;">学院</th>
+                    <th style="text-align: center;">班级</th>
+                    <th style="text-align: center;">年级</th>
+                    <th style="text-align: center;">邮箱</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="student : ${studentList}">
+                    <td th:text="${student.stuId}" style="text-align: center;"></td>
+                    <td th:text="${student.stuName}" style="text-align: center;"></td>
+                    <td th:text="${student.stuGender}" style="text-align: center;"></td>
+                    <td th:text="${student.stuSchool}" style="text-align: center;"></td>
+                    <td th:text="${student.stuClass}" style="text-align: center;"></td>
+                    <td th:text="${student.gradeYear}" style="text-align: center;"></td>
+                    <td th:text="${student.stuEmail}" style="text-align: center;"></td>
+                </tr>
+                </tbody>
+            </table>
+            <nav style="text-align: center">
+                <ul class="pagination" th:each="page : ${#numbers.sequence(1, pages)}">
+                    <li th:class="(${current_page} == ${page} ? 'active' : '')">
+                        <a th:text="${page}" th:href="@{/showStudents(page =${page})}"></a></li>
+                </ul>
+            </nav>
+        </div>
+    </div>
+</div>
+</body>
+</html>
