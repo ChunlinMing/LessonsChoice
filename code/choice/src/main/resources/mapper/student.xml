@@ -55,6 +55,12 @@
         where STU_ID = #{stuIdBefore}
     </update>
 
+    <update id="changeEmail" parameterMap="Student">
+        update cqupt_stu_info
+        set STU_EMAIL = #{stuEmail}
+        where STU_ID = #{stuId}
+    </update>
+
     <delete id="deleteStudent" parameterMap="Student">
         DELETE FROM cqupt_stu_info WHERE STU_ID = #{stuId}
     </delete>

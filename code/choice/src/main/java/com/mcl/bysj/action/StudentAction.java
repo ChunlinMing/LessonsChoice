@@ -126,7 +126,7 @@ public class StudentAction
         return 0;
     }
 
-    @RequestMapping(value = "showStudents", method = RequestMethod.GET)
+    @RequestMapping(value = "/showStudents", method = RequestMethod.GET)
     public String findAllStudent(HttpServletRequest request, Model model,
                                  @RequestParam(value = "page", defaultValue = "1") int page)
     {

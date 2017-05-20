@@ -92,6 +92,20 @@ public class StudentServiceImpl implements StudentService {
     }
 
     /**
+     * 更改学生邮箱
+     * @param student 学生ID和新邮箱
+     * @return 成功1，失败0，不存在-200
+     */
+    public int changeEmail(Student student)
+    {
+        if (null != stuDao.findStudent(student))
+        {
+            return stuDao.changeEmail(student);
+        }
+        return -200;
+    }
+
+    /**
      * 删除学生
      *
      * @param student 学生

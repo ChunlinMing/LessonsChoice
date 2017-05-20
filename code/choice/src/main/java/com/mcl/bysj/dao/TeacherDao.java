@@ -54,6 +54,13 @@ public interface TeacherDao
     int updateTeacher(ChangeTeacher changeTeacher);
 
     /**
+     * 更改教师邮箱
+     * @param teacher 教师id和新邮箱
+     * @return 成功1，失败0
+     */
+    int changeEmail(Teacher teacher);
+
+    /**
      * 删除教师
      * @param teacher 教师
      * @return 成功1，失败0

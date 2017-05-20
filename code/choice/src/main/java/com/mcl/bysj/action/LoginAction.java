@@ -49,6 +49,9 @@ public class LoginAction
     @Autowired
     private GradeYearService gradeYearService;
 
+    @Autowired
+    private StudentService studentService;
+
     @RequestMapping(value="/", method = RequestMethod.GET)
     public String login(HttpServletRequest request)
     {
@@ -128,7 +131,7 @@ public class LoginAction
         return "forgotPwd";
     }
 
-    @RequestMapping(value = "resetPwd", method = RequestMethod.POST)
+    @RequestMapping(value = "/resetPwd", method = RequestMethod.POST)
     public String resetPwd(HttpServletRequest request, @ModelAttribute LoginInfo loginInfo,
                            @RequestParam int length, @RequestParam String code, Model model)
     {
@@ -162,14 +165,10 @@ public class LoginAction
                 model.addAttribute("codeResult","验证码错误，请点击“发送邮件验证码”按钮重新获取验证码！");
             }
         }
-        if (null != request.getSession(false))
-        {
-            return "resetPwd";
-        }
         return "forgotPwd";
     }
 
-    @RequestMapping(value = "sendSignUpMail", method = RequestMethod.POST)
+    @RequestMapping(value = "/sendSignUpMail", method = RequestMethod.POST)
     @ResponseBody
     public int sendSignUpMail(HttpServletResponse response, LoginInfo loginInfo)
     {
@@ -224,7 +223,7 @@ public class LoginAction
         return 1;
     }
 
-    @RequestMapping(value = "sendResetPwdMail", method = RequestMethod.POST)
+    @RequestMapping(value = "/sendResetPwdMail", method = RequestMethod.POST)
     @ResponseBody
     public int sendResetPwdMail(HttpServletResponse response, LoginInfo loginInfo)
     {
@@ -326,5 +325,58 @@ public class LoginAction
             }
         }
         return Helper.checkUserType((Integer)request.getSession().getAttribute("userType"));
+    }
+
+    @RequestMapping(value = "/personalInfo", method = RequestMethod.GET)
+    public String personalInfo(HttpServletRequest request, Model model)
+    {
+        Integer userType = (Integer) request.getSession().getAttribute("userType");
+        if (null != userType)
+        {
+            if (userType.equals(1))
+            {
+                Teacher newTeacher = new Teacher();
+                String userId = request.getSession().getAttribute("userId").toString();
+                newTeacher.setTeacherId(userId);
+                Teacher teacher = teacherService.findTeacher(newTeacher);
+                model.addAttribute("userId",userId);
+                model.addAttribute("teacher",teacher);
+                return "teacher/personalInfo";
+            }
+            else if (userType.equals(2))
+            {
+                Student newStudent = new Student();
+                String userId = request.getSession().getAttribute("userId").toString();
+                newStudent.setStuId(userId);
+                Student student = studentService.findStudent(newStudent);
+                model.addAttribute("userId",userId);
+                model.addAttribute("student",student);
+                return "stu/personalInfo";
+            }
+        }
+        return Helper.checkUserType(userType);
+    }
+
+    @RequestMapping(value = "/changeEmail", method = RequestMethod.POST)
+    @ResponseBody
+    public int changeEmail(HttpServletResponse response, String userId, String newEmail)
+    {
+        response.setHeader("Access-Control-Allow-Origin", "*");
+        if (!Helper.isEmpty(userId) && !Helper.isEmpty(newEmail))
+        {
+            Teacher teacher = new Teacher();
+            teacher.setTeacherId(userId);
+            teacher.setTeacherEmail(newEmail);
+            int changeTeacherEmailResult = teacherService.changeEmail(teacher);
+            if (-200 == changeTeacherEmailResult)
+            {
+                Student student = new Student();
+                student.setStuId(userId);
+                student.setStuEmail(newEmail);
+                return studentService.changeEmail(student);
+            }
+            return changeTeacherEmailResult;
+        }
+        return 0;
     }
 }

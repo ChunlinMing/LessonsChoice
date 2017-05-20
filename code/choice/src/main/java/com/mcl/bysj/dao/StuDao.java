@@ -54,6 +54,13 @@ public interface StuDao
     int updateStudent(ChangeStu changeStu);
 
     /**
+     * 更改学生邮箱
+     * @param student 学生id和新邮箱
+     * @return 成功1，失败0
+     */
+    int changeEmail(Student student);
+
+    /**
      * 删除学生
      * @param student 学生
      * @return 成功1，失败0

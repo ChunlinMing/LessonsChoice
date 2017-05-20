@@ -22,5 +22,7 @@ public interface TeacherService
 
     int updateTeacher(ChangeTeacher changeTeacher);
 
+    int changeEmail(Teacher teacher);
+
     int deleteTeacher(Teacher teacher);
 }

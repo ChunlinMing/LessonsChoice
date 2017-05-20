@@ -22,5 +22,7 @@ public interface StudentService
 
     int updateStudent(ChangeStu changeStu);
 
+    int changeEmail(Student student);
+
     int deleteStudent(Student student);
 }

@@ -60,7 +60,7 @@ $(document).ready(function () {
         }
         else if (null == Upwd || "" == Upwd || Upwd.length < 8 || Upwd.length > 16)
         {
-            $("#hint-div").html("<span style='color: red;'>密码长度应在6到18位之间！</span>");
+            $("#hint-div").html("<span style='color: red;'>密码长度应在8到16位之间！</span>");
             $("#hint-field").html("");
         }
         else if (!(Upwd.indexOf(" ") == -1))
