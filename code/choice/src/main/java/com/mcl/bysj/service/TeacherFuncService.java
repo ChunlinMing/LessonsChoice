@@ -11,6 +11,8 @@ import java.util.List;
  */
 public interface TeacherFuncService
 {
+    LessonInfo findLessonById(String lessonId);
+
     List<LessonInfo> findLessonByTeacher(String teacherId);
 
 

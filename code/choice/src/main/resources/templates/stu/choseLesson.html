@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <th:block th:include="stu/header"/>
+    <meta charset="UTF-8"/>
+    <title>选修课程</title>
+    <script src="/js/stu/cancelLesson.js"></script>
+</head>
+<body>
+<div style="float: right;margin-right: 20%;">
+    <span id="scoreAmount" th:text="'已选学分：'+${scoreAmount}"></span>
+    <span>&#12288;</span>
+    <span th:text="'学分上限：'+${scoreLimit}"></span>
+</div>
+<div style="clear: both;"></div>
+<div class="row" style="margin: 15px 20%;min-height: 650px;">
+    <div class="col-md-8" style="width: 100%;">
+        <div class="content" style="align-content: center;width: 100%;">
+            <table class="table table-striped">
+                <thead>
+                <tr>
+                    <th style="text-align: center;">课程名</th>
+                    <th style="text-align: center;">课程学分</th>
+                    <th style="text-align: center;">课程类型</th>
+                    <th style="text-align: center;">上课时间</th>
+                    <th style="text-align: center;">上课时段</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="lesson : ${lessonList}">
+                    <td th:text="${lesson.lessonName}" style="text-align: center;"></td>
+                    <td th:text="${lesson.lessonScore}" style="text-align: center;"></td>
+                    <td th:text="${lesson.lessonType}" style="text-align: center;"></td>
+                    <td th:text="${lesson.lessonTime}" style="text-align: center;"></td>
+                    <td th:text="${lesson.lessonWeeks}" style="text-align: center;"></td>
+                    <td>
+                        <a type="button" class="btn btn-xs btn-primary" title="退课"
+                           th:attr="data-id=${lesson.lessonId}, data-score=${lesson.lessonScore}"
+                           onclick="cancelLesson(this);">
+                            <span class="glyphicon glyphicon-minus"></span>
+                        </a>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+
+        </div>
+    </div>
+</div>
+</body>
+</html>

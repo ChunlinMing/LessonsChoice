@@ -20,6 +20,16 @@ public class TeacherFuncServiceImpl implements TeacherFuncService
     private TeacherLessonDao teacherLessonDao;
 
     /**
+     * 根据课程id查找课程信息
+     * @param lessonId 课程id
+     * @return 查找结果
+     */
+    public LessonInfo findLessonById(String lessonId)
+    {
+        return teacherLessonDao.findLessonById(lessonId);
+    }
+
+    /**
      * 根据教师id查找课程
      * @param teacherId 教师id
      * @return 课程集合

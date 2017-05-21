@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <th:block th:include="stu/header"/>
+    <meta charset="UTF-8"/>
+    <title>个人信息</title>
+    <script src="/js/teacher/changeEmail.js"></script>
+</head>
+<body  style="min-width: 800px;background-color: papayawhip; background-image: url('/images/teacherBack.jpg');
+background-position: center center; background-size: auto; background-repeat: repeat; background-attachment: fixed;">
+<div style="float: right;margin-right: 20%;">
+    <span><a href="#" data-toggle="modal" data-target="#changeModal">更改邮箱</a></span>
+    <span>|</span>
+    <span><a href="/forgotPwd">重置密码</a></span>
+</div>
+<div style="clear: both;"></div>
+<div class="row" style="margin: 45px 21% 0;min-height: 650px;">
+    <div class="col-md-8" style="width: 100%;padding: 25px 35px;background-color: rgba(255, 255, 255, 0.95);
+    box-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1);">
+        <h4>个人资料</h4>
+        <div class="content" style="align-content: center;width: 100%;margin-top:20px;">
+            <table class="table" style="border-color: papayawhip">
+                <tbody>
+                <tr>
+                    <td th:text="'学号：'+${student.stuId}" style="height:60px;padding-top:30px;"></td>
+                    <td th:text="'年级：'+${student.gradeYear}" style="height:60px;padding-top:30px;"></td>
+                </tr>
+                <tr>
+                    <td th:text="'姓名：'+${student.stuName}" style="height:60px;padding-top:30px;"></td>
+                    <td th:text="'性别：'+${student.stuGender}" style="height:60px;padding-top:30px;"></td>
+                </tr>
+                <tr>
+                    <td th:text="'学院：'+${student.stuSchool}" style="height:60px;padding-top:30px;"></td>
+                    <td th:text="'班级：'+${student.stuClass}" style="height:60px;padding-top:30px;"></td>
+                </tr>
+                <tr>
+                    <td id="mail" th:text="'邮箱：'+${student.stuEmail}" style="height:60px;padding-top:30px;"></td>
+                    <td th:text="''" style="height:60px;padding-top:30px;"></td>
+                </tr>
+                <tr>
+                    <td th:text="''"></td>
+                    <td th:text="''"></td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+<div class="modal fade" id="changeModal" tabindex="-1" role="dialog" aria-labelledby="changeModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title" id="changeModalLabel">更改个人邮箱</h4>
+            </div>
+            <div class="modal-body">
+                <div>
+                    <h4>请输入新的邮箱地址</h4><br/>
+                    <div class="col-lg-6" style="width: 80%;">
+                        <input id="newEmail" type="email" class="form-control"/>
+                        <div id="hint-div">
+
+                        </div>
+                    </div>
+                    <div style="clear: both;"></div>
+                </div>
+                <br/>
+            </div>
+            <div class="modal-footer" style="margin-right: 6%;">
+                <button id="confirmBtn" type="button" class="btn btn-success" data-dismiss="modal" style="width: 46%;height: 35px;">
+                    确定更改
+                </button>
+                <button type="button" class="btn btn-success" data-dismiss="modal" style="width: 46%;height: 35px;">取消</button>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

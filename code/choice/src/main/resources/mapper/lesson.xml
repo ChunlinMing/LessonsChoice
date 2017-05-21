@@ -47,12 +47,17 @@
         SELECT * from cqupt_lesson_info WHERE TEACHER_ID = #{teacherId}
     </select>
 
-    <select id="findChoseStuByLesson" parameterType="java.lang.String">
-        SELECT LESSON_CHOSED_STU from cqupt_lesson_info WHERE LESSON_ID = #{lessonId}
+    <select id="findOptionalLesson" resultMap="LessonObjOrList" parameterMap="LessonInfo">
+        SELECT * from cqupt_lesson_info
+        WHERE LESSON_TYPE = #{lessonType}
+        AND TERM = #{term}
     </select>
 
-    <select id="findOptionalStuByLesson" parameterType="java.lang.String">
-        SELECT LESSON_OPTIONAL_STU from cqupt_lesson_info WHERE LESSON_ID = #{lessonId}
+    <select id="findRequiredLesson" resultMap="LessonObjOrList" parameterMap="LessonInfo">
+        SELECT * from cqupt_lesson_info
+        WHERE GRADE_YEAR = #{gradeYear}
+        AND TERM = #{term}
+        AND SCHOOL = #{school}
     </select>
 
     <insert id="insertLesson" parameterMap="LessonInfo">

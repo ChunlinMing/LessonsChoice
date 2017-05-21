@@ -52,6 +52,12 @@ public class LoginAction
     @Autowired
     private StudentService studentService;
 
+    @Autowired
+    private TermService termService;
+
+    @Autowired
+    private StuFuncService stuFuncService;
+
     @RequestMapping(value="/", method = RequestMethod.GET)
     public String login(HttpServletRequest request)
     {
@@ -322,6 +328,62 @@ public class LoginAction
                 model.addAttribute("schoolList",schoolList);
                 model.addAttribute("lessonList",lessonList);
                 return "teacher/showLesson";
+            }
+        }
+        return Helper.checkUserType((Integer)request.getSession().getAttribute("userType"));
+    }
+
+    @RequestMapping(value = "/stu", method = RequestMethod.GET)
+    public String showOptionalLesson(HttpServletRequest request, Model model)
+    {
+        if (request.getSession().getAttribute("userType") != null)
+        {
+            if (request.getSession().getAttribute("userType").equals(2))
+            {
+                String userId = request.getSession().getAttribute("userId").toString();
+                List<Term> termList = termService.findAllTerms();
+                if (null != termList)
+                {
+                    LessonInfo lessonInfo = new LessonInfo();
+                    lessonInfo.setLessonType("选修");
+                    Term term = termList.get(termList.size() - 1);
+                    lessonInfo.setTerm(term.getTerm());
+                    List<LessonInfo> lessonList= stuFuncService.findOptionalLesson(lessonInfo);
+                    if (null != lessonList)
+                    {
+                        LessonChoice myLessonChoice = new LessonChoice();
+                        myLessonChoice.setStuId(userId);
+                        myLessonChoice.setTerm(term.getTerm());
+                        List<LessonChoice> myList = stuFuncService.findAllLessonChoice(myLessonChoice);
+                        if (null != myList)
+                        {
+                            List<String> optionalLessonIdList = new ArrayList<>(0);
+                            for (LessonChoice lc : myList)
+                            {
+                                if ("选修".equals(lc.getLessonType()))
+                                {
+                                    optionalLessonIdList.add(lc.getLessonId());
+                                }
+                            }
+                            if (0 < optionalLessonIdList.size())
+                            {
+                                for (int i = 0; i < lessonList.size(); i++)
+                                {
+                                    if (optionalLessonIdList.contains(lessonList.get(i).getLessonId()))
+                                    {
+                                        lessonList.remove(i);
+                                        i -= 1;
+                                    }
+                                }
+                            }
+                        }
+
+                        model.addAttribute("lessonList",lessonList);
+                    }
+                }
+
+                model.addAttribute("userId",userId);
+                return "stu/stu";
             }
         }
         return Helper.checkUserType((Integer)request.getSession().getAttribute("userType"));

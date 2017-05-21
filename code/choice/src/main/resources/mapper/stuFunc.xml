@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.mcl.bysj.dao.StuFuncDao">
+
+    <parameterMap id="LessonInfo" type="com.mcl.bysj.entity.LessonInfo"/>
+    <parameterMap id="LessonChoice" type="com.mcl.bysj.entity.LessonChoice"/>
+    <resultMap id="LessonChoiceObjOrList" type="LessonChoice">
+        <result property="stuId" column="STU_ID"/>
+        <result property="term" column="TERM"/>
+        <result property="lessonId" column="LESSON_ID"/>
+        <result property="lessonName" column="LESSON_NAME"/>
+        <result property="lessonType" column="LESSON_TYPE"/>
+        <result property="lessonScore" column="LESSON_SCORE"/>
+        <result property="lessonTime" column="LESSON_TIME"/>
+        <result property="lessonWeeks" column="LESSON_WEEKS"/>
+        <result property="classroom" column="CLASSROOM"/>
+        <result property="teacherId" column="TEACHER_ID"/>
+        <result property="teacherName" column="TEACHER_NAME"/>
+    </resultMap>
+
+    <select id="findLessonChoiceById" resultMap="LessonChoiceObjOrList" parameterType="LessonChoice">
+        SELECT * FROM cqupt_lesson_choice
+        WHERE LESSON_ID = #{lessonId}
+        AND STU_ID = #{stuId}
+    </select>
+
+    <select id="findAllLessonChoice" resultMap="LessonChoiceObjOrList" parameterMap="LessonChoice">
+        SELECT * FROM cqupt_lesson_choice
+        WHERE STU_ID = #{stuId}
+        AND TERM = #{term}
+    </select>
+
+    <insert id="addLessonChoice" parameterMap="LessonChoice">
+        INSERT INTO cqupt_lesson_choice (STU_ID, TERM, LESSON_ID, LESSON_NAME, LESSON_TYPE,
+        LESSON_SCORE, LESSON_TIME, LESSON_WEEKS, CLASSROOM, TEACHER_ID, TEACHER_NAME)
+        VALUES (#{stuId}, #{term}, #{lessonId}, #{lessonName}, #{lessonType}, #{lessonScore}, #{lessonTime},
+        #{lessonWeeks}, #{classroom}, #{teacherId}, #{teacherName})
+    </insert>
+
+    <update id="updateChoseStu" parameterMap="LessonInfo">
+        UPDATE cqupt_lesson_info
+        SET LESSON_CHOSED_STU = #{lessonChosedStu}
+        WHERE LESSON_ID = #{lessonId}
+    </update>
+
+    <delete id="deleteLessonChoice" parameterMap="LessonChoice">
+        DELETE FROM cqupt_lesson_choice
+        WHERE LESSON_ID = #{lessonId}
+        AND STU_ID = #{stuId}
+    </delete>
+</mapper>

@@ -43,6 +43,26 @@ public class LessonChoice implements Serializable
      */
     private String lessonWeeks;
 
+    /**
+     * 上课学期
+     */
+    private Integer term;
+
+    /**
+     * 上课教室
+     */
+    private String classroom;
+
+    /**
+     * 教师工号
+     */
+    private String teacherId;
+
+    /**
+     * 教师姓名
+     */
+    private String teacherName;
+
     public String getStuId()
     {
         return stuId;
@@ -111,5 +131,45 @@ public class LessonChoice implements Serializable
     public void setLessonWeeks(String lessonWeeks)
     {
         this.lessonWeeks = lessonWeeks;
+    }
+
+    public Integer getTerm()
+    {
+        return term;
+    }
+
+    public void setTerm(Integer term)
+    {
+        this.term = term;
+    }
+
+    public String getTeacherId()
+    {
+        return teacherId;
+    }
+
+    public void setTeacherId(String teacherId)
+    {
+        this.teacherId = teacherId;
+    }
+
+    public String getTeacherName()
+    {
+        return teacherName;
+    }
+
+    public void setTeacherName(String teacherName)
+    {
+        this.teacherName = teacherName;
+    }
+
+    public String getClassroom()
+    {
+        return classroom;
+    }
+
+    public void setClassroom(String classroom)
+    {
+        this.classroom = classroom;
     }
 }

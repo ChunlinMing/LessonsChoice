@@ -1,10 +1,54 @@
 <!DOCTYPE html>
-<html lang="en">
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
+    <th:block th:include="stu/header"/>
     <meta charset="UTF-8"/>
-    <title>Title</title>
+    <title>选修课程</title>
+    <script src="/js/stu/chooseLesson.js"></script>
 </head>
 <body>
+<div class="row" style="margin: 15px 5%;min-height: 650px;">
+    <div class="col-md-8" style="width: 100%;">
+        <div class="content" style="align-content: center;width: 100%;">
+            <table class="table table-striped">
+                <thead>
+                <tr>
+                    <th style="text-align: center;">课程名</th>
+                    <th style="text-align: center;">教师姓名</th>
+                    <th style="text-align: center;">课程类型</th>
+                    <th style="text-align: center;">课程学分</th>
+                    <th style="text-align: center;">上课时间</th>
+                    <th style="text-align: center;">上课时段</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="lesson : ${lessonList}">
+                    <td th:text="${lesson.lessonName}" style="text-align: center;"></td>
+                    <td th:text="${lesson.teacherName}" style="text-align: center;"></td>
+                    <td th:text="${lesson.lessonType}" style="text-align: center;"></td>
+                    <td th:text="${lesson.lessonScore}" style="text-align: center;"></td>
+                    <td th:text="${lesson.lessonTime}" style="text-align: center;"></td>
+                    <td th:text="${lesson.lessonWeeks}" style="text-align: center;"></td>
+                    <td th:unless="${lesson.lessonOptionalStu le lesson.lessonChosedStu}">
+                        <a type="button" class="btn btn-xs btn-primary" title="选课"
+                           th:attr="data-id=${lesson.lessonId}, data-name=${lesson.lessonName},
+                           data-classroom=${lesson.classroom}, data-time=${lesson.lessonTime},
+                           data-weeks=${lesson.lessonWeeks}, data-term=${lesson.term},
+                           data-type=${lesson.lessonType}, data-score=${lesson.lessonScore},
+                           data-teacherId=${lesson.teacherId}, data-teacherName=${lesson.teacherName}"
+                           onclick="choose(this);">
+                            <span class="glyphicon glyphicon-plus"></span>
+                        </a>
+                    </td>
+                    <td th:if="${lesson.lessonOptionalStu le lesson.lessonChosedStu}">
+                        <span>已满</span>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
 
+        </div>
+    </div>
+</div>
 </body>
 </html>

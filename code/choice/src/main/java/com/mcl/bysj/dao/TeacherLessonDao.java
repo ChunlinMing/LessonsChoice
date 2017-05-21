@@ -33,18 +33,18 @@ public interface TeacherLessonDao
     List<LessonInfo> findLessonByTeacher(String teacherId);
 
     /**
-     * 根据课程id查找已选课人数
-     * @param lessonId 课程id
-     * @return 人数
+     * 根据上课学期查询选修课程
+     * @param lessonInfo 上课学期和选修类型
+     * @return 选修课集合
      */
-    Integer findChoseStuByLesson(String lessonId);
+    List<LessonInfo> findOptionalLesson(LessonInfo lessonInfo);
 
     /**
-     * 根据课程id查找可选人数
-     * @param lessonId 课程id
-     * @return 人数
+     * 根据上课学期、年级和学院查找课程
+     * @param lessonInfo 上课学期、年级和学院
+     * @return 课程集合
      */
-    Integer findOptionalStuByLesson(String lessonId);
+    List<LessonInfo> findRequiredLesson(LessonInfo lessonInfo);
 
     /**
      * 添加课程
