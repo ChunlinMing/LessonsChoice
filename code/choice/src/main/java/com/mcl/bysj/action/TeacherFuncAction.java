@@ -44,12 +44,11 @@ public class TeacherFuncAction
     @Autowired
     private SchoolService schoolService;
 
-    @RequestMapping(value = "/showStudent", method = RequestMethod.POST)
-    public String showStudent(HttpServletRequest request, Model model)
-    {
-        model.addAttribute("userId",request.getSession().getAttribute("userId"));
-        return "";
-    }
+    @Autowired
+    private StuGradeService stuGradeService;
+
+    @Autowired
+    private StudentService studentService;
 
     @RequestMapping(value = "/addLesson", method = RequestMethod.GET)
     public String addLessonPage(HttpServletRequest request, Model model)
@@ -154,6 +153,89 @@ public class TeacherFuncAction
         if (null != lessonInfo && !Helper.isEmpty(lessonInfo.getLessonId()))
         {
             return teacherFuncService.deleteLesson(lessonInfo.getLessonId());
+        }
+        return 0;
+    }
+
+    @RequestMapping(value = "/stuGrade", method = RequestMethod.GET)
+    public String getStuGrade(HttpServletRequest request, Model model, String lessonId)
+    {
+        if (request.getSession().getAttribute("userType") != null)
+        {
+            if (request.getSession().getAttribute("userType").equals(1))
+            {
+                String id = request.getSession().getAttribute("userId").toString();
+                model.addAttribute("userId",id);
+                LessonInfo lessonInfo = teacherFuncService.findLessonById(lessonId);
+                if (null != lessonInfo)
+                {
+                    model.addAttribute("lessonInfo", lessonInfo);
+                    List<LessonChoice> lessonChoiceList = stuGradeService.findLessonChoiceByLessonId(lessonId);
+                    if(null != lessonChoiceList && lessonChoiceList.size() > 0)  //有学生选择该课程
+                    {
+                        List<Term> termList = termService.findAllTerms();
+                        if (null != termList)
+                        {
+                            Term term = termList.get(termList.size() - 2); //取第二大的学期
+                            List<StuGrade> stuGradeList = stuGradeService.findStuGradeByLessonId(lessonId);
+
+                            if (null != stuGradeList)
+                            {
+                                model.addAttribute("stuGradeList",stuGradeList);
+                            }
+                            if (term.getTerm() > lessonChoiceList.get(0).getTerm())
+                            {
+                                return "teacher/stuGradePage";
+                            }
+                            else if (term.getTerm() == lessonChoiceList.get(0).getTerm())  //查询选择该课程的学生，用于录入成绩
+                            {
+                                List<Student> stuList = new ArrayList<>(0);
+                                Student student = new Student();
+                                for (LessonChoice lc : lessonChoiceList)
+                                {
+                                    student.setStuId(lc.getStuId());
+                                    stuList.add(studentService.findStudent(student));
+                                }
+                                model.addAttribute("stuList",stuList);
+                                return "teacher/addStuGrade";
+                            }
+                        }
+                    }
+                    List<Student> stuList = new ArrayList<>(0);
+                    Student student = new Student();
+                    for (LessonChoice lc : lessonChoiceList)
+                    {
+                        student.setStuId(lc.getStuId());
+                        stuList.add(studentService.findStudent(student));
+                    }
+                    model.addAttribute("stuList",stuList);
+                    return "teacher/showStu";
+                }
+                return "redirect:/teacher";
+            }
+        }
+        return Helper.checkUserType((Integer)request.getSession().getAttribute("userType"));
+    }
+
+    @RequestMapping(value = "/addStuGrade", method = RequestMethod.GET)
+    @ResponseBody
+    public int addStuGrade(HttpServletResponse response, StuGrade stuGrade)
+    {
+        response.setHeader("Access-Control-Allow-Origin", "*");
+        if (null != stuGrade && null != stuGrade.getTerm() && null != stuGrade.getStuGrade())
+        {
+            List<String> list = new ArrayList<>(1);
+            list.add(stuGrade.getLessonId());
+            list.add(stuGrade.getExamType());
+            list.add(stuGrade.getLessonName());
+            list.add(stuGrade.getLessonType());
+            list.add(stuGrade.getStuClass());
+            list.add(stuGrade.getStuId());
+            list.add(stuGrade.getStuName());
+            if (!Helper.checkEmpty(list))
+            {
+                return stuGradeService.addStuGrade(stuGrade);
+            }
         }
         return 0;
     }

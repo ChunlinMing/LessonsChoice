@@ -1,5 +1,6 @@
 package com.mcl.bysj.dao;
 
+import com.mcl.bysj.entity.LessonChoice;
 import com.mcl.bysj.entity.LessonInfo;
 import com.mcl.bysj.vo.UpdateLesson;
 
@@ -47,6 +48,13 @@ public interface TeacherLessonDao
     List<LessonInfo> findRequiredLesson(LessonInfo lessonInfo);
 
     /**
+     * 根据课程号查找选课信息
+     * @param lessonId 课程号
+     * @return 选课集合
+     */
+    List<LessonChoice> findAllLessonChoiceById(String lessonId);
+
+    /**
      * 添加课程
      * @param lessonInfo 课程对象
      * @return 成功1，失败0
@@ -66,4 +74,11 @@ public interface TeacherLessonDao
      * @return 成功1，失败0
      */
     int deleteLesson(String lessonId);
+
+    /**
+     * 根据课程ID删除已选可课程
+     * @param lessonId 课程ID
+     * @return 成功1，失败0
+     */
+    int deleteLessonChoice(String lessonId);
 }

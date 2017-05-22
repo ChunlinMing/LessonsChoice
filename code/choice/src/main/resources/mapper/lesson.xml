@@ -4,6 +4,7 @@
 
     <parameterMap id="LessonInfo" type="com.mcl.bysj.entity.LessonInfo"/>
     <parameterMap id="UpdateLesson" type="com.mcl.bysj.vo.UpdateLesson"/>
+    <parameterMap id="LessonChoice" type="com.mcl.bysj.entity.LessonChoice"/>
     <resultMap id="LessonObjOrList" type="LessonInfo">
         <result property="lessonId" column="LESSON_ID"/>
         <result property="lessonName" column="LESSON_NAME"/>
@@ -19,6 +20,19 @@
         <result property="lessonScore" column="LESSON_SCORE"/>
         <result property="gradeYear" column="GRADE_YEAR"/>
         <result property="school" column="SCHOOL"/>
+    </resultMap>
+    <resultMap id="LessonChoiceObjOrList" type="LessonChoice">
+        <result property="stuId" column="STU_ID"/>
+        <result property="term" column="TERM"/>
+        <result property="lessonId" column="LESSON_ID"/>
+        <result property="lessonName" column="LESSON_NAME"/>
+        <result property="lessonType" column="LESSON_TYPE"/>
+        <result property="lessonScore" column="LESSON_SCORE"/>
+        <result property="lessonTime" column="LESSON_TIME"/>
+        <result property="lessonWeeks" column="LESSON_WEEKS"/>
+        <result property="classroom" column="CLASSROOM"/>
+        <result property="teacherId" column="TEACHER_ID"/>
+        <result property="teacherName" column="TEACHER_NAME"/>
     </resultMap>
 
     <select id="findLessonById" resultMap="LessonObjOrList" parameterType="java.lang.String">
@@ -60,6 +74,10 @@
         AND SCHOOL = #{school}
     </select>
 
+    <select id="findAllLessonChoiceById" resultMap="LessonChoiceObjOrList" parameterType="java.lang.String">
+        SELECT * from cqupt_lesson_choice WHERE LESSON_ID = #{lessonId}
+    </select>
+
     <insert id="insertLesson" parameterMap="LessonInfo">
         INSERT INTO cqupt_lesson_info (LESSON_ID, LESSON_NAME, TEACHER_ID, TEACHER_NAME, CLASSROOM, LESSON_TIME,
         LESSON_WEEKS, LESSON_OPTIONAL_STU, LESSON_CHOSED_STU, LESSON_TYPE, TERM, LESSON_SCORE, GRADE_YEAR, SCHOOL)
@@ -84,5 +102,9 @@
 
     <delete id="deleteLesson" parameterType="java.lang.String">
         DELETE FROM cqupt_lesson_info WHERE LESSON_ID = #{lessonId}
+    </delete>
+
+    <delete id="deleteLessonChoice" parameterType="java.lang.String">
+        DELETE FROM cqupt_lesson_choice WHERE LESSON_ID = #{lessonId}
     </delete>
 </mapper>

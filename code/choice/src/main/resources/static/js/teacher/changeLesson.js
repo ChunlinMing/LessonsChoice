@@ -258,3 +258,7 @@ function changeDialog(data) {
     $("#input-unm").val($(data).attr("data-optionalstu"));
     $("#beforeId").val($(data).attr("data-id"));
 }
+
+function gotoPage(data) {
+    window.location.href="http://localhost:8080/stuGrade?lessonId="+$(data).attr("data-id");
+}

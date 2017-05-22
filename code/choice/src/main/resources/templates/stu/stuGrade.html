@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <th:block th:include="stu/header"/>
+    <meta charset="UTF-8"/>
+    <title>个人成绩</title>
+</head>
+<body>
+<div class="row" style="margin: 15px 10%;min-height: 650px;">
+    <div class="col-md-8" style="width: 100%;">
+        <div class="content" style="align-content: center;width: 100%;">
+            <table class="table table-striped">
+                <thead>
+                <tr>
+                    <th style="text-align: center;">学期</th>
+                    <th style="text-align: center;">学号</th>
+                    <th style="text-align: center;">姓名</th>
+                    <th style="text-align: center;">课程号</th>
+                    <th style="text-align: center;">课程名</th>
+                    <th style="text-align: center;">课程类型</th>
+                    <th style="text-align: center;">考试类型</th>
+                    <th style="text-align: center;">成绩</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="stuGrade : ${list}">
+                    <td th:text="${stuGrade.term}" style="text-align: center;"></td>
+                    <td th:text="${stuGrade.stuId}" style="text-align: center;"></td>
+                    <td th:text="${stuGrade.stuName}" style="text-align: center;"></td>
+                    <td th:text="${stuGrade.lessonId}" style="text-align: center;"></td>
+                    <td th:text="${stuGrade.lessonName}" style="text-align: center;"></td>
+                    <td th:text="${stuGrade.lessonType}" style="text-align: center;"></td>
+                    <td th:text="${stuGrade.examType}" style="text-align: center;"></td>
+                    <td th:text="${stuGrade.stuGrade}" style="text-align: center;"></td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+</body>
+</html>

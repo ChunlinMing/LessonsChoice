@@ -14,6 +14,16 @@ public class StuGrade implements Serializable
     private String stuId;
 
     /**
+     * 学生姓名
+     */
+    private String stuName;
+
+    /**
+     * 学生所在班级
+     */
+    private String stuClass;
+
+    /**
      * 上课学期
      */
     private Integer term;
@@ -110,5 +120,25 @@ public class StuGrade implements Serializable
     public void setStuGrade(Double stuGrade)
     {
         this.stuGrade = stuGrade;
+    }
+
+    public String getStuName()
+    {
+        return stuName;
+    }
+
+    public void setStuName(String stuName)
+    {
+        this.stuName = stuName;
+    }
+
+    public String getStuClass()
+    {
+        return stuClass;
+    }
+
+    public void setStuClass(String stuClass)
+    {
+        this.stuClass = stuClass;
     }
 }

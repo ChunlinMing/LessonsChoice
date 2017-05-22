@@ -39,27 +39,27 @@
                     <td th:text="${lesson.gradeYear}" style="text-align: center;"></td>
                     <td th:text="${lesson.school}" style="text-align: center;"></td>
                     <td>
-                        <a type="button" class="btn btn-xs btn-primary" data-toggle="modal"
-                           th:attr="data-id=${lesson.lessonId}">
-                            <span class="glyphicon glyphicon-education" title="录入成绩"></span>
+                        <a id="addStuGrade" type="button" class="btn btn-xs btn-primary" title="录入成绩"
+                           th:attr="data-id=${lesson.lessonId}" onclick="gotoPage(this);">
+                            <span class="glyphicon glyphicon-education"></span>
                         </a>
                     </td>
                     <td>
                         <a type="button" class="btn btn-xs btn-primary" data-toggle="modal"
-                           data-target="#updateModal"
+                           data-target="#updateModal" title="更改"
                            th:attr="data-id=${lesson.lessonId}, data-name=${lesson.lessonName},
                            data-classroom=${lesson.classroom}, data-time=${lesson.lessonTime},
                            data-weeks=${lesson.lessonWeeks}, data-optionalStu=${lesson.lessonOptionalStu},
                            data-type=${lesson.lessonType}, data-score=${lesson.lessonScore},
                            data-year=${lesson.gradeYear}, data-school=${lesson.school}" onclick="changeDialog(this);">
-                            <span class="glyphicon glyphicon-edit" title="更改"></span>
+                            <span class="glyphicon glyphicon-edit"></span>
                         </a>
                     </td>
                     <td>
                         <a type="button" class="btn btn-xs btn-primary" data-toggle="modal"
-                           data-target="#deleteModal"
+                           data-target="#deleteModal" title="删除"
                            th:attr="data-id=${lesson.lessonId}, data-name=${lesson.lessonName}" onclick="deleteLesson(this)">
-                            <span class="glyphicon glyphicon-remove" title="删除"></span>
+                            <span class="glyphicon glyphicon-remove"></span>
                         </a>
                     </td>
                 </tr>

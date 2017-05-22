@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.mcl.bysj.dao.StuGradeDao">
+
+    <parameterMap id="LessonChoice" type="com.mcl.bysj.entity.LessonChoice"/>
+    <parameterMap id="StuGrade" type="com.mcl.bysj.entity.StuGrade"/>
+    <resultMap id="LessonChoiceObjOrList" type="LessonChoice">
+        <result property="stuId" column="STU_ID"/>
+        <result property="term" column="TERM"/>
+        <result property="lessonId" column="LESSON_ID"/>
+        <result property="lessonName" column="LESSON_NAME"/>
+        <result property="lessonType" column="LESSON_TYPE"/>
+        <result property="lessonScore" column="LESSON_SCORE"/>
+        <result property="lessonTime" column="LESSON_TIME"/>
+        <result property="lessonWeeks" column="LESSON_WEEKS"/>
+        <result property="classroom" column="CLASSROOM"/>
+        <result property="teacherId" column="TEACHER_ID"/>
+        <result property="teacherName" column="TEACHER_NAME"/>
+    </resultMap>
+    <resultMap id="StuGradeObjOrList" type="StuGrade">
+        <result property="stuId" column="STU_ID"/>
+        <result property="stuName" column="STU_NAME"/>
+        <result property="stuClass" column="CLASS"/>
+        <result property="term" column="TERM"/>
+        <result property="lessonType" column="LESSON_TYPE"/>
+        <result property="lessonId" column="LESSON_ID"/>
+        <result property="lessonName" column="LESSON_NAME"/>
+        <result property="examType" column="EXAM_TYPE"/>
+        <result property="stuGrade" column="STU_GRADE"/>
+    </resultMap>
+
+    <select id="findLessonChoiceByLessonId" resultMap="LessonChoiceObjOrList" parameterType="java.lang.String">
+        SELECT * FROM cqupt_lesson_choice
+        WHERE LESSON_ID = #{lessonId}
+    </select>
+
+    <select id="findStuGradeByLessonId" resultMap="StuGradeObjOrList" parameterType="java.lang.String">
+        SELECT * FROM cqupt_stu_grade
+        WHERE LESSON_ID = #{lessonId}
+    </select>
+
+    <insert id="addStuGrade" parameterMap="StuGrade">
+        INSERT INTO cqupt_stu_grade (STU_ID, STU_NAME, CLASS, TERM, LESSON_TYPE, LESSON_ID,
+        LESSON_NAME, EXAM_TYPE, STU_GRADE)
+        VALUES (#{stuId}, #{stuName}, #{stuClass}, #{term}, #{lessonType}, #{lessonId}, #{lessonName},
+        #{examType}, #{stuGrade})
+    </insert>
+
+    <select id="findStuGradeByTerm" resultMap="StuGradeObjOrList" parameterType="StuGrade">
+        SELECT * FROM cqupt_stu_grade
+        WHERE STU_ID = #{stuId}
+        AND TERM = #{term}
+    </select>
+
+    <select id="findStuGradeByStuId" resultMap="StuGradeObjOrList" parameterType="java.lang.String">
+        SELECT * FROM cqupt_stu_grade
+        WHERE STU_ID = #{stuId}
+        ORDER BY TERM
+    </select>
+</mapper>

@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <th:block th:include="teacher/header"/>
+    <meta charset="UTF-8"/>
+    <title>录入成绩</title>
+    <script src="/js/teacher/addStuGrade.js"></script>
+</head>
+<body style="min-width: 800px;" onload="dialog();">
+<div class="row" style="margin: 15px 15%;min-height: 650px;">
+    <div class="col-md-8" style="width: 100%;">
+        <h4 th:text="${lessonInfo.lessonName}+'————录入成绩'">成绩</h4>
+        <div class="content" style="align-content: center;width: 100%;margin-top: 20px;">
+            <table class="table table-striped">
+                <thead>
+                <tr>
+                    <th style="text-align: center;">班级</th>
+                    <th style="text-align: center;">学号</th>
+                    <th style="text-align: center;">姓名</th>
+                    <th style="text-align: center;">考试类型</th>
+                    <th style="text-align: center;">成绩 </th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="stuGrade : ${stuGradeList}">
+                    <td th:text="${stuGrade.stuClass}" style="text-align: center;"></td>
+                    <td th:text="${stuGrade.stuId}" style="text-align: center;"></td>
+                    <td th:text="${stuGrade.stuName}" style="text-align: center;"></td>
+                    <td th:text="${stuGrade.examType}" style="text-align: center;"></td>
+                    <td th:text="${stuGrade.stuGrade}" style="text-align: center;"></td>
+                </tr>
+                <tr th:each="stu : ${stuList}">
+                    <td th:text="${stu.stuClass}" style="text-align: center;"></td>
+                    <td th:text="${stu.stuId}" style="text-align: center;"></td>
+                    <td th:text="${stu.stuName}" style="text-align: center;"></td>
+                    <td style="text-align: center;"></td>
+                    <td style="text-align: center;"></td>
+                    <td>
+                        <a type="button" class="btn btn-xs btn-primary" data-toggle="modal"
+                           data-target="#addModal" title="添加成绩"
+                           th:attr="data-stuId=${stu.stuId}, data-stuName=${stu.stuName},
+                           data-stuClass=${stu.stuClass}, data-lessonId=${lessonInfo.lessonId},
+                           data-lessonName=${lessonInfo.lessonName}, data-lessonType=${lessonInfo.lessonType},
+                           data-lessonTerm=${lessonInfo.term}" onclick="addStuGrade(this)">
+                            <span class="glyphicon glyphicon-pencil"></span>
+                        </a>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+<div class="modal fade" id="addModal" tabindex="-1" role="dialog" aria-labelledby="modalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title" id="modalLabel">添加学生成绩</h4>
+            </div>
+            <div class="modal-body" style="margin-left: 50px;">
+                <div style="margin-left: 50px;">
+                    <h6 style="float:left;color: red;">注意：添加成绩后无法更改！！</h6>
+                </div>
+                <div style="clear: both;"></div>
+                <h5 style="float:left">考试类型</h5>
+                <div class="container" style="width: 80%;float: left">
+                    <form class="form-horizontal" role="form">
+                        <div class="form-group">
+                            <div class="col-lg-10" style="width: 62.5%;">
+                                <select id="examType" class="form-control" style="width: 50%;float: left;">
+                                    <option>正常考试</option>
+                                    <option>缺考</option>
+                                    <option>取消考试资格</option>
+                                    <option value="" disabled>————————————</option>
+                                    <option>补考</option>
+                                    <option>缺考补考</option>
+                                </select>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div style="clear: both;"></div>
+                <br/>
+                <div>
+                    <h5 style="float:left">考试成绩</h5>
+                    <div class="col-lg-6" style="float:left;width:50%">
+                        <input id="stuGrade" type="text" class="form-control"/>
+                    </div>
+                    <div style="clear: both;"></div>
+                </div>
+                <br/>
+                <input id="stuId" type="text" style="display: none;"/>
+                <input id="stuName" type="text" style="display: none;"/>
+                <input id="stuClass" type="text" style="display: none;"/>
+                <input id="lessonId" type="text" style="display: none;"/>
+                <input id="lessonName" type="text" style="display: none;"/>
+                <input id="lessonType" type="text" style="display: none;"/>
+                <input id="lessonTerm" type="text" style="display: none;"/>
+                <div id="hint-div">
+
+                </div>
+            </div>
+            <div class="modal-footer" style="margin-right: 6%;">
+                <button id="confirmBtn" type="button" class="btn btn-warning" data-dismiss="modal" style="width: 46%;height: 35px;">
+                    确定
+                </button>
+                <button type="button" class="btn btn-primary" data-dismiss="modal" style="width: 46%;height: 35px;">
+                    取消
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

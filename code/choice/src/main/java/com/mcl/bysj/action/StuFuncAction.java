@@ -4,6 +4,7 @@ import com.mcl.bysj.dao.StuDao;
 import com.mcl.bysj.entity.*;
 import com.mcl.bysj.service.ScoreLimitService;
 import com.mcl.bysj.service.StuFuncService;
+import com.mcl.bysj.service.StuGradeService;
 import com.mcl.bysj.service.TermService;
 import com.mcl.bysj.utils.Helper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -36,6 +37,9 @@ public class StuFuncAction
 
     @Autowired
     private ScoreLimitService scoreLimitService;
+
+    @Autowired
+    private StuGradeService stuGradeService;
 
     @RequestMapping(value = "/requiredLesson", method = RequestMethod.GET)
     public String showRequiredLesson(HttpServletRequest request, Model model)
@@ -238,5 +242,49 @@ public class StuFuncAction
             }
         }
         return 0;
+    }
+
+    @RequestMapping(value = "/recentGrade", method = RequestMethod.GET)
+    public String showRecentGrade(HttpServletRequest request, Model model)
+    {
+        if (request.getSession().getAttribute("userType") != null)
+        {
+            if (request.getSession().getAttribute("userType").equals(2))
+            {
+                String userId = request.getSession().getAttribute("userId").toString();
+                List<Term> termList = termService.findAllTerms();
+                if (null != termList && termList.size() > 0)
+                {
+                    Term term = termList.get(termList.size() - 1);
+                    StuGrade stuGrade = new StuGrade();
+                    stuGrade.setStuId(userId);
+                    stuGrade.setTerm(term.getTerm());
+                    List<StuGrade> list = stuGradeService.findStuGradeByTerm(stuGrade);
+                    model.addAttribute("list",list);
+                }
+
+                model.addAttribute("userId",userId);
+
+                return "stu/stuGrade";
+            }
+        }
+        return Helper.checkUserType((Integer)request.getSession().getAttribute("userType"));
+    }
+
+    @RequestMapping(value = "/allGrade", method = RequestMethod.GET)
+    public String showAllGrade(HttpServletRequest request, Model model)
+    {
+        if (request.getSession().getAttribute("userType") != null)
+        {
+            if (request.getSession().getAttribute("userType").equals(2))
+            {
+                String userId = request.getSession().getAttribute("userId").toString();
+                List<StuGrade> list = stuGradeService.findStuGradeByStuId(userId);
+                model.addAttribute("userId",userId);
+                model.addAttribute("list",list);
+                return "stu/stuGrade";
+            }
+        }
+        return Helper.checkUserType((Integer)request.getSession().getAttribute("userType"));
     }
 }

@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <th:block th:include="teacher/header"/>
+    <meta charset="UTF-8"/>
+    <title>学生成绩</title>
+
+</head>
+<body style="min-width: 800px;">
+<div class="row" style="margin: 15px 15%;min-height: 650px;">
+    <div class="col-md-8" style="width: 100%;">
+        <h4 th:text="${lessonInfo.lessonName}+'————学生成绩'">成绩</h4>
+        <div class="content" style="align-content: center;width: 100%;margin-top: 20px;">
+            <table class="table table-striped">
+                <thead>
+                <tr>
+                    <th style="text-align: center;">班级</th>
+                    <th style="text-align: center;">学号</th>
+                    <th style="text-align: center;">姓名</th>
+                    <th style="text-align: center;">考试类型</th>
+                    <th style="text-align: center;">成绩 </th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="stuGrade : ${stuGradeList}">
+                    <td th:text="${stuGrade.stuClass}" style="text-align: center;"></td>
+                    <td th:text="${stuGrade.stuId}" style="text-align: center;"></td>
+                    <td th:text="${stuGrade.stuName}" style="text-align: center;"></td>
+                    <td th:text="${stuGrade.examType}" style="text-align: center;"></td>
+                    <td th:text="${stuGrade.stuGrade}" style="text-align: center;"></td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+</body>
+</html>

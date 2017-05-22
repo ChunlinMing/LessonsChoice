@@ -12,8 +12,8 @@ import java.util.List;
 public interface StuFuncDao
 {
     /**
-     * 根据课程ID查找选择的课程
-     * @param lessonId 课程ID
+     * 根据课程ID和学号查找选择的课程
+     * @param lessonChoice 课程ID和学号
      * @return 选课对象
      */
     LessonChoice findLessonChoiceById(LessonChoice lessonChoice);

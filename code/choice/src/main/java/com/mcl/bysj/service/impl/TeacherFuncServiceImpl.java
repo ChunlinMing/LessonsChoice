@@ -97,6 +97,10 @@ public class TeacherFuncServiceImpl implements TeacherFuncService
     {
         if (null != teacherLessonDao.findLessonById(lessonId))
         {
+            if (null != teacherLessonDao.findAllLessonChoiceById(lessonId))
+            {
+                teacherLessonDao.deleteLessonChoice(lessonId);
+            }
             return teacherLessonDao.deleteLesson(lessonId);
         }
         return -200;
