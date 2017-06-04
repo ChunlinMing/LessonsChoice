@@ -1,6 +1,6 @@
 server:
   session:
-    timeout: 30000
+    timeout: 1000
 
 ---
 # ���ݿ����� #

@@ -255,7 +255,7 @@ public class StuFuncAction
                 List<Term> termList = termService.findAllTerms();
                 if (null != termList && termList.size() > 0)
                 {
-                    Term term = termList.get(termList.size() - 1);
+                    Term term = termList.get(termList.size() - 2);
                     StuGrade stuGrade = new StuGrade();
                     stuGrade.setStuId(userId);
                     stuGrade.setTerm(term.getTerm());

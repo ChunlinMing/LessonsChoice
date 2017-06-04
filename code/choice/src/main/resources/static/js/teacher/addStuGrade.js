@@ -6,15 +6,20 @@ $(document).ready(function () {
         }
         else
         {
+            var stuClass = $("#stuClass").val();
+            var stuId = $("#stuId").val();
+            var stuName = $("#stuName").val();
+            var examType = $("#examType").val();
+
             var stuGrade = {};
-            stuGrade.stuId = $("#stuId").val();
-            stuGrade.stuName = $("#stuName").val();
-            stuGrade.stuClass = $("#stuClass").val();
+            stuGrade.stuId = stuId;
+            stuGrade.stuName = stuName;
+            stuGrade.stuClass = stuClass;
             stuGrade.term = $("#lessonTerm").val();
             stuGrade.lessonType = $("#lessonType").val();
             stuGrade.lessonId = $("#lessonId").val();
             stuGrade.lessonName = $("#lessonName").val();
-            stuGrade.examType = $("#examType").val();
+            stuGrade.examType = examType;
             stuGrade.stuGrade = value;
             $.ajax({
                 type: 'post',
@@ -22,7 +27,15 @@ $(document).ready(function () {
                 datatype: 'application/json; charset=UTF-8',
                 data: stuGrade,
                 success: function (result) {
-                    if (result == 0) {
+                    if (result == 1) {
+                        var mytr=$("table tr:eq(0)");
+                        if(mytr.length==0){
+                            return;
+                        }
+                        var trHtml = "<tr> <td style='text-align: center;'>"+stuClass+"</td> <td style='text-align: center;'>"+stuId+"</td> <td style='text-align: center;'>"+stuName+"</td> <td style='text-align: center;'>"+examType+"</td> <td style='text-align: center;'>"+value+"</td></tr>";
+                        mytr.after(trHtml);
+                    }
+                    else if (result == 0) {
                         alert("添加成绩失败，请稍后重试！");
                     }
                 },

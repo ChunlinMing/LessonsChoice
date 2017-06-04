@@ -9,7 +9,7 @@
 <body style="min-width: 800px;" onload="dialog();">
 <div class="row" style="margin: 15px 15%;min-height: 650px;">
     <div class="col-md-8" style="width: 100%;">
-        <h4 th:text="${lessonInfo.lessonName}+'————录入成绩'">成绩</h4>
+        <h4 th:text="${lessonInfo.lessonName}+'——录入成绩'">成绩</h4>
         <div class="content" style="align-content: center;width: 100%;margin-top: 20px;">
             <table class="table table-striped">
                 <thead>
@@ -68,11 +68,11 @@
                     <form class="form-horizontal" role="form">
                         <div class="form-group">
                             <div class="col-lg-10" style="width: 62.5%;">
-                                <select id="examType" class="form-control" style="width: 50%;float: left;">
+                                <select id="examType" class="form-control" style="width: 100%;float: left;">
                                     <option>正常考试</option>
                                     <option>缺考</option>
                                     <option>取消考试资格</option>
-                                    <option value="" disabled>————————————</option>
+                                    <option value="" disabled="true">————————————</option>
                                     <option>补考</option>
                                     <option>缺考补考</option>
                                 </select>

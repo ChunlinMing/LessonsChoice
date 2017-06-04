@@ -187,7 +187,7 @@ public class TeacherFuncAction
                             {
                                 return "teacher/stuGradePage";
                             }
-                            else if (term.getTerm() == lessonChoiceList.get(0).getTerm())  //查询选择该课程的学生，用于录入成绩
+                            else if ((int)term.getTerm() == lessonChoiceList.get(0).getTerm())  //查询选择该课程的学生，用于录入成绩
                             {
                                 List<Student> stuList = new ArrayList<>(0);
                                 Student student = new Student();
@@ -217,7 +217,7 @@ public class TeacherFuncAction
         return Helper.checkUserType((Integer)request.getSession().getAttribute("userType"));
     }
 
-    @RequestMapping(value = "/addStuGrade", method = RequestMethod.GET)
+    @RequestMapping(value = "/addStuGrade", method = RequestMethod.POST)
     @ResponseBody
     public int addStuGrade(HttpServletResponse response, StuGrade stuGrade)
     {
